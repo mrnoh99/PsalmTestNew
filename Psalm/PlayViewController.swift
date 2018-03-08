@@ -201,10 +201,10 @@ extension PlayViewController: PlayCellDelegate {
     
     func playCassette(){
     
-      if self.qplayer.rate > 0 {
-        self.qplayer.pause()
+      if qplayer?.rate != 0 {
+        qplayer?.pause()
       }
-      self.qplayer.play()
+      qplayer?.play()
     }
     
     
