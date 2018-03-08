@@ -15,9 +15,8 @@ class SearchViewController: UIViewController {
   //    var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
   //    return recognizer
   //  }()
-  
-  var audioPlayer = AVAudioPlayer()
-  var quePlayer = AVQueuePlayer()
+  let playViewController = PlayViewController()
+ 
   var searchResults: [Track] = []
   let queryService = QueryService()
   let downloadService = DownloadService()
@@ -129,24 +128,29 @@ class SearchViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     searchResults = queryService.getSearchResults()
-    print(searchResults[0])
-    tableView.tableFooterView = UIView()
+    
     downloadService.downloadsSession = downloadsSession
     noOfDownloadedTract = checkDownloaded(results: searchResults)
     print (noOfDownloadedTract)
+//    if noOfDownloadedTract == queryService.numberOfChapters {
+//    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//    let newViewController = storyBoard.instantiateViewController(withIdentifier: "playViewController")
+//    self.present(newViewController, animated: false, completion: nil)
+//    }
+    tableView.tableFooterView = UIView()
     tableView.reloadData()
     tableView.setContentOffset(CGPoint.zero, animated: false)
     
   }
   
   
-  func playDownload(_ track: Track) {
-    
-    let url = localFilePath(for: track.previewURL)
-    try! audioPlayer = AVAudioPlayer(contentsOf: url)
-    audioPlayer.prepareToPlay()
-    audioPlayer.play()
-  }
+//  func playDownload(_ track: Track) {
+//    
+//    let url = localFilePath(for: track.previewURL)
+//    try! audioPlayer = AVAudioPlayer(contentsOf: url)
+//    audioPlayer.prepareToPlay()
+//    audioPlayer.play()
+//  }
   
   
 }
@@ -175,16 +179,16 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 62.0
   }
-  
-  // When user taps cell, play the local file, if it's downloaded
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let track = searchResults[indexPath.row]
-    if track.downloaded {
-      playDownload(track)
-    }
-    tableView.deselectRow(at: indexPath, animated: true)
-  }
 }
+//  // When user taps cell, play the local file, if it's downloaded
+////  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+////    let track = searchResults[indexPath.row]
+////    if track.downloaded {
+////      playDownload(track)
+////    }
+//    tableView.deselectRow(at: indexPath, animated: true)
+//  }
+//}
 
 // MARK: - TrackCellDelegate
 // Called by track cell to identify track for index path row,
@@ -224,7 +228,7 @@ extension SearchViewController: TrackCellDelegate {
       let destinationFileUrl = documentsPath.appendingPathComponent(fileName)
       if  FileManager.default.fileExists(atPath: destinationFileUrl.path) {
         results[i].downloaded = true
-        reload(i)
+     
         j += 1
       }
       
@@ -243,7 +247,7 @@ extension SearchViewController: TrackCellDelegate {
       if  FileManager.default.fileExists(atPath: destinationFileUrl.path) {
          try?  FileManager.default.removeItem(at:  destinationFileUrl)
           results[i].downloaded = false
-        reload(i)
+        
         
       }
       

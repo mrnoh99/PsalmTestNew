@@ -43,11 +43,18 @@ class PlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+      do {
+        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+        print ("playbackOK")
+        try AVAudioSession.sharedInstance().setActive(true)
+        print("session is active")
+      }catch let error {
+        print(error.localizedDescription)
+      }
       playResults = queryService.getSearchResults()
-      checkDownloaded(results: playResults)
+      searchViewController.checkDownloaded(results: playResults)
       
-      //  playTableView.tableFooterView = UIView()
+       playTableView.tableFooterView = UIView()
       
       playTableView.reloadData()
       playTableView.setContentOffset(CGPoint.zero, animated: false)
@@ -80,7 +87,7 @@ class PlayViewController: UIViewController {
  
   func makePlayingCassette(selectedIndexPath:IndexPath) -> (AVQueuePlayer)  {
     
-    checkDownloaded(results: playResults)
+    searchViewController.checkDownloaded(results: playResults)
     let quePlayer = AVQueuePlayer()
     let selectedRow = selectedIndexPath.row
     
@@ -179,21 +186,22 @@ extension PlayViewController: PlayCellDelegate {
   }
   
   
-  func checkDownloaded(results: [Track])-> Int  {
-    var j = 0
-    for i in 0...queryService.numberOfChapters - 1{
-      
-      let fileName = results[i].artist
-      let destinationFileUrl = documentsPath.appendingPathComponent(fileName)
-      if  FileManager.default.fileExists(atPath: destinationFileUrl.path) {
-        results[i].downloaded = true
-        reload(i)
-        j += 1
-      }
-      
-    }
-    return j
-  }
+//  func checkDownloaded(results: [Track])-> Int  {
+//    var j = 0
+//    for i in 0...queryService.numberOfChapters - 1{
+//
+//      let fileName = results[i].artist
+//      let destinationFileUrl = documentsPath.appendingPathComponent(fileName)
+//      if  FileManager.default.fileExists(atPath: destinationFileUrl.path) {
+//        results[i].downloaded = true
+//        reload(i)
+//        j += 1
+//      }
+//
+//    }
+//    return j
+//  }
+
 }
 
   
