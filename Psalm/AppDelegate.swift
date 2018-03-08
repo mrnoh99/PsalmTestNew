@@ -24,11 +24,11 @@ import AVFoundation
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     
-    var initialViewController = storyboard.instantiateViewController(withIdentifier: "naviViewController")
+    var initialViewController = storyboard.instantiateViewController(withIdentifier: "firstNaviViewController")
     
     if noOfDownloadedTract == queryService.numberOfChapters {
       
-       initialViewController = storyboard.instantiateViewController(withIdentifier: "playViewController")
+       initialViewController = storyboard.instantiateViewController(withIdentifier: "secondNaviViewController")
     }
     print(noOfDownloadedTract)
    customizeAppearance()
