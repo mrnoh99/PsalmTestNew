@@ -129,6 +129,7 @@ class SearchViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     searchResults = queryService.getSearchResults()
+    print(searchResults[0])
     tableView.tableFooterView = UIView()
     downloadService.downloadsSession = downloadsSession
     noOfDownloadedTract = checkDownloaded(results: searchResults)

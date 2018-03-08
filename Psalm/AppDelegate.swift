@@ -1,6 +1,7 @@
 
  
  import UIKit
+import AVFoundation
  
  @UIApplicationMain
  class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,6 +9,7 @@
   var window: UIWindow?
   let tintColor =  UIColor(red: 242/255, green: 71/255, blue: 63/255, alpha: 1)
   var backgroundSessionCompletionHandler: (() -> Void)?
+  var  qplayer: AVQueuePlayer? = nil
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     customizeAppearance()

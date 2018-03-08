@@ -11,6 +11,7 @@ class Track {
   let index: Int
   var downloaded = false
   let firstLine: String
+  var isPlaying = false
 
   init(name: String, artist: String, previewURL: URL, index: Int, firstLine: String) {
     self.name = name

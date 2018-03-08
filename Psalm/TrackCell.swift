@@ -59,7 +59,7 @@ class TrackCell: UITableViewCell {
     progressLabel.isHidden = !showDownloadControls
     
     // If the track is already downloaded, enable cell selection and hide the Download button
-    selectionStyle = downloaded ? UITableViewCellSelectionStyle.gray : UITableViewCellSelectionStyle.none
+    selectionStyle =   UITableViewCellSelectionStyle.none
     downloadButton.isHidden = downloaded || showDownloadControls
   }
 
