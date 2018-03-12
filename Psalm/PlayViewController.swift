@@ -9,27 +9,64 @@
 import UIKit
 import AVKit
 import AVFoundation
+import CoreGraphics
 
 
-class PlayViewController: UIViewController {
+class PlayViewController: UIViewController, UINavigationBarDelegate {
 
     @IBOutlet weak var playTableView: UITableView!
+    @IBOutlet weak var toolBar: UIToolbar!
+    
+    @IBOutlet weak var nowPlayingLabel: UILabel!
+    
+   
+    var pauseButton = UIBarButtonItem()
+    var playButton = UIBarButtonItem()
+    var arrayOfButtons = [AnyObject]()
   
+    var playResults: [Track] = []
+     let queryService = QueryService()
   
- 
-  var playResults: [Track] = []
-  let queryService = QueryService()
- 
-  var  qplayer: AVQueuePlayer? {
+  var nowPlayingRow = 0 {
+    didSet {
+        nowPlayingLabel.text = playResults[nowPlayingRow].firstLine
+        
+    }
+  }
+  
+  var nowPlaying = false {
+    didSet {
+      if nowPlaying {
+        arrayOfButtons = self.toolBar.items!
+        arrayOfButtons.remove(at: 4) // change index to correspond to where your button is
+      
+        arrayOfButtons.insert(pauseButton, at: 4)
+      
+        self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+        
+      } else {
+        arrayOfButtons = self.toolBar.items!
+        arrayOfButtons.remove(at: 4) // change index to correspond to where your button is
+        
+        arrayOfButtons.insert(playButton, at: 4)
+        
+        self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+      }
+      
+  }
+  }
+  
+  var  audioPlayer: AVAudioPlayer? {
     get {
       let appDelegate = UIApplication.shared.delegate as! AppDelegate
-      return appDelegate.qplayer
+      return appDelegate.audioPlayer
     }
     set {
       let appDelegate = UIApplication.shared.delegate as! AppDelegate
-      appDelegate.qplayer = newValue
+      appDelegate.audioPlayer = newValue
     }
   }
+  
   
   
   
@@ -39,10 +76,24 @@ class PlayViewController: UIViewController {
   }
   
   
-    
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      pauseButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action: #selector(pauseButtonTapped(sender:)))
+      playButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(playButtonTapped(sender: )))
+      arrayOfButtons = self.toolBar.items!
+      
+       arrayOfButtons.remove(at: 4)
+     arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
+     self.toolBar.setItems(arrayOfButtons as! [UIBarButtonItem], animated: false)
+
+    
+      
+      
+        
+        
+        
       do {
         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
         print ("playbackOK")
@@ -51,6 +102,7 @@ class PlayViewController: UIViewController {
       }catch let error {
         print(error.localizedDescription)
       }
+    
       playResults = queryService.getSearchResults()
       searchViewController.checkDownloaded(results: playResults)
       
@@ -60,8 +112,15 @@ class PlayViewController: UIViewController {
       playTableView.setContentOffset(CGPoint.zero, animated: false)
       // Do any additional setup after loading the view.
       
+      NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(playerChangedChapter(note:)),
+        name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+        object: nil)
       
-      }
+      
+  }
+  
       
   override  func viewWillAppear(_ animated: Bool){
     super.viewWillAppear(true)
@@ -80,9 +139,26 @@ class PlayViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+  
+  @objc  func playerChangedChapter(note:NSNotification) {
+    nowPlayingRow = nowPlayingRow + 1
     
- 
- 
+  }
+  
+  @objc  func playButtonTapped(sender: Any) {
+  print ("playpressed")
+    nowPlaying = true
+
+    qplayer?.play()
+  }
+  
+  @objc  func pauseButtonTapped(sender: Any) {
+  print("pausedPressed")
+    nowPlaying = false
+    qplayer?.pause()
+
+  }
   
  
   func makePlayingCassette(selectedIndexPath:IndexPath) -> (AVQueuePlayer)  {
@@ -90,7 +166,7 @@ class PlayViewController: UIViewController {
     searchViewController.checkDownloaded(results: playResults)
     let quePlayer = AVQueuePlayer()
     let selectedRow = selectedIndexPath.row
-    
+       nowPlayingRow = selectedRow
     if selectedRow == 0 {
       for selectedRow in 0...queryService.numberOfChapters - 1 {
         if  playResults[selectedRow].downloaded {
@@ -156,7 +232,8 @@ extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
   
   // When user taps cell, play the local file, if it's downloaded
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-   let track = playResults[indexPath.row]
+     nowPlaying = true
+    let track = playResults[indexPath.row]
     
     if track.downloaded {
       qplayer = makePlayingCassette(selectedIndexPath: indexPath)
@@ -216,8 +293,9 @@ extension PlayViewController: PlayCellDelegate {
     }
     
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    
+    private func audioPlayerDidFinishPlaying(_ player: AVQueuePlayer, successfully flag: Bool) {
+      print("did finishig palying called")
+      nowPlaying = false
       
     }
     
@@ -225,4 +303,19 @@ extension PlayViewController: PlayCellDelegate {
     
   }
   
-
+extension CGRect{
+  init(_ x:CGFloat,_ y:CGFloat,_ width:CGFloat,_ height:CGFloat) {
+    self.init(x:x,y:y,width:width,height:height)
+  }
+  
+}
+extension CGSize{
+  init(_ width:CGFloat,_ height:CGFloat) {
+    self.init(width:width,height:height)
+  }
+}
+extension CGPoint{
+  init(_ x:CGFloat,_ y:CGFloat) {
+    self.init(x:x,y:y)
+  }
+}

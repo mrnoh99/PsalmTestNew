@@ -6,7 +6,7 @@ import AVKit
 import AVFoundation
 
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UINavigationBarDelegate {
   
   
   @IBOutlet weak var tableView: UITableView!
@@ -127,6 +127,7 @@ class SearchViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     searchResults = queryService.getSearchResults()
     
     downloadService.downloadsSession = downloadsSession
@@ -247,12 +248,9 @@ extension SearchViewController: TrackCellDelegate {
       if  FileManager.default.fileExists(atPath: destinationFileUrl.path) {
          try?  FileManager.default.removeItem(at:  destinationFileUrl)
           results[i].downloaded = false
-        
-        
-      }
-      
-    }
-    
+     }
+    }    
+    tableView.reloadData()
   }
   
   
