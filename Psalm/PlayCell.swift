@@ -15,13 +15,14 @@ protocol PlayCellDelegate {
 }
 
 class PlayCell: UITableViewCell {
+ 
   var delegate: PlayCellDelegate?
   
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var firstLineLabel: UILabel!
   @IBOutlet weak var progressView: UIProgressView!
   @IBOutlet weak var progressLabel: UILabel!
- 
+ @IBOutlet weak var downloaded: UILabel!
   @IBAction func playTapped(_ sender: AnyObject) {
     delegate?.playTapped(self)
   }
@@ -35,11 +36,16 @@ class PlayCell: UITableViewCell {
     titleLabel.text = track.name
     firstLineLabel.text = track.firstLine
      progressLabel.isHidden = true
+    downloaded.isHidden = true
+//     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     if track.isPlaying {
      progressLabel.isHidden = false
-    progressLabel.text = "재생중..."
+     progressLabel.text = "재생중..."
     }
-    selectionStyle = track.downloaded ? UITableViewCellSelectionStyle.gray : UITableViewCellSelectionStyle.none
+    if !track.downloaded {
+      downloaded.isHidden = false}
+      
+      selectionStyle = track.downloaded ? UITableViewCellSelectionStyle.gray : UITableViewCellSelectionStyle.none
 //    downloadButton.isHidden = downloaded || showDownloadControls
    
   }

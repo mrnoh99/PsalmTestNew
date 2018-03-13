@@ -3,6 +3,36 @@
  import UIKit
 import AVFoundation
  var searchViewController = SearchViewController()
+var playViewController = PlayViewController()
+var selectedIndex:Int = -1
+var nowPlaying = false {
+  didSet {
+    if audioPlayer != nil {
+      nowPlaying = (audioPlayer?.isPlaying)!
+      
+      print (nowPlaying)
+      print("thi is upper")
+      
+    }
+    
+  }
+  
+}
+var  audioPlayer: AVAudioPlayer? {
+  get {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    return appDelegate.audioPlayer
+  }
+  set {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    appDelegate.audioPlayer = newValue
+  }
+}
+
+
+ 
+  
+
 
 @UIApplicationMain
  class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -11,6 +41,7 @@ import AVFoundation
   let tintColor =  UIColor(red: 242/255, green: 71/255, blue: 63/255, alpha: 1)
   var backgroundSessionCompletionHandler: (() -> Void)?
   var  qplayer: AVQueuePlayer? = nil
+  var audioPlayer: AVAudioPlayer? = nil
   var  noOfDownloadedTract = 0
   var searchResults: [Track] = []
   var queryService = QueryService()
