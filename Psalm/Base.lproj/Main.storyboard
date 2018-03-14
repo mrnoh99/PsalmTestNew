@@ -170,7 +170,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="470"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="ssc-qM-ovi" customClass="SearchFooter" customModule="CandySearch" customModuleProvider="target">
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="ssc-qM-ovi" customClass="SearchFooter" customModule="Psalm" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -218,6 +218,15 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJQ-vv-dDj">
+                                                    <rect key="frame" x="296" y="6" width="57" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="본문보기"/>
+                                                    <connections>
+                                                        <action selector="readChapter:" destination="RZX-S3-182" eventType="touchUpInside" id="2aL-xQ-yME"/>
+                                                        <segue destination="a1q-Uv-bMZ" kind="show" id="SMM-qr-rp7"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -225,6 +234,7 @@
                                             <outlet property="firstLineLabel" destination="X3y-DR-CcX" id="5uI-Fo-NHL"/>
                                             <outlet property="progressLabel" destination="gZl-x8-jhe" id="vqL-OS-GsP"/>
                                             <outlet property="progressView" destination="mVK-08-rBu" id="UgL-0Y-Zvw"/>
+                                            <outlet property="readChapterLabel" destination="zJQ-vv-dDj" id="srt-hx-e9I"/>
                                             <outlet property="titleLabel" destination="4qt-TC-PeW" id="qQC-N1-uVV"/>
                                         </connections>
                                     </tableViewCell>
@@ -314,6 +324,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hOt-sy-dKx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4868" y="157.87106446776613"/>
+        </scene>
+        <!--Scroll View Controller-->
+        <scene sceneID="3E3-OK-3qD">
+            <objects>
+                <viewController id="a1q-Uv-bMZ" customClass="ScrollViewController" customModule="Psalm" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7um-0Z-CwZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="enV-6l-9iY">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="kzR-J0-mvD"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eeP-6a-b8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6096.8000000000002" y="598.65067466266873"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4BH-H1-aDS">

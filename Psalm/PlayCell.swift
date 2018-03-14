@@ -24,6 +24,12 @@ class PlayCell: UITableViewCell {
   @IBOutlet weak var progressView: UIProgressView!
   @IBOutlet weak var progressLabel: UILabel!
  @IBOutlet weak var downloaded: UILabel!
+    
+    @IBOutlet weak var readChapterLabel: UIButton!
+    @IBAction func readChapter(_ sender: UIButton) {
+    }
+    
+    
   @IBAction func playTapped(_ sender: AnyObject) {
     delegate?.playTapped(self)
   }
@@ -38,19 +44,18 @@ class PlayCell: UITableViewCell {
     firstLineLabel.text = track.firstLine
      progressLabel.isHidden = true
     downloaded.isHidden = true
+    readChapterLabel.isHidden = true
 //     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     if track.isPlaying {
      progressLabel.isHidden = false
      progressLabel.text = "재생중..."
+      readChapterLabel.isHidden = false
       DispatchQueue.main.async {
         print ("dispatch performed")
         self.delegate?.updateLabel(trackFirstLine: track.firstLine)
      
       }
-    
-      
-      
-      
+     
     }
     if !track.downloaded {
       downloaded.isHidden = false}

@@ -15,7 +15,7 @@
 		407FC0F11EA423F200CE83C3 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407FC0F01EA423F200CE83C3 /* DownloadService.swift */; };
 		7CBF1DFC204BE9B700DD9297 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBF1DFB204BE9B500DD9297 /* Reachability.swift */; };
 		7CCEB0542058A58400102193 /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEB0532058A58400102193 /* SearchFooter.swift */; };
-		7CCEB0582058A5AF00102193 /* CandyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEB0572058A5AF00102193 /* CandyTheme.swift */; };
+		7CCEB0582058A5AF00102193 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEB0572058A5AF00102193 /* Theme.swift */; };
 		7CF1CA67204F685300B33901 /* PlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA66204F685300B33901 /* PlayCell.swift */; };
 		7CF1CA69204F687800B33901 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA68204F687800B33901 /* PlayViewController.swift */; };
 		7CF1CA6E204F74C200B33901 /* Play.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA6D204F74C200B33901 /* Play.swift */; };
@@ -37,7 +37,7 @@
 		407FC0F01EA423F200CE83C3 /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		7CBF1DFB204BE9B500DD9297 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		7CCEB0532058A58400102193 /* SearchFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
-		7CCEB0572058A5AF00102193 /* CandyTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyTheme.swift; sourceTree = "<group>"; };
+		7CCEB0572058A5AF00102193 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		7CF1CA66204F685300B33901 /* PlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCell.swift; sourceTree = "<group>"; };
 		7CF1CA68204F687800B33901 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		7CF1CA6D204F74C200B33901 /* Play.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Play.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 				4051C2DD1E078EE00031FE46 /* Functions.swift */,
 				7CF1CA68204F687800B33901 /* PlayViewController.swift */,
 				7CCEB0532058A58400102193 /* SearchFooter.swift */,
-				7CCEB0572058A5AF00102193 /* CandyTheme.swift */,
+				7CCEB0572058A5AF00102193 /* Theme.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -233,7 +233,7 @@
 				D9EF8FC71B53FD2100EFC4B6 /* AppDelegate.swift in Sources */,
 				18C0C62A1DF4858D00393D33 /* StoryboardSupport.swift in Sources */,
 				407FC0F11EA423F200CE83C3 /* DownloadService.swift in Sources */,
-				7CCEB0582058A5AF00102193 /* CandyTheme.swift in Sources */,
+				7CCEB0582058A5AF00102193 /* Theme.swift in Sources */,
 				18C0C62C1DF485CA00393D33 /* Download.swift in Sources */,
 				D9EF8FF11B53FDCB00EFC4B6 /* TrackCell.swift in Sources */,
 				7CF1CA67204F685300B33901 /* PlayCell.swift in Sources */,
