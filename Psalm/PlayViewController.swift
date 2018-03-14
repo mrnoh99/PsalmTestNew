@@ -12,12 +12,23 @@ import AVFoundation
 import CoreGraphics
 
 
-class PlayViewController: UIViewController, UINavigationBarDelegate {
+class PlayViewController: UIViewController, UINavigationBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var playTableView: UITableView!
     @IBOutlet weak var toolBar: UIToolbar!
-    
-    @IBOutlet weak var nowPlayingLabel: UILabel!
+  @IBOutlet var searchFooter: SearchFooter!
+ 
+//  var detailViewController: DetailViewController? = nil
+//  var candies = [Candy]()
+   let searchController = UISearchController(searchResultsController: nil)
+  
+//
+//    lazy var tapRecognizer: UITapGestureRecognizer = {
+//    var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
+//    return recognizer
+//  }()
+  
+  @IBOutlet weak var nowPlayingLabel: UILabel!
     
 
   
@@ -29,6 +40,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate {
   
     var playResults: [Track] = []
      let queryService = QueryService()
+     var filteredTracks = [Track]()
   
   
   
@@ -43,8 +55,15 @@ class PlayViewController: UIViewController, UINavigationBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        
+      searchController.searchResultsUpdater = self
+      searchController.obscuresBackgroundDuringPresentation = false
+      searchController.searchBar.placeholder = "Search Candies"
+      navigationItem.searchController = searchController
+      definesPresentationContext = true
+    //  searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
+      searchController.searchBar.delegate = self
+      playTableView.tableFooterView = searchFooter
+      
       do {
         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
         print ("playbackOK")
@@ -181,8 +200,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate {
     arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
       
-      nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
-      nowPlayingLabel.textColor = .red
+  //    nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
+   //   nowPlayingLabel.textColor = .red
   
     } else {
       selectedIndex = 0
@@ -199,8 +218,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate {
     arrayOfButtons.remove(at: 4)
     arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-      nowPlayingLabel.text =  "재생중단:  " + playResults[selectedIndex].firstLine
-      nowPlayingLabel.textColor = UIColor.darkGray
+//      nowPlayingLabel.text =  "재생중단:  " + playResults[selectedIndex].firstLine
+//      nowPlayingLabel.textColor = UIColor.darkGray
   
       
     }
@@ -213,15 +232,20 @@ class PlayViewController: UIViewController, UINavigationBarDelegate {
  
   
   
-}
-// MARK: - UITableView
-
-extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
-  
+//}
+//// MARK: - UITableView
+//
+//extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
+//
   
   
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if isFiltering() {
+      searchFooter.setIsFilteringToShow(filteredItemCount: filteredTracks.count, of: playResults.count)
+      return filteredTracks.count
+    }
+    searchFooter.setNotFiltering()
     
     return playResults.count
   }
@@ -231,9 +255,13 @@ extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
      let cell = playTableView.dequeueReusableCell(withIdentifier: "playCell") as! PlayCell
     // Delegate cell button tap events to this view controller
     cell.delegate = self
-    
-    let track = playResults[indexPath.row]
-
+    let track: Track
+  
+    if isFiltering() {
+      track = filteredTracks[indexPath.row]
+    } else {
+      track = playResults[indexPath.row]
+    }
     cell.configure(track: track)
     
     //, download: downloadService.activeDownloads[track.previewURL])
@@ -250,13 +278,23 @@ extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
   // When user taps cell, play the local file, if it's downloaded
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-    let track = playResults[indexPath.row]
-    selectedIndex = indexPath.row
+    if isFiltering() {
+     let   track = filteredTracks[indexPath.row]
+      selectedIndex = track.index
+    } else {
+     let  track = playResults[indexPath.row]
+      selectedIndex = track.index
+    }
     
     
-    if  playResults[indexPath.row].downloaded == true {
+    print ("selectedIndex is:"+"\(selectedIndex)"+"playplayResults[indexPath.row].index:"+"\(playResults[indexPath.row].index)")
+    
+    
+    self.searchController.isActive = false
+    
+    if  playResults[selectedIndex].downloaded == true {
       
-      playResults[indexPath.row].isPlaying = true
+      playResults[selectedIndex].isPlaying = true
       
       playMusic(selectedIndex: selectedIndex)
     //  nowPlaying = (audioPlayer?.isPlaying)!
@@ -305,7 +343,7 @@ extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
       audioPlayer?.delegate = self
       audioPlayer?.prepareToPlay()
       audioPlayer?.play()
-      nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
+    //  self.nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
       nowPlayingLabel.textColor = .red
       nowPlaying = (audioPlayer?.isPlaying)!
       arrayOfButtons.remove(at: 4)
@@ -315,6 +353,33 @@ extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
     
     }
     
+  }
+  
+  
+ 
+  
+  func searchBarIsEmpty() -> Bool {
+    // Returns true if the text is empty or nil
+    return searchController.searchBar.text?.isEmpty ?? true
+  }
+  
+  func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    filteredTracks = playResults.filter({( track : Track) -> Bool in
+      let doesCategoryMatch = (scope == "All") // || (candy.category == scope)
+      
+      if searchBarIsEmpty() {
+        return doesCategoryMatch
+      } else {
+        return doesCategoryMatch && track.firstLine.contains(searchText.lowercased())
+      }
+    })
+    playTableView.reloadData()
+  }
+  
+  
+  func isFiltering() -> Bool {
+    let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+    return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
   }
   
 }
@@ -339,19 +404,42 @@ extension PlayViewController: PlayCellDelegate {
     
   }
   
+  func updateLabel(trackFirstLine: String) {
+    nowPlayingLabel.text =  "재생중:  " + trackFirstLine
+    
+  }
  
  
 }
   // Update track cell's buttons
 
-  
-  extension PlayViewController: AVAudioPlayerDelegate {
-    
-  
+extension PlayViewController: UISearchBarDelegate {
+  // MARK: - UISearchBar Delegate
+  func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
    
+    filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     
     
     
+  }
+}
+
+extension PlayViewController: UISearchResultsUpdating {
+  // MARK: - UISearchResultsUpdating Delegate
+
+    func updateSearchResults(for searchController: UISearchController) {
+      let searchBar = searchController.searchBar
+    //  let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+      filterContentForSearchText(searchController.searchBar.text!, scope: "All")
+    }
+}
+
+
+
+
+
+  extension PlayViewController: AVAudioPlayerDelegate {
+  
   }
   
 extension CGRect{

@@ -15,7 +15,7 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   //    var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
   //    return recognizer
   //  }()
-  let playViewController = PlayViewController()
+//  let playViewController = PlayViewController()
  
   var searchResults: [Track] = []
   let queryService = QueryService()

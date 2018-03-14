@@ -12,6 +12,7 @@ protocol PlayCellDelegate {
   
   func playTapped(_ cell: PlayCell)
   func stopTapped(_ cell: PlayCell)
+  func updateLabel(trackFirstLine: String)
 }
 
 class PlayCell: UITableViewCell {
@@ -41,6 +42,15 @@ class PlayCell: UITableViewCell {
     if track.isPlaying {
      progressLabel.isHidden = false
      progressLabel.text = "재생중..."
+      DispatchQueue.main.async {
+        print ("dispatch performed")
+        self.delegate?.updateLabel(trackFirstLine: track.firstLine)
+     
+      }
+    
+      
+      
+      
     }
     if !track.downloaded {
       downloaded.isHidden = false}

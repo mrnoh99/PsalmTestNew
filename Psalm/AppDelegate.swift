@@ -35,17 +35,18 @@ var  audioPlayer: AVAudioPlayer? {
 
 
 @UIApplicationMain
- class AppDelegate: UIResponder, UIApplicationDelegate {
+ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
   
   var window: UIWindow?
   let tintColor =  UIColor(red: 242/255, green: 71/255, blue: 63/255, alpha: 1)
   var backgroundSessionCompletionHandler: (() -> Void)?
-  var  qplayer: AVQueuePlayer? = nil
+//  var  qplayer: AVQueuePlayer? = nil
   var audioPlayer: AVAudioPlayer? = nil
   var  noOfDownloadedTract = 0
   var searchResults: [Track] = []
   var queryService = QueryService()
   var searchViewController = SearchViewController()
+  var playViewController = PlayViewController()
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
@@ -60,6 +61,14 @@ var  audioPlayer: AVAudioPlayer? {
     if noOfDownloadedTract == queryService.numberOfChapters {
       
        initialViewController = storyboard.instantiateViewController(withIdentifier: "secondNaviViewController")
+      
+//      let splitViewController = window!.rootViewController as! UISplitViewController
+//      let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+//      navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+//      splitViewController.preferredDisplayMode = .allVisible
+//      splitViewController.delegate = self
+      
+      
     }
     print(noOfDownloadedTract)
    customizeAppearance()
@@ -88,5 +97,18 @@ var  audioPlayer: AVAudioPlayer? {
     return documentsPath.appendingPathComponent(url.lastPathComponent)
   }
 
+//  func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+//    guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+//   // guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
+//   // if topAsDetailController.detailCandy == nil {
+//      // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+////      return true
+////    }
+//    return false
+//  }
+//
+  
+  
+  
  }
  
