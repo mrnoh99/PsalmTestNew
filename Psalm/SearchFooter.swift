@@ -57,10 +57,10 @@ extension SearchFooter {
     if (filteredItemCount == totalItemCount) {
       setNotFiltering()
     } else if (filteredItemCount == 0) {
-      label.text = "No items match your query"
+      label.text = "찾으시는 시편이 없습니다 "
       showFooter()
     } else {
-      label.text = "Filtering \(filteredItemCount) of \(totalItemCount)"
+      label.text = "전체 "+"\(totalItemCount)장 중"+" \(filteredItemCount) 장 "
       showFooter()
     }
   }

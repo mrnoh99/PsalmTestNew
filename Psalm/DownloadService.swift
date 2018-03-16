@@ -21,7 +21,7 @@ class DownloadService {
     if  !FileManager.default.fileExists(atPath: destinationFileUrl.path) {
       let download = Download(track: track)
     // 2
-    print (track.previewURL)
+  
     download.task = downloadsSession.downloadTask(with:  track.previewURL)
     
     download.task!.resume()

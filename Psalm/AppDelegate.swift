@@ -4,15 +4,20 @@
 import AVFoundation
  var searchViewController = SearchViewController()
 var playViewController = PlayViewController()
-var selectedIndex:Int = -1
+var selectedIndex:Int = -1 {
+  didSet {
+    justBeforeSelectedIndex = oldValue
+    print ( "the value of selectedIndex changed from \(oldValue) to \(selectedIndex)")
+  }
+}
+var justBeforeSelectedIndex: Int = 0
+
+
 var nowPlaying = false {
   didSet {
     if audioPlayer != nil {
       nowPlaying = (audioPlayer?.isPlaying)!
-      
-      print (nowPlaying)
-      print("thi is upper")
-      
+     
     }
     
   }
@@ -52,7 +57,7 @@ var  audioPlayer: AVAudioPlayer? {
     
     searchResults = queryService.getSearchResults()
     noOfDownloadedTract = searchViewController.checkDownloaded(results: searchResults)
-    print (noOfDownloadedTract)
+  
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     
@@ -70,7 +75,7 @@ var  audioPlayer: AVAudioPlayer? {
       
       
     }
-    print(noOfDownloadedTract)
+  
    customizeAppearance()
     self.window = UIWindow(frame: UIScreen.main.bounds)
     self.window?.rootViewController = initialViewController
@@ -87,7 +92,9 @@ var  audioPlayer: AVAudioPlayer? {
   
   private func customizeAppearance() {
     window?.tintColor = tintColor
-    UISearchBar.appearance().barTintColor = tintColor
+   //  UISearchBar.appearance().barTintColor = .white
+  //  UISearchBar.appearance().backgroundColor = tintColor
+    
     UINavigationBar.appearance().barTintColor = tintColor
     UINavigationBar.appearance().tintColor = UIColor.white
     UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue):UIColor.white]

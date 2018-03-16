@@ -62,7 +62,7 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
     case "전체설치시작"? :
       
       let reachability = Reachability()!
-      print (reachability.connection)
+    
       
       if reachability.connection == .wifi {
         
@@ -86,7 +86,7 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
     case  "설치 재시작"? :
       
       let reachability = Reachability()!
-      print (reachability.connection)
+     
       
       if reachability.connection == .wifi {
         

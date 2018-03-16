@@ -17,9 +17,11 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     @IBOutlet weak var playTableView: UITableView!
     @IBOutlet weak var toolBar: UIToolbar!
   @IBOutlet var searchFooter: SearchFooter!
- 
+    @IBAction func showChapterButton(_ sender: Any) {
+}
+    
 //  var detailViewController: DetailViewController? = nil
-//  var candies = [Candy]()
+
    let searchController = UISearchController(searchResultsController: nil)
   
 //
@@ -30,7 +32,13 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   @IBOutlet weak var nowPlayingLabel: UILabel!
     
-
+//  var playingLabelText: String = "" {
+//    didSet {
+//     nowPlayingLabel.text = loadedTrack    // playResults[selectedIndex].firstLine
+//
+//
+//    }
+//  }
   
   
   
@@ -41,6 +49,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     var playResults: [Track] = []
      let queryService = QueryService()
      var filteredTracks = [Track]()
+ 
+
   
   
   
@@ -57,7 +67,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         super.viewDidLoad()
       searchController.searchResultsUpdater = self
       searchController.obscuresBackgroundDuringPresentation = false
-      searchController.searchBar.placeholder = "Search Candies"
+      searchController.searchBar.placeholder = "찾으시는 단어를 입력하세요"
       navigationItem.searchController = searchController
       definesPresentationContext = true
     //  searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
@@ -66,9 +76,9 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       
       do {
         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-        print ("playbackOK")
+     
         try AVAudioSession.sharedInstance().setActive(true)
-        print("session is active")
+       
       }catch let error {
         print(error.localizedDescription)
       }
@@ -82,54 +92,29 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       playResults = queryService.getSearchResults()
       searchViewController.checkDownloaded(results: playResults)
       
-//      playTableView.tableFooterView = UIView()
-//
-//      playTableView.reloadData()
-//      playTableView.setContentOffset(CGPoint.zero, animated: false)
-//
-      // Do any additional setup after loading the view.
-      
-    
+
       
   }
   
       
   override  func viewWillAppear(_ animated: Bool){
     super.viewWillAppear(true)
-    print("\(selectedIndex)")
-    
+   
+  // print (loadedrow[0].firstLine)
     
     arrayOfButtons.remove(at: 4)
     
     if nowPlaying  {
-      print ("pauseuttoninsered")
-      print (nowPlaying)
+     
+     
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
     } else {
       arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
-      print ("playbutton inserted")
-      print (nowPlaying)
+     
     }
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
    
-    if selectedIndex != -1 {
-     
-      if audioPlayer != nil {
-      if (audioPlayer?.isPlaying)! {
-       // let nowPlayingIndexPath = IndexPath(item: selectedIndex, section: 0)
-         let track = playResults[selectedIndex]
-         track.isPlaying = true
-        nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
-        nowPlayingLabel.textColor = .red
-      } else {
-        nowPlayingLabel.text =  "재생중단:  " + playResults[selectedIndex].firstLine
-        nowPlayingLabel.textColor = UIColor.darkGray
-        }
-      
-    }
- 
-  }
-  reloadTable()
+ reloadTable(toMiddle: true)
     
   }
     override func didReceiveMemoryWarning() {
@@ -160,7 +145,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
         nowPlaying = (audioPlayer?.isPlaying)!    }
       
-     reloadTable()
+     reloadTable(toMiddle: true)
   }
     
   
@@ -183,7 +168,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       
   }
     
-    reloadTable()
+    reloadTable(toMiddle: true)
     
   }
   
@@ -191,7 +176,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     
     
   @objc  func playButtonTapped(sender: Any) {
-  print ("playpressed")
+ 
   
     if audioPlayer != nil {
     audioPlayer?.play()
@@ -200,30 +185,26 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
       
-  //    nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
-   //   nowPlayingLabel.textColor = .red
   
     } else {
       selectedIndex = 0
       playMusic(selectedIndex: selectedIndex)
     }
-    reloadTable()
+    reloadTable(toMiddle: true)
   }
   
   @objc  func pauseButtonTapped(sender: Any) {
-  print("pausedPressed")
+ 
     if audioPlayer != nil {
       audioPlayer?.pause()
     nowPlaying = (audioPlayer?.isPlaying)!
     arrayOfButtons.remove(at: 4)
     arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-//      nowPlayingLabel.text =  "재생중단:  " + playResults[selectedIndex].firstLine
-//      nowPlayingLabel.textColor = UIColor.darkGray
-  
+
       
     }
-    reloadTable()
+    reloadTable(toMiddle: true)
     
   }
   
@@ -264,7 +245,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     }
     cell.configure(track: track)
     
-    //, download: downloadService.activeDownloads[track.previewURL])
+  
     
     return cell
   }
@@ -279,16 +260,14 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     if isFiltering() {
-     let   track = filteredTracks[indexPath.row]
+     var   track = filteredTracks[indexPath.row]
       selectedIndex = track.index
+          track = playResults[indexPath.row]
+         reloadTable(toMiddle: true)
     } else {
      let  track = playResults[indexPath.row]
       selectedIndex = track.index
     }
-    
-    
-    print ("selectedIndex is:"+"\(selectedIndex)"+"playplayResults[indexPath.row].index:"+"\(playResults[indexPath.row].index)")
-    
     
     self.searchController.isActive = false
     
@@ -297,21 +276,26 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       playResults[selectedIndex].isPlaying = true
       
       playMusic(selectedIndex: selectedIndex)
-    //  nowPlaying = (audioPlayer?.isPlaying)!
+   
       arrayOfButtons.remove(at: 4)
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
       self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-      reloadTable()
-      
-      
+       reloadTable(toMiddle: false)
+     
     } else {
+      
+      selectedIndex = justBeforeSelectedIndex
+      playResults[selectedIndex].isPlaying = true
       connectionAlert(title: "설치필요", message: "설치메뉴로 돌아가 재설치후 재생하십시오")
       
     }
   }
+  
+    
+  
 
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    print ("delegate called")
+   
     if selectedIndex == playResults.count - 1 {
       selectedIndex = -1
     }
@@ -326,7 +310,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       
       nowPlaying = (audioPlayer?.isPlaying)!    }
     
-     reloadTable()
+     reloadTable(toMiddle: true)
   }
   
   func playMusic(selectedIndex:Int){
@@ -349,7 +333,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       arrayOfButtons.remove(at: 4)
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
       self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-      reloadTable()
+      
     
     }
     
@@ -435,6 +419,28 @@ extension PlayViewController: UISearchResultsUpdating {
 }
 
 
+
+
+extension PlayViewController: ReadChapterViewControllerDelegate {
+ 
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let viewControllerB = segue.destination as? ReadChapterViewController {
+      if selectedIndex != -1 {
+      viewControllerB.text = playResults[selectedIndex].firstLine
+      viewControllerB.delegate = self
+      }
+    }
+  }
+  
+  func textChanged(text: String) {
+   // text =  playResults[selectedIndex].firstLine
+    
+  }
+  
+  
+  
+  
+}
 
 
 

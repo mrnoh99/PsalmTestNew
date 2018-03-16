@@ -16,6 +16,7 @@
 		7CBF1DFC204BE9B700DD9297 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBF1DFB204BE9B500DD9297 /* Reachability.swift */; };
 		7CCEB0542058A58400102193 /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEB0532058A58400102193 /* SearchFooter.swift */; };
 		7CCEB0582058A5AF00102193 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEB0572058A5AF00102193 /* Theme.swift */; };
+		7CCEB062205A836400102193 /* ReadChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEB061205A836400102193 /* ReadChapterViewController.swift */; };
 		7CF1CA67204F685300B33901 /* PlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA66204F685300B33901 /* PlayCell.swift */; };
 		7CF1CA69204F687800B33901 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA68204F687800B33901 /* PlayViewController.swift */; };
 		7CF1CA6E204F74C200B33901 /* Play.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA6D204F74C200B33901 /* Play.swift */; };
@@ -38,6 +39,7 @@
 		7CBF1DFB204BE9B500DD9297 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		7CCEB0532058A58400102193 /* SearchFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
 		7CCEB0572058A5AF00102193 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		7CCEB061205A836400102193 /* ReadChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadChapterViewController.swift; sourceTree = "<group>"; };
 		7CF1CA66204F685300B33901 /* PlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCell.swift; sourceTree = "<group>"; };
 		7CF1CA68204F687800B33901 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		7CF1CA6D204F74C200B33901 /* Play.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Play.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				7CF1CA68204F687800B33901 /* PlayViewController.swift */,
 				7CCEB0532058A58400102193 /* SearchFooter.swift */,
 				7CCEB0572058A5AF00102193 /* Theme.swift */,
+				7CCEB061205A836400102193 /* ReadChapterViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4051C2E01E0794EB0031FE46 /* SearchVC+URLSessionDelegates.swift in Sources */,
+				7CCEB062205A836400102193 /* ReadChapterViewController.swift in Sources */,
 				D9EF8FEA1B53FD6900EFC4B6 /* SearchViewController.swift in Sources */,
 				7CF1CA69204F687800B33901 /* PlayViewController.swift in Sources */,
 				D9EF8FC71B53FD2100EFC4B6 /* AppDelegate.swift in Sources */,
