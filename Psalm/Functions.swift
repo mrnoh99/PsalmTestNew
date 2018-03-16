@@ -24,6 +24,7 @@ extension PlayViewController {
   }
   
   func reloadTable(toMiddle: Bool){
+   self.searchController.isActive = false
     if selectedIndex != -1 {
     let nowPlayingIndexPath = IndexPath(item: selectedIndex, section: 0)
     self.playTableView.reloadData()

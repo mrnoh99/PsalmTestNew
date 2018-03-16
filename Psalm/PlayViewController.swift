@@ -130,8 +130,9 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
     
   @IBAction func ffButtonPressed(_ sender: UIBarButtonItem) {
-    
-    if selectedIndex == playResults.count - 1 {
+    if !isFiltering(){
+      
+       if selectedIndex == playResults.count - 1 {
         selectedIndex = -1
       }
       if selectedIndex < playResults.count - 1{
@@ -144,7 +145,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         playMusic(selectedIndex: selectedIndex)
         
         nowPlaying = (audioPlayer?.isPlaying)!    }
-      
+  }
      reloadTable(toMiddle: true)
   }
     
@@ -152,6 +153,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
     
   @IBAction func rewindButtonPressed(_ sender: UIBarButtonItem) {
+    if  !isFiltering(){
     if selectedIndex == 0 || selectedIndex == -1 {
       selectedIndex = playResults.count 
       
@@ -167,7 +169,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       playMusic(selectedIndex: selectedIndex)
       
   }
-    
+    }
     reloadTable(toMiddle: true)
     
   }
@@ -262,14 +264,16 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     if isFiltering() {
      var   track = filteredTracks[indexPath.row]
       selectedIndex = track.index
-          track = playResults[indexPath.row]
-         reloadTable(toMiddle: true)
+     
+   //   track = playResults[indexPath.row]
+       //  playTableView.reloadData()
+      
     } else {
      let  track = playResults[indexPath.row]
       selectedIndex = track.index
     }
     
-    self.searchController.isActive = false
+    
     
     if  playResults[selectedIndex].downloaded == true {
       
@@ -280,7 +284,17 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       arrayOfButtons.remove(at: 4)
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
       self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-       reloadTable(toMiddle: false)
+   //  playTableView.reloadData()//
+     
+      if self.searchController.isActive == true {
+        self.searchController.isActive = false
+         reloadTable(toMiddle: true)
+        
+      }else {
+         reloadTable(toMiddle: false)      }
+      
+      
+     
      
     } else {
       
