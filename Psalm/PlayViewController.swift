@@ -314,7 +314,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     if isFiltering() {
-     var   track = filteredTracks[indexPath.row]
+      let   track = filteredTracks[indexPath.row]
       selectedIndex = track.index
      
    //   track = playResults[indexPath.row]
@@ -479,7 +479,7 @@ extension PlayViewController: UISearchResultsUpdating {
   // MARK: - UISearchResultsUpdating Delegate
 
     func updateSearchResults(for searchController: UISearchController) {
-      let searchBar = searchController.searchBar
+      _ = searchController.searchBar
     //  let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
       filterContentForSearchText(searchController.searchBar.text!, scope: "All")
     }
