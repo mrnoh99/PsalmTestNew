@@ -13,7 +13,47 @@ import CoreGraphics
 
 
 class PlayViewController: UIViewController, UINavigationBarDelegate, UITableViewDataSource, UITableViewDelegate {
-
+  var timer1 = Timer()
+  var timer2 = Timer()
+  var playingTime: Int = 0
+  let infiniteSign = "\u{221E}"
+  @IBOutlet weak var timeSegment: UISegmentedControl!
+  
+    @IBAction func timerButtonPressed(_ sender: UISegmentedControl) {
+     
+    switch  timeSegment.selectedSegmentIndex {
+    case 0:
+      
+      timer1.invalidate()
+      
+      timer2.invalidate()
+      timerLabel.text = infiniteSign
+      
+      print ("0 pressed")
+    case 1:
+      
+       runTimer(timeInterval: 1800)
+      print ("1 selected")
+      
+    case 2:
+       runTimer(timeInterval: 1800 * 2 )
+      print ("2 selected ")
+      
+    case 3:
+      runTimer(timeInterval: 1800 * 4 )
+      print ("3  selected ")
+      
+    default:
+      print ("deafult")
+    }
+    
+    
+    
+  }
+  
+  @IBOutlet weak var timerLabel: UILabel!
+  
+  
     @IBOutlet weak var playTableView: UITableView!
     @IBOutlet weak var toolBar: UIToolbar!
   @IBOutlet var searchFooter: SearchFooter!
@@ -65,6 +105,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       timerLabel.text = infiniteSign
       searchController.searchResultsUpdater = self
       searchController.obscuresBackgroundDuringPresentation = false
       searchController.searchBar.placeholder = "찾으시는 단어를 입력하세요"
@@ -101,7 +142,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     super.viewWillAppear(true)
    
   // print (loadedrow[0].firstLine)
-    
+  //  timerLabel.isHidden = true
     arrayOfButtons.remove(at: 4)
     
     if nowPlaying  {

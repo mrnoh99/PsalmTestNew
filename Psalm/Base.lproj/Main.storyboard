@@ -247,7 +247,7 @@
                                 <rect key="frame" x="0.0" y="579" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="타이머" id="bdJ-82-atb"/>
+                                    <barButtonItem id="bdJ-82-atb"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="MBh-N3-5bZ"/>
                                     <barButtonItem systemItem="rewind" id="xkf-qI-ggb">
                                         <connections>
@@ -279,10 +279,21 @@
                                                 <segment title="한시간"/>
                                                 <segment title="두시간"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="timerButtonPressed:" destination="5bP-CN-kTe" eventType="valueChanged" id="d7C-ng-u3y"/>
+                                            </connections>
                                         </segmentedControl>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKb-3V-QSB">
+                                <rect key="frame" x="0.0" y="579" width="72" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="2kH-Jd-ZiU"/>
@@ -300,6 +311,8 @@
                         <outlet property="nowPlayingLabel" destination="wWw-eM-r91" id="fjP-w8-IOt"/>
                         <outlet property="playTableView" destination="5W0-EU-sdw" id="WU3-QL-Myo"/>
                         <outlet property="searchFooter" destination="ssc-qM-ovi" id="4Ix-VM-0h5"/>
+                        <outlet property="timeSegment" destination="b6U-DS-UkN" id="hbP-vj-wfa"/>
+                        <outlet property="timerLabel" destination="kKb-3V-QSB" id="kTf-Lb-PeV"/>
                         <outlet property="toolBar" destination="Bnd-2O-qEI" id="TIG-yt-Ycp"/>
                     </connections>
                 </viewController>
