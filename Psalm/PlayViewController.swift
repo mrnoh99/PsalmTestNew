@@ -15,8 +15,17 @@ import CoreGraphics
 class PlayViewController: UIViewController, UINavigationBarDelegate, UITableViewDataSource, UITableViewDelegate {
   var timer1 = Timer()
   var timer2 = Timer()
+  var playTimeLabelTimer = Timer()
   var playingTime: Int = 0
   let infiniteSign = "\u{221E}"
+    
+    @IBOutlet weak var timeElapsed: UILabel!
+    
+    @IBOutlet weak var timeRemaining: UILabel!
+    
+    @IBOutlet weak var musicProgressBar: UIProgressView!
+    
+    
   @IBOutlet weak var timeSegment: UISegmentedControl!
   
     @IBAction func timerButtonPressed(_ sender: UISegmentedControl) {
@@ -223,6 +232,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
     if audioPlayer != nil {
     audioPlayer?.play()
+      playtimeLabeling()
     nowPlaying = (audioPlayer?.isPlaying)!
     arrayOfButtons.remove(at: 4)
     arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
@@ -239,6 +249,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   @objc  func pauseButtonTapped(sender: Any) {
  
     if audioPlayer != nil {
+      playTimeLabelTimer.invalidate()
       audioPlayer?.pause()
     nowPlaying = (audioPlayer?.isPlaying)!
     arrayOfButtons.remove(at: 4)
@@ -382,6 +393,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       audioPlayer?.delegate = self
       audioPlayer?.prepareToPlay()
       audioPlayer?.play()
+      playtimeLabeling()
     //  self.nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
       nowPlayingLabel.textColor = .red
       nowPlaying = (audioPlayer?.isPlaying)!

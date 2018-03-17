@@ -172,6 +172,24 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eF8-uG-6Fk">
+                                        <rect key="frame" x="8" y="37.5" width="359" height="1.5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </progressView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXO-P6-Tdw">
+                                        <rect key="frame" x="8" y="28" width="118" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SU9-4o-HmC">
+                                        <rect key="frame" x="257" y="28" width="110" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -308,9 +326,12 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="musicProgressBar" destination="eF8-uG-6Fk" id="OOl-X3-yLI"/>
                         <outlet property="nowPlayingLabel" destination="wWw-eM-r91" id="fjP-w8-IOt"/>
                         <outlet property="playTableView" destination="5W0-EU-sdw" id="WU3-QL-Myo"/>
                         <outlet property="searchFooter" destination="ssc-qM-ovi" id="4Ix-VM-0h5"/>
+                        <outlet property="timeElapsed" destination="iXO-P6-Tdw" id="vKq-AW-Rrn"/>
+                        <outlet property="timeRemaining" destination="SU9-4o-HmC" id="jjs-c7-dS6"/>
                         <outlet property="timeSegment" destination="b6U-DS-UkN" id="hbP-vj-wfa"/>
                         <outlet property="timerLabel" destination="kKb-3V-QSB" id="kTf-Lb-PeV"/>
                         <outlet property="toolBar" destination="Bnd-2O-qEI" id="TIG-yt-Ycp"/>

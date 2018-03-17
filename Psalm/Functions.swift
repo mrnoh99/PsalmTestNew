@@ -2,6 +2,8 @@
 
 import Foundation
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 extension SearchViewController {
   
@@ -55,15 +57,19 @@ extension PlayViewController {
   @objc func updateTimer() {
      playingTime -= 1
     
-    self.timerLabel.text = "Timer"+"\n"+timeString(time: TimeInterval(playingTime)) //This will update the label.
+    self.timerLabel.text = "Timer"+"\n"+timeString(time: TimeInterval(playingTime), select: 1 ) //This will update the label.
   }
   
-  func timeString(time:TimeInterval) -> String {
+  func timeString(time:TimeInterval,select: Int) -> String {
     let hour    = Int(time) / 3600
     let minutes = hour * 60 + Int(time) / 60 % 60 
     let seconds = Int(time) % 60
+    if select == 1{
     return String(format:"%03i:%02i",minutes, seconds)
-    
+    } else {
+       return String(format:"%02i:%02i",minutes, seconds)
+      
+    }
   }
 @objc func stopPlayer(){
   timer1.invalidate()
@@ -78,6 +84,41 @@ extension PlayViewController {
     self.timeSegment.selectedSegmentIndex =  UISegmentedControlNoSegment
   }
     
+  }
+  
+  func playtimeLabeling () {
+  
+  self.playTimeLabelTimer.invalidate()
+  self.playTimeLabelTimer = Timer.scheduledTimer(timeInterval:1.0, target: self, selector: #selector(timeStapm), userInfo: nil, repeats: true)
+  
+  }
+  
+  
+  @objc    func timeStapm () {
+    
+    if audioPlayer != nil && (audioPlayer?.isPlaying)! {
+      let elapsedTime = TimeInterval((audioPlayer!.currentTime))
+      let remainingTime = TimeInterval( (audioPlayer!.duration))
+  //  let durationTimeInsec = CMTimeGetSeconds( (audioPlayer!.duration)!)
+    
+    
+//    guard !(elapsedTimeInSecond.isNaN || remainingTimeInSec1.isNaN) else {return}
+//
+//    let   elapsedTimeStringMin =  Int(elapsedTimeInSecond / 60)
+//    let elapsedTimeStringSec =  Int(elapsedTimeInSecond) % 60
+//    let elapsedTimeString = "\(elapsedTimeStringMin)"+":"+"\(elapsedTimeStringSec)"
+//
+//    let   remainingTimeInSec =  remainingTimeInSec1  // -  elapsedTimeInSecond
+//    let remainingTimeStringMin =  Int(remainingTimeInSec) / 60
+//    let remainingTimeStringSec =  Int(remainingTimeInSec) % 60
+//    let remainingTimeString = "\(remainingTimeStringMin)"+":"+"\(remainingTimeStringSec)"
+    
+      self.timeElapsed.text = timeString(time: elapsedTime, select: 2)
+      self.timeRemaining.text = timeString(time: remainingTime, select: 2)
+    self.musicProgressBar.progress = Float(elapsedTime / remainingTime)
+    
+   
+    }
   }
   
   
