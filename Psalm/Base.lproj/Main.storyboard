@@ -115,12 +115,49 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMj-pa-Oeg">
-                                <rect key="frame" x="130" y="540" width="135" height="21"/>
+                                <rect key="frame" x="51" y="585" width="135" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view clipsSubviews="YES" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQT-1b-hAk" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                <rect key="frame" x="91" y="531" width="55" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
+                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
+                                        <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="endAngle">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="ibRingStyle">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                        <real key="value" value="100"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="7mV-2r-qaO"/>
@@ -137,6 +174,7 @@
                     <connections>
                         <outlet property="allDownloadLabel" destination="uMc-gk-bH7" id="WQt-Lz-FJ1"/>
                         <outlet property="donwloadedLabel" destination="WMj-pa-Oeg" id="iBc-v6-Twn"/>
+                        <outlet property="progressRing" destination="KQT-1b-hAk" id="9ts-dC-EvY"/>
                         <outlet property="tableView" destination="gxa-dF-wgj" id="ne5-Q4-qZK"/>
                     </connections>
                 </viewController>
@@ -156,6 +194,13 @@
                                 <rect key="frame" x="0.0" y="530" width="375" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="재생중:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWw-eM-r91">
+                                        <rect key="frame" x="37" y="14" width="300" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojI-Z7-Ok1">
                                         <rect key="frame" x="293" y="6" width="74" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -165,15 +210,8 @@
                                             <segue destination="fcn-vs-hcT" kind="show" id="fMd-tU-ezj"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="재생중:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWw-eM-r91">
-                                        <rect key="frame" x="8" y="11" width="300" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eF8-uG-6Fk">
-                                        <rect key="frame" x="8" y="37.5" width="359" height="1.5"/>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eF8-uG-6Fk" customClass="GradientProgressBar" customModule="GradientProgressBar">
+                                        <rect key="frame" x="8" y="36.5" width="359" height="2.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXO-P6-Tdw">
@@ -349,22 +387,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ylk-ru-9s3">
-                                <rect key="frame" x="123" y="91" width="99" height="199.5"/>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="ylk-ru-9s3">
+                                <rect key="frame" x="124" y="91" width="101" height="265.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="소개/정보" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-H3-trJ">
-                                        <rect key="frame" x="18" y="0.0" width="63" height="20.5"/>
+                                        <rect key="frame" x="18.5" y="0.0" width="64.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTO-hh-ha8">
-                                        <rect key="frame" x="1" y="20.5" width="97" height="33"/>
+                                        <rect key="frame" x="1" y="31.5" width="99" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                         <state key="normal" title="시편 읽기 소개"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uff-qs-uJ8">
-                                        <rect key="frame" x="27" y="53.5" width="45" height="33"/>
+                                        <rect key="frame" x="28" y="75.5" width="45" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                         <state key="normal" title="앱정보"/>
                                         <connections>
@@ -372,36 +410,34 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfj-fF-JQW">
-                                        <rect key="frame" x="15" y="86.5" width="69" height="30"/>
+                                        <rect key="frame" x="16" y="119.5" width="69" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                         <state key="normal" title="문의및 의견"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBt-PI-qcT">
-                                        <rect key="frame" x="0.0" y="116.5" width="99" height="33"/>
+                                        <rect key="frame" x="0.0" y="160.5" width="101" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                         <state key="normal" title="도움말(FAQ) "/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKT-VK-4AW">
-                                        <rect key="frame" x="20" y="149.5" width="59" height="33"/>
+                                        <rect key="frame" x="21" y="204.5" width="59" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                         <state key="normal" title="홈페이지"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱 버전 : 0.9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-qg-7w1">
-                                        <rect key="frame" x="14" y="182.5" width="71" height="17"/>
+                                        <rect key="frame" x="14.5" y="248.5" width="72.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="vTO-hh-ha8" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" constant="1" id="B5q-kS-AJn"/>
-                                    <constraint firstItem="aQC-qg-7w1" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" constant="14" id="KAh-ki-pl5"/>
-                                    <constraint firstItem="3KZ-H3-trJ" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" constant="18" id="WB4-x5-p4n"/>
-                                    <constraint firstItem="JBt-PI-qcT" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" id="eOd-3m-XzH"/>
+                                    <constraint firstItem="vTO-hh-ha8" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" constant="1" id="KtR-yh-Nm2"/>
+                                    <constraint firstItem="JBt-PI-qcT" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" id="y9u-fp-LJI"/>
                                 </constraints>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="이 앱은 가톨릭 성경을 듣기 쉽게 돕기 위하여 개발한 앱입니다. " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fVc-hO-DdB">
-                                <rect key="frame" x="57" y="325" width="246" height="236"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="이 앱은 가톨릭 성경을 듣기 쉽게 돕기 위하여 개발한 앱입니다. " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fVc-hO-DdB">
+                                <rect key="frame" x="57" y="403" width="246" height="158"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -409,13 +445,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ylk-ru-9s3" firstAttribute="top" secondItem="GZn-u7-op2" secondAttribute="top" constant="27" id="Bw2-yM-fKD"/>
-                            <constraint firstItem="fVc-hO-DdB" firstAttribute="leading" secondItem="GZn-u7-op2" secondAttribute="leading" constant="57" id="EsN-7b-I8I"/>
-                            <constraint firstItem="GZn-u7-op2" firstAttribute="trailing" secondItem="fVc-hO-DdB" secondAttribute="trailing" constant="72" id="QSl-yE-vAv"/>
-                            <constraint firstItem="fVc-hO-DdB" firstAttribute="top" secondItem="ylk-ru-9s3" secondAttribute="bottom" constant="34" id="chJ-xN-4a8"/>
-                            <constraint firstItem="GZn-u7-op2" firstAttribute="trailing" secondItem="ylk-ru-9s3" secondAttribute="trailing" constant="153" id="kFl-nI-YzD"/>
-                            <constraint firstItem="ylk-ru-9s3" firstAttribute="leading" secondItem="GZn-u7-op2" secondAttribute="leading" constant="123" id="mET-eC-mtT"/>
-                            <constraint firstItem="GZn-u7-op2" firstAttribute="bottom" secondItem="fVc-hO-DdB" secondAttribute="bottom" constant="13" id="y84-iF-6t7"/>
+                            <constraint firstItem="GZn-u7-op2" firstAttribute="bottom" secondItem="fVc-hO-DdB" secondAttribute="bottom" constant="13" id="6qg-HO-m2t"/>
+                            <constraint firstItem="ylk-ru-9s3" firstAttribute="top" secondItem="GZn-u7-op2" secondAttribute="top" constant="27" id="FZb-JW-oaU"/>
+                            <constraint firstItem="GZn-u7-op2" firstAttribute="trailing" secondItem="ylk-ru-9s3" secondAttribute="trailing" constant="150" id="RY5-kr-R2k"/>
+                            <constraint firstItem="fVc-hO-DdB" firstAttribute="leading" secondItem="GZn-u7-op2" secondAttribute="leading" constant="57" id="Rht-uN-h9L"/>
+                            <constraint firstItem="fVc-hO-DdB" firstAttribute="top" secondItem="ylk-ru-9s3" secondAttribute="bottom" constant="46" id="aoc-Ik-Qe9"/>
+                            <constraint firstItem="ylk-ru-9s3" firstAttribute="leading" secondItem="GZn-u7-op2" secondAttribute="leading" constant="124" id="fP3-Ox-dfT"/>
+                            <constraint firstItem="GZn-u7-op2" firstAttribute="trailing" secondItem="fVc-hO-DdB" secondAttribute="trailing" constant="72" id="fdf-in-5Bm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GZn-u7-op2"/>
                     </view>

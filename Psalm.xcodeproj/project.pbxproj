@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14081AEF372B39EE563D9DE9 /* Pods_Psalm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3836A75B7E38AAD96C83BE /* Pods_Psalm.framework */; };
 		18C0C62A1DF4858D00393D33 /* StoryboardSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0C6291DF4858D00393D33 /* StoryboardSupport.swift */; };
 		18C0C62C1DF485CA00393D33 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0C62B1DF485CA00393D33 /* Download.swift */; };
 		4051C2DE1E078EE00031FE46 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4051C2DD1E078EE00031FE46 /* Functions.swift */; };
@@ -36,6 +37,8 @@
 		4051C2DF1E0794EB0031FE46 /* SearchVC+URLSessionDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchVC+URLSessionDelegates.swift"; sourceTree = "<group>"; };
 		407FC0EE1EA423E100CE83C3 /* QueryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryService.swift; sourceTree = "<group>"; };
 		407FC0F01EA423F200CE83C3 /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
+		570C76E60A7676782305FB3A /* Pods-Psalm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psalm.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psalm/Pods-Psalm.release.xcconfig"; sourceTree = "<group>"; };
+		7848C479659A74C684C0B7F8 /* Pods-Psalm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psalm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psalm/Pods-Psalm.debug.xcconfig"; sourceTree = "<group>"; };
 		7CBF1DFB204BE9B500DD9297 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		7CCEB0532058A58400102193 /* SearchFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
 		7CCEB0572058A5AF00102193 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 		7CF1CA66204F685300B33901 /* PlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCell.swift; sourceTree = "<group>"; };
 		7CF1CA68204F687800B33901 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		7CF1CA6D204F74C200B33901 /* Play.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Play.swift; sourceTree = "<group>"; };
+		BA3836A75B7E38AAD96C83BE /* Pods_Psalm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Psalm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF8FC11B53FD2100EFC4B6 /* Psalm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Psalm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF8FC51B53FD2100EFC4B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF8FC61B53FD2100EFC4B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,12 +63,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14081AEF372B39EE563D9DE9 /* Pods_Psalm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3939AB5E12986FE9296E1225 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA3836A75B7E38AAD96C83BE /* Pods_Psalm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4051C2D41E065CCE0031FE46 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +99,15 @@
 				7CCEB061205A836400102193 /* ReadChapterViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		D109475DBA9BD5E9B724B244 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7848C479659A74C684C0B7F8 /* Pods-Psalm.debug.xcconfig */,
+				570C76E60A7676782305FB3A /* Pods-Psalm.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		D92117481B596DFE008DAD44 /* VIew */ = {
@@ -112,6 +134,8 @@
 			children = (
 				D9EF8FC31B53FD2100EFC4B6 /* Psalm */,
 				D9EF8FC21B53FD2100EFC4B6 /* Products */,
+				D109475DBA9BD5E9B724B244 /* Pods */,
+				3939AB5E12986FE9296E1225 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -158,9 +182,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D9EF8FE21B53FD2100EFC4B6 /* Build configuration list for PBXNativeTarget "Psalm" */;
 			buildPhases = (
+				7D9EA24A99997036D2030C76 /* [CP] Check Pods Manifest.lock */,
 				D9EF8FBD1B53FD2100EFC4B6 /* Sources */,
 				D9EF8FBE1B53FD2100EFC4B6 /* Frameworks */,
 				D9EF8FBF1B53FD2100EFC4B6 /* Resources */,
+				ADCB2243905ACD0E3C1DE732 /* [CP] Embed Pods Frameworks */,
+				97FFB6E75B83A45A4E8A3920 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -224,6 +251,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7D9EA24A99997036D2030C76 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Psalm-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97FFB6E75B83A45A4E8A3920 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psalm/Pods-Psalm-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ADCB2243905ACD0E3C1DE732 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Psalm/Pods-Psalm-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTProgressBar/GTProgressBar.framework",
+				"${BUILT_PRODUCTS_DIR}/GradientProgressBar/GradientProgressBar.framework",
+				"${BUILT_PRODUCTS_DIR}/LinearProgressBar/LinearProgressBar.framework",
+				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTProgressBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GradientProgressBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinearProgressBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psalm/Pods-Psalm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D9EF8FBD1B53FD2100EFC4B6 /* Sources */ = {
@@ -373,6 +460,7 @@
 		};
 		D9EF8FE31B53FD2100EFC4B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7848C479659A74C684C0B7F8 /* Pods-Psalm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -390,6 +478,7 @@
 		};
 		D9EF8FE41B53FD2100EFC4B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 570C76E60A7676782305FB3A /* Pods-Psalm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

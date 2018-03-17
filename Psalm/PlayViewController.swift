@@ -10,7 +10,7 @@ import UIKit
 import AVKit
 import AVFoundation
 import CoreGraphics
-
+import GTProgressBar
 
 class PlayViewController: UIViewController, UINavigationBarDelegate, UITableViewDataSource, UITableViewDelegate {
   var timer1 = Timer()
@@ -25,6 +25,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     
     @IBOutlet weak var musicProgressBar: UIProgressView!
     
+    @IBOutlet weak var musicProgressB: GTProgressBar!
     
   @IBOutlet weak var timeSegment: UISegmentedControl!
   
@@ -114,6 +115,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
        timerLabel.text = infiniteSign
       searchController.searchResultsUpdater = self
       searchController.obscuresBackgroundDuringPresentation = false

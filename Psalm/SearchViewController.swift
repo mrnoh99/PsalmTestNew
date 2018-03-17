@@ -4,11 +4,12 @@
 import UIKit
 import AVKit
 import AVFoundation
-
+import UICircularProgressRing
 
 class SearchViewController: UIViewController, UINavigationBarDelegate {
   
-  
+    @IBOutlet weak var progressRing: UICircularProgressRingView!
+    
   @IBOutlet weak var tableView: UITableView!
   
   //  lazy var tapRecognizer: UITapGestureRecognizer = {
@@ -24,6 +25,8 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   var noOfDownloadedTract = 0 {
     didSet {
       donwloadedLabel.text = "\(noOfDownloadedTract)"+"/150"
+      progressRing.setProgress(value: CGFloat(noOfDownloadedTract / 150 ), animationDuration: 1)
+      
       if noOfDownloadedTract == 0 {
         allDownloadLabel.setTitle("전체설치시작", for: .normal)
         allDownloadLabel.isEnabled = true
@@ -127,7 +130,13 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+//    if int(availableDiskSpace())! < Int64(500) {
+//      connectionAlert(title: "설치공간부족" , message: "설치공간이 500 메가바이트 필요합니다. 공간 확보후 다시 시작하여 주십시오")
+//    }
     
+     let space = availableDiskSpace()
+    
+    print (Int(truncatingIfNeeded: space!))
     searchResults = queryService.getSearchResults()
     
     downloadService.downloadsSession = downloadsSession
@@ -141,19 +150,9 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
     tableView.tableFooterView = UIView()
     tableView.reloadData()
     tableView.setContentOffset(CGPoint.zero, animated: false)
-    
-  }
+    }
   
-  
-//  func playDownload(_ track: Track) {
-//    
-//    let url = localFilePath(for: track.previewURL)
-//    try! audioPlayer = AVAudioPlayer(contentsOf: url)
-//    audioPlayer.prepareToPlay()
-//    audioPlayer.play()
-//  }
-  
-  
+ 
 }
 // MARK: - UITableView
 

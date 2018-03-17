@@ -14,7 +14,34 @@ extension SearchViewController {
     self.present(alert, animated: true, completion: nil)
     
   }
+  
+  func availableDiskSpace()-> Int64?  {
+    
+    let fileURL:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
+    
+    do {
+      let values = try fileURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
+      if let capacity = values.volumeAvailableCapacityForImportantUsage {
+        print("Available capacity for important usage: \(capacity / 1048567 ) Mega")
+        return capacity / 1048567 //1073741824 //1048567
+      } else {
+        
+        print("Capacity is unavailable")
+        return nil
+      }
+    } catch {
+      print("Error retrieving capacity: \(error.localizedDescription)")
+      return nil
+    }
+    
+  }
+  
+
+  
+  
+  
 }
+  
 
 extension PlayViewController {
   
@@ -116,8 +143,7 @@ extension PlayViewController {
       self.timeElapsed.text = timeString(time: elapsedTime, select: 2)
       self.timeRemaining.text = timeString(time: remainingTime, select: 2)
     self.musicProgressBar.progress = Float(elapsedTime / remainingTime)
-    
-   
+    self.musicProgressB.progress = CGFloat(elapsedTime / remainingTime)
     }
   }
   
