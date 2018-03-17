@@ -143,7 +143,7 @@ extension PlayViewController {
       self.timeElapsed.text = timeString(time: elapsedTime, select: 2)
       self.timeRemaining.text = timeString(time: remainingTime, select: 2)
     self.musicProgressBar.progress = Float(elapsedTime / remainingTime)
-    self.musicProgressB.progress = CGFloat(elapsedTime / remainingTime)
+    
     }
   }
   

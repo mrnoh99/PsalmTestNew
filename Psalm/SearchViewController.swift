@@ -4,12 +4,13 @@
 import UIKit
 import AVKit
 import AVFoundation
-import UICircularProgressRing
+import KYCircularProgress
 
 class SearchViewController: UIViewController, UINavigationBarDelegate {
   
-    @IBOutlet weak var progressRing: UICircularProgressRingView!
-    
+  
+
+  
   @IBOutlet weak var tableView: UITableView!
   
   //  lazy var tapRecognizer: UITapGestureRecognizer = {
@@ -25,7 +26,7 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   var noOfDownloadedTract = 0 {
     didSet {
       donwloadedLabel.text = "\(noOfDownloadedTract)"+"/150"
-      progressRing.setProgress(value: CGFloat(noOfDownloadedTract / 150 ), animationDuration: 1)
+      
       
       if noOfDownloadedTract == 0 {
         allDownloadLabel.setTitle("전체설치시작", for: .normal)
@@ -130,6 +131,7 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
 //    if int(availableDiskSpace())! < Int64(500) {
 //      connectionAlert(title: "설치공간부족" , message: "설치공간이 500 메가바이트 필요합니다. 공간 확보후 다시 시작하여 주십시오")
 //    }
@@ -154,6 +156,9 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   
  
 }
+
+
+
 // MARK: - UITableView
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
