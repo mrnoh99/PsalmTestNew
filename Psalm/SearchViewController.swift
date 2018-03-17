@@ -4,12 +4,11 @@
 import UIKit
 import AVKit
 import AVFoundation
-import KYCircularProgress
+
 
 class SearchViewController: UIViewController, UINavigationBarDelegate {
-  
-  
-
+  // create KYCircularProgress with gauge guide
+ 
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -131,8 +130,11 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+   
     
-//    if int(availableDiskSpace())! < Int64(500) {
+    
+    
+    //    if int(availableDiskSpace())! < Int64(500) {
 //      connectionAlert(title: "설치공간부족" , message: "설치공간이 500 메가바이트 필요합니다. 공간 확보후 다시 시작하여 주십시오")
 //    }
     
