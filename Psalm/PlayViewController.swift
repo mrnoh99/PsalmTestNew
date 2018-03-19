@@ -27,15 +27,15 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     
   
   @IBOutlet weak var repeatButton: UIButton!
-    var repeatChapter = true
+    var repeatChapter = false
   
     @IBAction func repeatButtonPressed(_ sender: UIButton) {
       if sender.titleLabel?.text == "전체반복" {
         sender.setTitle("장반복", for: .normal)
-        repeatChapter = false
+        repeatChapter = true
       }else {
         sender.setTitle("전체반복", for: .normal)
-        repeatChapter = true      }
+        repeatChapter = false      }
       
     }
     
@@ -382,7 +382,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
 
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+   
     
     if flag == true && repeatChapter == true {
       playMusic(selectedIndex: selectedIndex)
@@ -390,8 +390,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       nowPlaying = (audioPlayer?.isPlaying)!
       
     }else {
-    
-    if noOfdownloaded  > 1 {
+     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+      if noOfdownloaded  > 1 {
     if selectedIndex == playResults.count - 1 {
       selectedIndex = -1
     }
