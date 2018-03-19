@@ -36,8 +36,28 @@ extension SearchViewController {
     
   }
   
+  func usedSpace()-> Int{
+    // get your directory url
+    let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    // check if the url is a directory
+    var  folderSize = 0
+    if (try? documentsDirectoryURL.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true {
+      folderSize = 0
+      (FileManager.default.enumerator(at: documentsDirectoryURL, includingPropertiesForKeys: nil)?.allObjects as? [URL])?.lazy.forEach {
+        folderSize += (try? $0.resourceValues(forKeys: [.totalFileAllocatedSizeKey]))?.totalFileAllocatedSize ?? 0
+      }
+      let  byteCountFormatter =  ByteCountFormatter()
+      byteCountFormatter.allowedUnits = .useBytes
+      byteCountFormatter.countStyle = .file
+      let sizeToDisplay = byteCountFormatter.string(for: folderSize) ?? ""
+     // print(sizeToDisplay)  // "X,XXX,XXX bytes"
+      
+      
+    }
+    return Int(folderSize / 1048567)   //1073741824 //1048567}
+    
+  }
 
-  
   
   
 }
@@ -89,10 +109,10 @@ extension PlayViewController {
   
   func timeString(time:TimeInterval,select: Int) -> String {
     let hour    = Int(time) / 3600
-    let minutes = hour * 60 + Int(time) / 60 % 60 
+    let minutes = Int(time) / 60 % 60
     let seconds = Int(time) % 60
     if select == 1{
-    return String(format:"%03i:%02i",minutes, seconds)
+      return String(format:"%01i:%02i:%02i",hour,minutes, seconds)
     } else {
        return String(format:"%02i:%02i",minutes, seconds)
       
@@ -148,11 +168,8 @@ extension PlayViewController {
   }
   
   
+  
 }
-
-
-
-
 
 
 

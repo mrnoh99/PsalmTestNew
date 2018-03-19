@@ -18,14 +18,26 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   var playTimeLabelTimer = Timer()
   var playingTime: Int = 0
   let infiniteSign = "\u{221E}"
-    
+  
     @IBOutlet weak var timeElapsed: UILabel!
     
     @IBOutlet weak var timeRemaining: UILabel!
     
     @IBOutlet weak var musicProgressBar: UIProgressView!
     
-   
+  
+  @IBOutlet weak var repeatButton: UIButton!
+    var repeatChapter = true
+  
+    @IBAction func repeatButtonPressed(_ sender: UIButton) {
+      if sender.titleLabel?.text == "전체반복" {
+        sender.setTitle("장반복", for: .normal)
+        repeatChapter = false
+      }else {
+        sender.setTitle("전체반복", for: .normal)
+        repeatChapter = true      }
+      
+    }
     
   @IBOutlet weak var timeSegment: UISegmentedControl!
   
@@ -117,6 +129,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         super.viewDidLoad()
       
        timerLabel.text = infiniteSign
+      self.view.bringSubview(toFront: timerLabel)
       searchController.searchResultsUpdater = self
       searchController.obscuresBackgroundDuringPresentation = false
       searchController.searchBar.placeholder = "찾으시는 단어를 입력하세요"
@@ -140,6 +153,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       pauseButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action: #selector(pauseButtonTapped(sender:)))
       playButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(playButtonTapped(sender: )))
       arrayOfButtons = self.toolBar.items!
+      self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
       
       playResults = queryService.getSearchResults()
       searchViewController.checkDownloaded(results: playResults)
@@ -182,12 +196,14 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
     
   @IBAction func ffButtonPressed(_ sender: UIBarButtonItem) {
-    if !isFiltering(){
+    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+    print (noOfdownloaded)
+    if !isFiltering() && noOfdownloaded  > 1 {
       
        if selectedIndex == playResults.count - 1 {
         selectedIndex = -1
       }
-      if selectedIndex < playResults.count - 1{
+      if selectedIndex < playResults.count - 1   {
         //Increment current index
         repeat {selectedIndex += 1
           if selectedIndex == playResults.count {
@@ -196,7 +212,9 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
         playMusic(selectedIndex: selectedIndex)
         
-        nowPlaying = (audioPlayer?.isPlaying)!    }
+        nowPlaying = (audioPlayer?.isPlaying)!
+        
+      }
   }
      reloadTable(toMiddle: true)
   }
@@ -205,34 +223,33 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
     
   @IBAction func rewindButtonPressed(_ sender: UIBarButtonItem) {
-    if  !isFiltering(){
-    if selectedIndex == 0 || selectedIndex == -1 {
-      selectedIndex = playResults.count 
-      
-    }
+    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
-    if selectedIndex > 0 {
+    if  !isFiltering() && noOfdownloaded  > 1  {
+    if selectedIndex == -1 {
+      selectedIndex = playResults.count - 1
+      }
+    
+    if  audioPlayer != nil{
       //
       repeat {selectedIndex -= 1
-        if selectedIndex == 0{
+        if selectedIndex == -1{
           selectedIndex = playResults.count - 1}
       } while self.playResults[selectedIndex].downloaded == false
-    
-      playMusic(selectedIndex: selectedIndex)
       
-  }
+      playMusic(selectedIndex: selectedIndex)
+    }
     }
     reloadTable(toMiddle: true)
-    
   }
   
     
     
     
   @objc  func playButtonTapped(sender: Any) {
- 
-  
-    if audioPlayer != nil {
+ let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+    
+    if audioPlayer != nil && noOfdownloaded  != 0 {
     audioPlayer?.play()
       playtimeLabeling()
     nowPlaying = (audioPlayer?.isPlaying)!
@@ -249,8 +266,10 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   }
   
   @objc  func pauseButtonTapped(sender: Any) {
- 
-    if audioPlayer != nil {
+ let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+    
+    
+    if audioPlayer != nil && noOfdownloaded  != 0 {
       playTimeLabelTimer.invalidate()
       audioPlayer?.pause()
     nowPlaying = (audioPlayer?.isPlaying)!
@@ -363,10 +382,21 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
 
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-   
+    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+    
+    if flag == true && repeatChapter == true {
+      playMusic(selectedIndex: selectedIndex)
+      
+      nowPlaying = (audioPlayer?.isPlaying)!
+      
+    }else {
+    
+    if noOfdownloaded  > 1 {
     if selectedIndex == playResults.count - 1 {
       selectedIndex = -1
     }
+      
+        
     if flag == true && selectedIndex < playResults.count - 1{
       //Increment current index
       repeat {selectedIndex += 1
@@ -376,11 +406,15 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       
       playMusic(selectedIndex: selectedIndex)
       
-      nowPlaying = (audioPlayer?.isPlaying)!    }
-    
-     reloadTable(toMiddle: true)
-  }
+      nowPlaying = (audioPlayer?.isPlaying)!
+      
+    }
+        
+      }
+    }
+    reloadTable(toMiddle: true)
   
+}
   func playMusic(selectedIndex:Int){
     
     for i in 0...playResults.count - 1 {

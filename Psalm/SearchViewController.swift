@@ -1,16 +1,14 @@
 
-
-
 import UIKit
 import AVKit
 import AVFoundation
-
+import UICircularProgressRing
 
 class SearchViewController: UIViewController, UINavigationBarDelegate {
   // create KYCircularProgress with gauge guide
- 
   
-  @IBOutlet weak var tableView: UITableView!
+   @IBOutlet weak var circularRing: UICircularProgressRingView!
+    @IBOutlet weak var tableView: UITableView!
   
   //  lazy var tapRecognizer: UITapGestureRecognizer = {
   //    var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
@@ -22,11 +20,12 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   let queryService = QueryService()
   let downloadService = DownloadService()
   var isDownloadingInMain = false
+  var progressOfRing = 0
   var noOfDownloadedTract = 0 {
     didSet {
       donwloadedLabel.text = "\(noOfDownloadedTract)"+"/150"
-      
-      
+      circularRing.value = CGFloat(Double(noOfDownloadedTract) / 1.5)
+     
       if noOfDownloadedTract == 0 {
         allDownloadLabel.setTitle("전체설치시작", for: .normal)
         allDownloadLabel.isEnabled = true
@@ -65,13 +64,8 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
     case "전체설치시작"? :
       
       let reachability = Reachability()!
-    
-      
       if reachability.connection == .wifi {
-        
-        
-        
-        isDownloadingInMain = !isDownloadingInMain
+      isDownloadingInMain = !isDownloadingInMain
         allDownloadLabel.setTitle("설치중단", for: .normal)
         
         for i in 0...queryService.numberOfChapters - 1{
@@ -90,11 +84,8 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
       
       let reachability = Reachability()!
      
-      
       if reachability.connection == .wifi {
-        
-        
-        
+      
         isDownloadingInMain = !isDownloadingInMain
         allDownloadLabel.setTitle("설치중단", for: .normal)
         
@@ -122,25 +113,24 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
     default:
       
       print("default")
-      
-      
-      
     }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-   
-    
-    
-    
-    //    if int(availableDiskSpace())! < Int64(500) {
-//      connectionAlert(title: "설치공간부족" , message: "설치공간이 500 메가바이트 필요합니다. 공간 확보후 다시 시작하여 주십시오")
-//    }
     
      let space = availableDiskSpace()
+      let spaceInt = Int(truncatingIfNeeded: space!)
     
     print (Int(truncatingIfNeeded: space!))
+    print (spaceInt - usedSpace())
+   
+    
+       if ( 500 - usedSpace() )  > spaceInt {
+       connectionAlert(title: "설치공간부족" , message: "설치공간이 500 메가바이트 필요합니다. 공간 확보후 다시 시작하여 주십시오")
+      }
+    
+    
     searchResults = queryService.getSearchResults()
     
     downloadService.downloadsSession = downloadsSession
