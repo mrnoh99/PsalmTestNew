@@ -22,7 +22,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TrackCell" rowHeight="62" id="CN0-hZ-xaQ" customClass="TrackCell" customModule="Psalm" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TrackCell" rowHeight="62" id="CN0-hZ-xaQ" customClass="TrackCell" customModule="Psalm" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="282" height="62"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CN0-hZ-xaQ" id="kmr-oh-ELD">
@@ -234,7 +234,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playCell" rowHeight="72" id="RZX-S3-182" customClass="PlayCell" customModule="Psalm" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playCell" rowHeight="72" id="RZX-S3-182" customClass="PlayCell" customModule="Psalm" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="375" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RZX-S3-182" id="GsN-en-GvV">
@@ -294,7 +294,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZHT-go-y9L" userLabel="TimerToolbar">
@@ -403,12 +403,9 @@
                                         <state key="normal" title="시편 읽기 소개"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uff-qs-uJ8">
-                                        <rect key="frame" x="169" y="109.5" width="37" height="29"/>
+                                        <rect key="frame" x="163" y="109.5" width="49" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
-                                        <state key="normal" title="앱정보"/>
-                                        <connections>
-                                            <segue destination="cya-JH-eMX" kind="show" id="nzl-7J-eXg"/>
-                                        </connections>
+                                        <state key="normal" title="홈페이지"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfj-fF-JQW">
                                         <rect key="frame" x="153" y="168.5" width="69" height="30"/>
@@ -424,9 +421,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKT-VK-4AW">
-                                        <rect key="frame" x="158" y="288.5" width="59" height="33"/>
+                                        <rect key="frame" x="165" y="288.5" width="45" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
-                                        <state key="normal" title="홈페이지"/>
+                                        <state key="normal" title="앱정보"/>
+                                        <connections>
+                                            <segue destination="cya-JH-eMX" kind="show" id="3d0-Im-Dwv"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱 버전 : 0.9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-qg-7w1">
                                         <rect key="frame" x="151.5" y="351.5" width="72.5" height="17"/>
@@ -463,7 +463,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Frs-MX-S5l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6252" y="-333.28335832083962"/>
+            <point key="canvasLocation" x="5882" y="-435"/>
         </scene>
         <!--앱정보-->
         <scene sceneID="Cab-XV-qRw">
@@ -473,13 +473,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
-                                <rect key="frame" x="0.0" y="74" width="368" height="500"/>
+                            <textView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
+                                <rect key="frame" x="16" y="74" width="343" height="581"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <mutableString key="text">+ 찬미예수님 
+
+이 앱은 서울 대교구 전산 정보실에서 ‘누구에게나 언제 어디서나 말씀을 접할 수 있도록 돕기위해 시작한 작업’으로 만들어 굿뉴스를 통해 2010년부터 제공하고 있는 가톨릭 소리 성경을 쉽게 들을 수 있도록 개발한 앱입니다.  
+서울대교구에서 굿뉴스를 통하여 제공되는 서비스를 아래의 링크를 통해 이용할 수 있습니다.
+http://m.catholic.or.kr
+
+소리성경이 기본적으로 시각장애인을 위하여 성동장애인 종합복지관 자원봉사자들이 녹음하여 개발된 것이지만 시각장애인뿐 아니라 비 장애인에게도 주님의 말씀을 듣기에 너무나도 유용한 자료여서 앱으로 개발하게 되었습니다.  
+이 앱은 말씀을 들으면서 눈으로 볼 수 있도록 만들었습니다.  성경에 대한 저작권은 주교회의에 있으며 현재 저작권자에게 사용승인요청을 한 상태입니다.
+개신교계애는 성경듣기 앱이 훌륭한 것이 많이 있으나 사용하는 번역본이 다르기 때문에 가톨릭 신자에게는 도움이 되지 못합니다. 
+이 앱을 만든 처음 동기는 나의 사랑하는 아내가 성경을 쉽게 듣는 것을 도와 주기 위해서 였습니다. 그러던 중 소속 본당인 안양 평촌성당의 2018년 사업인 전신자 성경필사 운동에 대한 개인적 봉헌의 의미로 개발하였습니다. 
+많은 이용부탁 드리고 개선점을 알려주시기 바랍니다.  
+
+
+  참조한 인터넷 사이트 
+1.	가톨릭 굿뉴스 소리광장 성경 
+http://maria.catholic.or.kr/audio/playlist/playlist.asp?menu=bible
+2.	성동장애인 종합복지관 
+http://omni.or.kr/www/
+3.	천주교 주교회의 온라인 성경 
+http://bible.cbck.or.kr/
+
+Acknowledgment 
+이 앱 개발에 영감을 준 개발자 그룹 
+1.	 설치 및   검색에 대한   tableview   구성등  
+https://www.raywenderlich.com
+2.	사용한 Cocoapod 
+1)	 UICircularProgressRing by Ljis Padron 
+https://luispadron.com
+https://github.com/luispadron/UICircularProgressRing
+2)	GradientProgressBar by fxm90
+https://github.com/fxm90/GradientProgressBar
+
+</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -488,7 +521,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yVC-Tl-B5f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6976.8000000000002" y="-328.78560719640183"/>
+            <point key="canvasLocation" x="6973.6000000000004" y="-330.58470764617692"/>
         </scene>
         <!--도움말(FAQ)-->
         <scene sceneID="4fN-jO-Und">
@@ -498,8 +531,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vjd-xN-5KK">
-                                <rect key="frame" x="25" y="64" width="334" height="517.5"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vjd-xN-5KK">
+                                <rect key="frame" x="25" y="64" width="334" height="585"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <mutableString key="text">설치에 대하여 
@@ -530,7 +563,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aXb-nf-Dia" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6936.8000000000002" y="50.824587706146929"/>
+            <point key="canvasLocation" x="7028" y="381.85907046476763"/>
         </scene>
         <!--Item-->
         <scene sceneID="zeh-Uh-jbk">
