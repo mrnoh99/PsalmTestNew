@@ -419,6 +419,9 @@
                                         <rect key="frame" x="0.0" y="228.5" width="375" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                         <state key="normal" title="도움말(FAQ) "/>
+                                        <connections>
+                                            <segue destination="h1r-ak-gfj" kind="show" id="gQ4-TR-sJm"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKT-VK-4AW">
                                         <rect key="frame" x="158" y="288.5" width="59" height="33"/>
@@ -462,19 +465,19 @@
             </objects>
             <point key="canvasLocation" x="6252" y="-333.28335832083962"/>
         </scene>
-        <!--View Controller-->
+        <!--앱정보-->
         <scene sceneID="Cab-XV-qRw">
             <objects>
-                <viewController id="cya-JH-eMX" sceneMemberID="viewController">
+                <viewController title="앱정보" id="cya-JH-eMX" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cyf-Eb-fL2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
-                                <rect key="frame" x="0.0" y="74" width="368" height="169"/>
+                                <rect key="frame" x="0.0" y="74" width="368" height="500"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -486,6 +489,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yVC-Tl-B5f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6976.8000000000002" y="-328.78560719640183"/>
+        </scene>
+        <!--도움말(FAQ)-->
+        <scene sceneID="4fN-jO-Und">
+            <objects>
+                <viewController title="도움말(FAQ)" id="h1r-ak-gfj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g87-7C-hO7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vjd-xN-5KK">
+                                <rect key="frame" x="25" y="64" width="334" height="517.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <mutableString key="text">설치에 대하여 
+
+1.	전체 설치에 약 500 메가파이트 정도의 설치공간이 필요합니다. 설치중 설치공간이 필요하다는 경고가 나오면 설치공간을 확보한후 앱을 다시 설치하셔야 합니다.
+2.	WIFI가 연결되고 접속이 원할한 상태에서만 설치가 가능합니다. WIFI 연결이 되어 있더라고 원할하지 않으면 경고가 나오고 설치가 진행되지 않습니다. 와이파이에 원할히 접속된 상태를 유지하여 주십시오. 
+3.	‘설치화면’은 설치가 완료될 때 까지만 ‘시작화면’이 됩니다.  전체설치가 완료되면 100% 혹은 150/150 이 표시되며 이후 앱을 열 때 부터는 설치화면 ‘시편듣기’ 화면이 시작 화면이 됩니다. 
+4.	처음 설치할 때 일부 설치가 되지 않으면 ‘전체 재설치’를 눌러 다시 설치하십시오
+5.	설치를 다시 하고자 하시면  앱을 지운 후 다시 앱을 설치하셔야  설치화면이 시작됩니다.
+
+시편듣기에 대하여 
+1. 원하는 시편의 장을 선택하시면 낭독이 시작됩니다. ‘앞으로’ 및 ‘뒤로’ 버튼을 누르시면 이전장 혹은 이후 장으로 이동합니다. 
+2. 30분 한시간 두시간 타이머를 실시할수 있습니다. 기본상태는 계속 반복입니디. 잠자리에서 듣기에 좋은 기능입니다.
+3. ‘전체반복’은 순차적으로 다음장으로 넘어가고 ‘장반복’은 같은 장을 반복합니다. 
+4. 찾기는 각장 첫귀절이나 장번호를 처 넣어서 원하는 장을 찾을수 있습니다. 
+
+
+
+
+</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qH3-p9-sSl"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aXb-nf-Dia" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6936.8000000000002" y="50.824587706146929"/>
         </scene>
         <!--Item-->
         <scene sceneID="zeh-Uh-jbk">
