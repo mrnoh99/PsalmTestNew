@@ -234,7 +234,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playCell" rowHeight="72" id="RZX-S3-182" customClass="PlayCell" customModule="Psalm" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playCell" rowHeight="72" id="RZX-S3-182" customClass="PlayCell" customModule="Psalm" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="375" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RZX-S3-182" id="GsN-en-GvV">
@@ -242,7 +242,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <progressView hidden="YES" opaque="NO" tag="40" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mVK-08-rBu">
-                                                    <rect key="frame" x="15" y="59" width="244" height="2"/>
+                                                    <rect key="frame" x="15" y="59" width="345" height="2"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="재생준비" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZl-x8-jhe">
@@ -253,7 +253,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Firstline" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3y-DR-CcX">
-                                                    <rect key="frame" x="25" y="34" width="283" height="17"/>
+                                                    <rect key="frame" x="25" y="34" width="335" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -474,7 +474,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
-                                <rect key="frame" x="16" y="74" width="343" height="581"/>
+                                <rect key="frame" x="16" y="200" width="343" height="455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <mutableString key="text">+ 찬미예수님 
@@ -499,6 +499,7 @@ http://omni.or.kr/www/
 http://bible.cbck.or.kr/
 
 Acknowledgment 
+이 앱에 사용된 에수님의 도상(Christ Pantocrator)은 아내인 김은경 데레사가 그린 이콘을 사용하였습니다.
 이 앱 개발에 영감을 준 개발자 그룹 
 1.	 설치 및   검색에 대한   tableview   구성등  
 https://www.raywenderlich.com
@@ -514,6 +515,10 @@ https://github.com/fxm90/GradientProgressBar
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ItunesArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="vHQ-Dv-RYv">
+                                <rect key="frame" x="16" y="64" width="110" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="R4w-I4-teL"/>
@@ -646,6 +651,9 @@ https://github.com/fxm90/GradientProgressBar
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="ItunesArtwork" width="512" height="512"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EVV-9B-JMf"/>
     </inferredMetricsTieBreakers>
