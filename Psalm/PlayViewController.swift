@@ -333,8 +333,11 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   // When user taps cell, play the local file, if it's downloaded
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+   
+    if noOfdownloaded != 0 {
     
-    if isFiltering() {
+       if isFiltering() {
       let   track = filteredTracks[indexPath.row]
       selectedIndex = track.index
      
@@ -365,9 +368,6 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
       }else {
          reloadTable(toMiddle: false)      }
-      
-      
-     
      
     } else {
       
@@ -375,6 +375,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       playResults[selectedIndex].isPlaying = true
       connectionAlert(title: "설치필요", message: "설치메뉴로 돌아가 재설치후 재생하십시오")
       
+    }
     }
   }
   
