@@ -4,15 +4,16 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--설치 -->
+        <!--설치-->
         <scene sceneID="jsS-L9-Ja3">
             <objects>
-                <viewController storyboardIdentifier="searchViewController" id="dGf-6A-1OJ" customClass="SearchViewController" customModule="Psalm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchViewController" title="설치" id="dGf-6A-1OJ" customClass="SearchViewController" customModule="Psalm" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="p0Q-UD-vKI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -22,7 +23,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TrackCell" rowHeight="62" id="CN0-hZ-xaQ" customClass="TrackCell" customModule="Psalm" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TrackCell" rowHeight="62" id="CN0-hZ-xaQ" customClass="TrackCell" customModule="Psalm" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="282" height="62"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CN0-hZ-xaQ" id="kmr-oh-ELD">
@@ -180,9 +181,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWe-rC-Tph" userLabel="LabelView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XWe-rC-Tph" userLabel="LabelView">
                                 <rect key="frame" x="0.0" y="530" width="375" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojI-Z7-Ok1">
                                         <rect key="frame" x="293" y="6" width="74" height="30"/>
@@ -220,10 +220,12 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="A5e-cK-5r0"/>
+                                </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5W0-EU-sdw">
-                                <rect key="frame" x="0.0" y="64" width="375" height="470"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5W0-EU-sdw">
+                                <rect key="frame" x="0.0" y="64" width="375" height="466"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="ssc-qM-ovi" customClass="SearchFooter" customModule="Psalm" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -289,21 +291,25 @@
                                     <outlet property="delegate" destination="5bP-CN-kTe" id="myM-Wn-Jbf"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKb-3V-QSB">
-                                <rect key="frame" x="0.0" y="574" width="72" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u{221E" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKb-3V-QSB">
+                                <rect key="frame" x="10" y="573" width="42" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="WBM-GV-yZW"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZHT-go-y9L" userLabel="TimerToolbar">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZHT-go-y9L" userLabel="TimerToolbar">
+                                <rect key="frame" x="15" y="623" width="360" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="y2K-fg-qbS"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem style="plain" id="cip-qA-dRR">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="b6U-DS-UkN">
-                                            <rect key="frame" x="16" y="7" width="343" height="30"/>
+                                            <rect key="frame" x="16" y="7" width="328" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="취소"/>
@@ -318,9 +324,11 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-2O-qEI">
-                                <rect key="frame" x="0.0" y="574" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bnd-2O-qEI">
+                                <rect key="frame" x="0.0" y="579" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Xeh-XP-ykq"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem id="bdJ-82-atb"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5j6-rJ-lC8"/>
@@ -352,6 +360,23 @@
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZHT-go-y9L" firstAttribute="top" secondItem="kKb-3V-QSB" secondAttribute="bottom" id="4eG-i9-MR9"/>
+                            <constraint firstItem="Bnd-2O-qEI" firstAttribute="top" secondItem="XWe-rC-Tph" secondAttribute="bottom" id="7wJ-2a-9W6"/>
+                            <constraint firstAttribute="trailing" secondItem="Bnd-2O-qEI" secondAttribute="trailing" id="Enw-Hn-S6g"/>
+                            <constraint firstItem="ZHT-go-y9L" firstAttribute="leading" secondItem="gJy-rd-dn2" secondAttribute="leading" constant="15" id="FJd-2S-gqd"/>
+                            <constraint firstItem="XWe-rC-Tph" firstAttribute="leading" secondItem="2kH-Jd-ZiU" secondAttribute="leading" id="HZX-8p-gYc"/>
+                            <constraint firstAttribute="bottom" secondItem="ZHT-go-y9L" secondAttribute="bottom" id="KDL-3c-krS"/>
+                            <constraint firstItem="ZHT-go-y9L" firstAttribute="top" secondItem="Bnd-2O-qEI" secondAttribute="bottom" id="YDG-al-LdT"/>
+                            <constraint firstItem="kKb-3V-QSB" firstAttribute="leading" secondItem="gJy-rd-dn2" secondAttribute="leading" constant="10" id="YUa-yb-MzY"/>
+                            <constraint firstItem="5W0-EU-sdw" firstAttribute="leading" secondItem="2kH-Jd-ZiU" secondAttribute="leading" id="b8A-VE-Waq"/>
+                            <constraint firstAttribute="trailing" secondItem="ZHT-go-y9L" secondAttribute="trailing" id="bsF-IK-uLe"/>
+                            <constraint firstItem="XWe-rC-Tph" firstAttribute="top" secondItem="5W0-EU-sdw" secondAttribute="bottom" id="ew8-Sx-tq6"/>
+                            <constraint firstItem="5W0-EU-sdw" firstAttribute="trailing" secondItem="2kH-Jd-ZiU" secondAttribute="trailing" id="gdc-VT-nR9"/>
+                            <constraint firstItem="5W0-EU-sdw" firstAttribute="top" secondItem="2kH-Jd-ZiU" secondAttribute="top" id="iFG-n5-Qhl"/>
+                            <constraint firstItem="Bnd-2O-qEI" firstAttribute="leading" secondItem="gJy-rd-dn2" secondAttribute="leading" id="qdC-AI-otS"/>
+                            <constraint firstItem="XWe-rC-Tph" firstAttribute="trailing" secondItem="2kH-Jd-ZiU" secondAttribute="trailing" id="rQr-24-fBy"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2kH-Jd-ZiU"/>
                     </view>
                     <toolbarItems/>
@@ -473,11 +498,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
-                                <rect key="frame" x="16" y="200" width="343" height="455"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ItunesArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="vHQ-Dv-RYv">
+                                <rect key="frame" x="133" y="79" width="110" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="D5F-HH-uM4"/>
+                                    <constraint firstAttribute="width" constant="110" id="tbQ-Kl-SBn"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="zHb-sY-oDl"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
+                                <rect key="frame" x="16" y="227" width="343" height="428"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">+ 찬미예수님 
+                                <string key="text">+ 찬미예수님 
 
 이 앱은 서울 대교구 전산 정보실에서 ‘누구에게나 언제 어디서나 말씀을 접할 수 있도록 돕기위해 시작한 작업’으로 만들어 굿뉴스를 통해 2010년부터 제공하고 있는 가톨릭 소리 성경을 쉽게 들을 수 있도록 개발한 앱입니다.  
 서울대교구에서 굿뉴스를 통하여 제공되는 서비스를 아래의 링크를 통해 이용할 수 있습니다.
@@ -510,17 +542,21 @@ https://github.com/luispadron/UICircularProgressRing
 2)	GradientProgressBar by fxm90
 https://github.com/fxm90/GradientProgressBar
 
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ItunesArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="vHQ-Dv-RYv">
-                                <rect key="frame" x="16" y="64" width="110" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZG5-l4-syU" firstAttribute="top" secondItem="vHQ-Dv-RYv" secondAttribute="bottom" constant="20" id="ONp-IW-Hhg"/>
+                            <constraint firstAttribute="bottom" secondItem="ZG5-l4-syU" secondAttribute="bottom" constant="12" id="YAG-8x-UlJ"/>
+                            <constraint firstItem="vHQ-Dv-RYv" firstAttribute="centerX" secondItem="Cyf-Eb-fL2" secondAttribute="centerX" id="g5m-Su-bSZ"/>
+                            <constraint firstItem="ZG5-l4-syU" firstAttribute="leading" secondItem="R4w-I4-teL" secondAttribute="leading" constant="16" id="i8X-J1-Vfy"/>
+                            <constraint firstItem="R4w-I4-teL" firstAttribute="trailing" secondItem="ZG5-l4-syU" secondAttribute="trailing" constant="16" id="lSJ-me-6xo"/>
+                            <constraint firstItem="vHQ-Dv-RYv" firstAttribute="top" secondItem="R4w-I4-teL" secondAttribute="top" constant="15" id="nVj-cZ-e0d"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="R4w-I4-teL"/>
                     </view>
                 </viewController>
@@ -540,7 +576,7 @@ https://github.com/fxm90/GradientProgressBar
                                 <rect key="frame" x="25" y="64" width="334" height="585"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">설치에 대하여 
+                                <string key="text">설치에 대하여 
 
 1.	전체 설치에 약 500 메가파이트 정도의 설치공간이 필요합니다. 설치중 설치공간이 필요하다는 경고가 나오면 설치공간을 확보한후 앱을 다시 설치하셔야 합니다.
 2.	WIFI가 연결되고 접속이 원할한 상태에서만 설치가 가능합니다. WIFI 연결이 되어 있더라고 원할하지 않으면 경고가 나오고 설치가 진행되지 않습니다. 와이파이에 원할히 접속된 상태를 유지하여 주십시오. 
@@ -557,7 +593,7 @@ https://github.com/fxm90/GradientProgressBar
 
 
 
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

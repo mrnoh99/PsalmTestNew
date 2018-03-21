@@ -49,7 +49,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       timer1.invalidate()
       
       timer2.invalidate()
-      timerLabel.text = infiniteSign
+      timerLabel.text = "Timer"+"\n"+infiniteSign
       
       print ("0 pressed")
     case 1:
@@ -128,7 +128,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
       
-       timerLabel.text = infiniteSign
+       timerLabel.text = "Timer"+"\n"+infiniteSign
       self.view.bringSubview(toFront: timerLabel)
       searchController.searchResultsUpdater = self
       searchController.obscuresBackgroundDuringPresentation = false
