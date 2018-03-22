@@ -19,30 +19,30 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   var playingTime: Int = 0
   let infiniteSign = "\u{221E}"
   
-    @IBOutlet weak var timeElapsed: UILabel!
-    
-    @IBOutlet weak var timeRemaining: UILabel!
-    
-    @IBOutlet weak var musicProgressBar: UIProgressView!
-    
+  @IBOutlet weak var timeElapsed: UILabel!
+  
+  @IBOutlet weak var timeRemaining: UILabel!
+  
+  @IBOutlet weak var musicProgressBar: UIProgressView!
+  
   
   @IBOutlet weak var repeatButton: UIButton!
-    var repeatChapter = false
+  var repeatChapter = false
   
-    @IBAction func repeatButtonPressed(_ sender: UIButton) {
-      if sender.titleLabel?.text == "전체반복" {
-        sender.setTitle("장반복", for: .normal)
-        repeatChapter = true
-      }else {
-        sender.setTitle("전체반복", for: .normal)
-        repeatChapter = false      }
-      
-    }
+  @IBAction func repeatButtonPressed(_ sender: UIButton) {
+    if sender.titleLabel?.text == "전체반복" {
+      sender.setTitle("장반복", for: .normal)
+      repeatChapter = true
+    }else {
+      sender.setTitle("전체반복", for: .normal)
+      repeatChapter = false      }
     
+  }
+  
   @IBOutlet weak var timeSegment: UISegmentedControl!
   
-    @IBAction func timerButtonPressed(_ sender: UISegmentedControl) {
-     
+  @IBAction func timerButtonPressed(_ sender: UISegmentedControl) {
+    
     switch  timeSegment.selectedSegmentIndex {
     case 0:
       
@@ -54,11 +54,11 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       print ("0 pressed")
     case 1:
       
-       runTimer(timeInterval: 1800)
+      runTimer(timeInterval: 1800)
       print ("1 selected")
       
     case 2:
-       runTimer(timeInterval: 1800 * 2 )
+      runTimer(timeInterval: 1800 * 2 )
       print ("2 selected ")
       
     case 3:
@@ -76,43 +76,43 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   @IBOutlet weak var timerLabel: UILabel!
   
   
-    @IBOutlet weak var playTableView: UITableView!
-    @IBOutlet weak var toolBar: UIToolbar!
+  @IBOutlet weak var playTableView: UITableView!
+  @IBOutlet weak var toolBar: UIToolbar!
   @IBOutlet var searchFooter: SearchFooter!
-    @IBAction func showChapterButton(_ sender: Any) {
-}
-    
-//  var detailViewController: DetailViewController? = nil
-
-   let searchController = UISearchController(searchResultsController: nil)
+  @IBAction func showChapterButton(_ sender: Any) {
+  }
   
-//
-//    lazy var tapRecognizer: UITapGestureRecognizer = {
-//    var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
-//    return recognizer
-//  }()
+  //  var detailViewController: DetailViewController? = nil
+  
+  let searchController = UISearchController(searchResultsController: nil)
+  
+  //
+  //    lazy var tapRecognizer: UITapGestureRecognizer = {
+  //    var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
+  //    return recognizer
+  //  }()
   
   @IBOutlet weak var nowPlayingLabel: UILabel!
-    
-//  var playingLabelText: String = "" {
-//    didSet {
-//     nowPlayingLabel.text = loadedTrack    // playResults[selectedIndex].firstLine
-//
-//
-//    }
-//  }
+  
+  //  var playingLabelText: String = "" {
+  //    didSet {
+  //     nowPlayingLabel.text = loadedTrack    // playResults[selectedIndex].firstLine
+  //
+  //
+  //    }
+  //  }
   
   
   
-   var pauseButton = UIBarButtonItem()
-    var playButton = UIBarButtonItem()
-    var arrayOfButtons = [AnyObject]()
+  var pauseButton = UIBarButtonItem()
+  var playButton = UIBarButtonItem()
+  var arrayOfButtons = [AnyObject]()
   
-    var playResults: [Track] = []
-     let queryService = QueryService()
-     var filteredTracks = [Track]()
- 
-
+  var playResults: [Track] = []
+  let queryService = QueryService()
+  var filteredTracks = [Track]()
+  
+  
   
   
   
@@ -124,83 +124,83 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   
   
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-       timerLabel.text = "Timer"+"\n"+infiniteSign
-      self.view.bringSubview(toFront: timerLabel)
-      searchController.searchResultsUpdater = self
-      searchController.obscuresBackgroundDuringPresentation = false
-      searchController.searchBar.placeholder = "찾으시는 단어를 입력하세요"
-      navigationItem.searchController = searchController
-      definesPresentationContext = true
-    //  searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
-      searchController.searchBar.delegate = self
-      playTableView.tableFooterView = searchFooter
-      
-      do {
-        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-     
-        try AVAudioSession.sharedInstance().setActive(true)
-       
-      }catch let error {
-        print(error.localizedDescription)
-      }
-    
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    timerLabel.text = "Timer"+"\n"+infiniteSign
+    self.view.bringSubview(toFront: timerLabel)
+    searchController.searchResultsUpdater = self
+    searchController.obscuresBackgroundDuringPresentation = false
+    searchController.searchBar.placeholder = "찾으시는 단어를 입력하세요"
+    navigationItem.searchController = searchController
+    definesPresentationContext = true
+    //  searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
+    searchController.searchBar.delegate = self
+    playTableView.tableFooterView = searchFooter
+    
+    do {
+      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
       
-      pauseButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action: #selector(pauseButtonTapped(sender:)))
-      playButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(playButtonTapped(sender: )))
-      arrayOfButtons = self.toolBar.items!
-      self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+      try AVAudioSession.sharedInstance().setActive(true)
       
-      playResults = queryService.getSearchResults()
-      searchViewController.checkDownloaded(results: playResults)
-      
-
-      
+    }catch let error {
+      print(error.localizedDescription)
+    }
+    
+    
+    
+    pauseButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action: #selector(pauseButtonTapped(sender:)))
+    playButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(playButtonTapped(sender: )))
+    arrayOfButtons = self.toolBar.items!
+    self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+    
+    playResults = queryService.getSearchResults()
+    searchViewController.checkDownloaded(results: playResults)
+    
+    
+    
   }
   
-      
+  
   override  func viewWillAppear(_ animated: Bool){
     super.viewWillAppear(true)
-   
-  // print (loadedrow[0].firstLine)
-  //  timerLabel.isHidden = true
+    
+    // print (loadedrow[0].firstLine)
+    //  timerLabel.isHidden = true
     arrayOfButtons.remove(at: 4)
     
     if nowPlaying  {
-     
-     
+      
+      
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
     } else {
       arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
-     
+      
     }
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-   
- reloadTable(toMiddle: true)
+    
+    reloadTable(toMiddle: true)
     
   }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
   
   
   @objc  func playerChangedChapter(note:NSNotification) {
-   
+    
     
   }
   
-    
+  
   @IBAction func ffButtonPressed(_ sender: UIBarButtonItem) {
     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     print (noOfdownloaded)
     if !isFiltering() && noOfdownloaded  > 1 {
       
-       if selectedIndex == playResults.count - 1 {
+      if selectedIndex == playResults.count - 1 {
         selectedIndex = -1
       }
       if selectedIndex < playResults.count - 1   {
@@ -215,84 +215,79 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         nowPlaying = (audioPlayer?.isPlaying)!
         
       }
-  }
-     reloadTable(toMiddle: true)
-  }
-    
-  
-  
-    
-  @IBAction func rewindButtonPressed(_ sender: UIBarButtonItem) {
-    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
-    
-    if  !isFiltering() && noOfdownloaded  > 1  {
-    if selectedIndex == -1 {
-      selectedIndex = playResults.count - 1
-      }
-    
-    if  audioPlayer != nil{
-      //
-      repeat {selectedIndex -= 1
-        if selectedIndex == -1{
-          selectedIndex = playResults.count - 1}
-      } while self.playResults[selectedIndex].downloaded == false
-      
-      playMusic(selectedIndex: selectedIndex)
-    }
     }
     reloadTable(toMiddle: true)
   }
   
+  
+  
+  
+  @IBAction func rewindButtonPressed(_ sender: UIBarButtonItem) {
+    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
-    
-    
+    if  !isFiltering() && noOfdownloaded  > 1  {
+      if selectedIndex == -1 {
+        selectedIndex = playResults.count - 1
+      }
+      
+      if  audioPlayer != nil{
+        //
+        repeat {selectedIndex -= 1
+          if selectedIndex == -1{
+            selectedIndex = playResults.count - 1}
+        } while self.playResults[selectedIndex].downloaded == false
+        
+        playMusic(selectedIndex: selectedIndex)
+      }
+    }
+    reloadTable(toMiddle: true)
+  }
+  
+  
+  
+  
   @objc  func playButtonTapped(sender: Any) {
- let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
     if audioPlayer != nil && noOfdownloaded  != 0 {
-    audioPlayer?.play()
+      audioPlayer?.play()
       playtimeLabeling()
-    nowPlaying = (audioPlayer?.isPlaying)!
-    arrayOfButtons.remove(at: 4)
-    arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
-    self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+      nowPlaying = (audioPlayer?.isPlaying)!
+      arrayOfButtons.remove(at: 4)
+      arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
+      self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
       
-  
+      
     } else {
-      selectedIndex = 0
+      //selectedIndex = 0
       playMusic(selectedIndex: selectedIndex)
     }
     reloadTable(toMiddle: true)
   }
   
   @objc  func pauseButtonTapped(sender: Any) {
- let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
-    
-    if audioPlayer != nil && noOfdownloaded  != 0 {
-      playTimeLabelTimer.invalidate()
-      audioPlayer?.pause()
+    playTimeLabelTimer.invalidate()
+    audioPlayer?.pause()
     nowPlaying = (audioPlayer?.isPlaying)!
     arrayOfButtons.remove(at: 4)
     arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-
-      
-    }
+    
     reloadTable(toMiddle: true)
     
   }
   
-
-  
- 
   
   
-//}
-//// MARK: - UITableView
-//
-//extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
-//
+  
+  
+  
+  //}
+  //// MARK: - UITableView
+  //
+  //extension PlayViewController: UITableViewDataSource, UITableViewDelegate {
+  //
   
   
   
@@ -305,14 +300,14 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     
     return playResults.count
   }
- 
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
- //  let cell: PlayCell = playTableView.dequeueReusableCell(for: indexPath)
-     let cell = playTableView.dequeueReusableCell(withIdentifier: "playCell") as! PlayCell
+    //  let cell: PlayCell = playTableView.dequeueReusableCell(for: indexPath)
+    let cell = playTableView.dequeueReusableCell(withIdentifier: "playCell") as! PlayCell
     // Delegate cell button tap events to this view controller
     cell.delegate = self
     let track: Track
-  
+    
     if isFiltering() {
       track = filteredTracks[indexPath.row]
     } else {
@@ -320,12 +315,12 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     }
     cell.configure(track: track)
     
-  
+    
     
     return cell
   }
   
-
+  
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 62.0
@@ -334,56 +329,59 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   // When user taps cell, play the local file, if it's downloaded
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
-   
+    
+    
     if noOfdownloaded != 0 {
-    
-       if isFiltering() {
-      let   track = filteredTracks[indexPath.row]
-      selectedIndex = track.index
-     
-   //   track = playResults[indexPath.row]
-       //  playTableView.reloadData()
       
-    } else {
-     let  track = playResults[indexPath.row]
-      selectedIndex = track.index
-    }
-    
-    
-    
-    if  playResults[selectedIndex].downloaded == true {
-      
-      playResults[selectedIndex].isPlaying = true
-      
-      playMusic(selectedIndex: selectedIndex)
-   
-      arrayOfButtons.remove(at: 4)
-      arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
-      self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-   //  playTableView.reloadData()//
-     
-      if self.searchController.isActive == true {
-        self.searchController.isActive = false
-         reloadTable(toMiddle: true)
+      if isFiltering() {
+        let   track = filteredTracks[indexPath.row]
+        selectedIndex = track.index
         
-      }else {
-         reloadTable(toMiddle: false)      }
-     
-    } else {
+        //   track = playResults[indexPath.row]
+        //  playTableView.reloadData()
+        
+      } else {
+        let  track = playResults[indexPath.row]
+        selectedIndex = track.index
+      }
       
-      selectedIndex = justBeforeSelectedIndex
-      playResults[selectedIndex].isPlaying = true
-      connectionAlert(title: "설치필요", message: "설치메뉴로 돌아가 재설치후 재생하십시오")
       
-    }
+      
+      if  playResults[selectedIndex].downloaded == true {
+        
+        playResults[selectedIndex].isPlaying = true
+        
+        playMusic(selectedIndex: selectedIndex)
+        
+        arrayOfButtons.remove(at: 4)
+        arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
+        self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+        //  playTableView.reloadData()//
+        
+        if self.searchController.isActive == true {
+          self.searchController.isActive = false
+          reloadTable(toMiddle: true)
+          
+        }else {
+          reloadTable(toMiddle: false)      }
+        
+      } else {
+        let arrayOfDownloaded =  playResults.filter{ $0.downloaded }
+        let firstIndexOfDownloadedTrack = arrayOfDownloaded[0].index
+        
+        selectedIndex = justBeforeSelectedIndex == -1 ? firstIndexOfDownloadedTrack : justBeforeSelectedIndex
+        playResults[selectedIndex].isPlaying = true
+        connectionAlert(title: "설치필요", message: "설치메뉴로 돌아가 재설치후 재생하십시오")
+        
+      }
     }
   }
   
-    
   
-
+  
+  
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-   
+    
     
     if flag == true && repeatChapter == true {
       playMusic(selectedIndex: selectedIndex)
@@ -391,39 +389,39 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       nowPlaying = (audioPlayer?.isPlaying)!
       
     }else {
-     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
+      let noOfdownloaded = playResults.filter{ $0.downloaded }.count
       if noOfdownloaded  > 1 {
-    if selectedIndex == playResults.count - 1 {
-      selectedIndex = -1
-    }
-      
-        
-    if flag == true && selectedIndex < playResults.count - 1{
-      //Increment current index
-      repeat {selectedIndex += 1
         if selectedIndex == playResults.count - 1 {
-          selectedIndex = 0}
-      } while self.playResults[selectedIndex].downloaded == false
-      
-      playMusic(selectedIndex: selectedIndex)
-      
-      nowPlaying = (audioPlayer?.isPlaying)!
-      
-    }
+          selectedIndex = -1
+        }
+        
+        
+        if flag == true && selectedIndex < playResults.count - 1{
+          //Increment current index
+          repeat {selectedIndex += 1
+            if selectedIndex == playResults.count - 1 {
+              selectedIndex = 0}
+          } while self.playResults[selectedIndex].downloaded == false
+          
+          playMusic(selectedIndex: selectedIndex)
+          
+          nowPlaying = (audioPlayer?.isPlaying)!
+          
+        }
         
       }
     }
     reloadTable(toMiddle: true)
-  
-}
+    
+  }
   func playMusic(selectedIndex:Int){
     
     for i in 0...playResults.count - 1 {
       playResults[i].isPlaying = false
     }
-   
+    
     //     playTableView.scrollToRow(at: nowPlayingIndexPath, at: .middle, animated: true)
-    if  playResults[selectedIndex].downloaded {
+    if  selectedIndex != -1 && playResults[selectedIndex].downloaded  {
       playResults[selectedIndex].isPlaying = true
       let url = localFilePath(for: playResults[selectedIndex].previewURL)
       try!  audioPlayer = AVAudioPlayer(contentsOf: url)
@@ -431,20 +429,20 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       audioPlayer?.prepareToPlay()
       audioPlayer?.play()
       playtimeLabeling()
-    //  self.nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
+      //  self.nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
       nowPlayingLabel.textColor = .red
       nowPlaying = (audioPlayer?.isPlaying)!
       arrayOfButtons.remove(at: 4)
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
       self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
       
-    
+      
     }
     
   }
   
   
- 
+  
   
   func searchBarIsEmpty() -> Bool {
     // Returns true if the text is empty or nil
@@ -496,15 +494,15 @@ extension PlayViewController: PlayCellDelegate {
     nowPlayingLabel.text =  "재생중:  " + trackFirstLine
     
   }
- 
- 
+  
+  
 }
-  // Update track cell's buttons
+// Update track cell's buttons
 
 extension PlayViewController: UISearchBarDelegate {
   // MARK: - UISearchBar Delegate
   func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-   
+    
     filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     
     
@@ -514,30 +512,30 @@ extension PlayViewController: UISearchBarDelegate {
 
 extension PlayViewController: UISearchResultsUpdating {
   // MARK: - UISearchResultsUpdating Delegate
-
-    func updateSearchResults(for searchController: UISearchController) {
-      _ = searchController.searchBar
+  
+  func updateSearchResults(for searchController: UISearchController) {
+    _ = searchController.searchBar
     //  let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-      filterContentForSearchText(searchController.searchBar.text!, scope: "All")
-    }
+    filterContentForSearchText(searchController.searchBar.text!, scope: "All")
+  }
 }
 
 
 
 
 extension PlayViewController: ReadChapterViewControllerDelegate {
- 
+  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let viewControllerB = segue.destination as? ReadChapterViewController {
       if selectedIndex != -1 {
-      viewControllerB.text = playResults[selectedIndex].firstLine
-      viewControllerB.delegate = self
+        viewControllerB.text = playResults[selectedIndex].firstLine
+        viewControllerB.delegate = self
       }
     }
   }
   
   func textChanged(text: String) {
-   // text =  playResults[selectedIndex].firstLine
+    // text =  playResults[selectedIndex].firstLine
     
   }
   
@@ -548,10 +546,10 @@ extension PlayViewController: ReadChapterViewControllerDelegate {
 
 
 
-  extension PlayViewController: AVAudioPlayerDelegate {
+extension PlayViewController: AVAudioPlayerDelegate {
   
-  }
-  
+}
+
 extension CGRect{
   init(_ x:CGFloat,_ y:CGFloat,_ width:CGFloat,_ height:CGFloat) {
     self.init(x:x,y:y,width:width,height:height)

@@ -374,6 +374,7 @@
                             <constraint firstItem="XWe-rC-Tph" firstAttribute="top" secondItem="5W0-EU-sdw" secondAttribute="bottom" id="ew8-Sx-tq6"/>
                             <constraint firstItem="5W0-EU-sdw" firstAttribute="trailing" secondItem="2kH-Jd-ZiU" secondAttribute="trailing" id="gdc-VT-nR9"/>
                             <constraint firstItem="5W0-EU-sdw" firstAttribute="top" secondItem="2kH-Jd-ZiU" secondAttribute="top" id="iFG-n5-Qhl"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kKb-3V-QSB" secondAttribute="trailing" constant="20" symbolic="YES" id="jpG-ys-WLy"/>
                             <constraint firstItem="Bnd-2O-qEI" firstAttribute="leading" secondItem="gJy-rd-dn2" secondAttribute="leading" id="qdC-AI-otS"/>
                             <constraint firstItem="XWe-rC-Tph" firstAttribute="trailing" secondItem="2kH-Jd-ZiU" secondAttribute="trailing" id="rQr-24-fBy"/>
                         </constraints>
