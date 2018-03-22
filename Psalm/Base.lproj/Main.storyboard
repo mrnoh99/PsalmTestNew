@@ -135,7 +135,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="설치가 완성되지 않으면 '설치중단' 후 '설치재시작'을 다시 눌러주십시오" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEa-Dp-Ynm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="설치가 완성되지 않으면 '설치중단' 후 ' 설치재시작'을 다시 눌러주십시오" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEa-Dp-Ynm">
                                 <rect key="frame" x="16" y="621" width="343" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -376,6 +376,7 @@
                             <constraint firstItem="5W0-EU-sdw" firstAttribute="top" secondItem="2kH-Jd-ZiU" secondAttribute="top" id="iFG-n5-Qhl"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kKb-3V-QSB" secondAttribute="trailing" constant="20" symbolic="YES" id="jpG-ys-WLy"/>
                             <constraint firstItem="Bnd-2O-qEI" firstAttribute="leading" secondItem="gJy-rd-dn2" secondAttribute="leading" id="qdC-AI-otS"/>
+                            <constraint firstItem="Bnd-2O-qEI" firstAttribute="centerX" secondItem="gJy-rd-dn2" secondAttribute="centerX" id="qyX-QG-Gfl"/>
                             <constraint firstItem="XWe-rC-Tph" firstAttribute="trailing" secondItem="2kH-Jd-ZiU" secondAttribute="trailing" id="rQr-24-fBy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2kH-Jd-ZiU"/>
