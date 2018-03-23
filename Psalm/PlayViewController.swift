@@ -3,13 +3,14 @@
 //  Psalm
 //
 //  Created by NohJaisung on 2018. 3. 7..
-//  Copyright © 2018년 Ray Wenderlich. All rights reserved.
+//  Copyright © 2018년 Jaisung NOH. All rights reserved.
 //
 
 import UIKit
 import AVKit
 import AVFoundation
 import CoreGraphics
+import MediaPlayer
 
 
 class PlayViewController: UIViewController, UINavigationBarDelegate, UITableViewDataSource, UITableViewDelegate {
@@ -18,6 +19,10 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   var playTimeLabelTimer = Timer()
   var playingTime: Int = 0
   let infiniteSign = "\u{221E}"
+  
+  let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
+  let artworkProperty = MPMediaItemArtwork(image:#imageLiteral(resourceName: "ItunesArtwork"))
+  
   
   @IBOutlet weak var timeElapsed: UILabel!
   
@@ -140,16 +145,39 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     playTableView.tableFooterView = searchFooter
     
     do {
-      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [])//.mixWithOthers)
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+      
       
       try AVAudioSession.sharedInstance().setActive(true)
+    
+      
       
     }catch let error {
       print(error.localizedDescription)
     }
     
+   
+    
+    let commandCenter = MPRemoteCommandCenter.shared()
+    commandCenter.previousTrackCommand.isEnabled = true
+    
+    commandCenter.previousTrackCommand.addTarget(self, action: #selector(rewindButtonTapped(sender: )))
+    
+    commandCenter.nextTrackCommand.isEnabled = true
+    
+    commandCenter.nextTrackCommand.addTarget(self, action: #selector(ffButtonTapped(sender: )))
+    
+    commandCenter.playCommand.isEnabled = true
+    commandCenter.playCommand.addTarget(self, action: #selector(playButtonTapped(sender: )))
+    
+    commandCenter.pauseCommand.isEnabled = true
+    commandCenter.pauseCommand.addTarget(self, action: #selector(pauseButtonTapped(sender:)))
+    commandCenter.skipBackwardCommand.isEnabled = false
+    commandCenter.skipForwardCommand.isEnabled = false
     
     
+      
     pauseButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action: #selector(pauseButtonTapped(sender:)))
     playButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(playButtonTapped(sender: )))
     arrayOfButtons = self.toolBar.items!
@@ -195,7 +223,12 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   }
   
   
-  @IBAction func ffButtonPressed(_ sender: UIBarButtonItem) {
+  @IBAction func ffButtonPressed(_ sender: Any) {
+    ffButtonTapped(sender: sender)
+
+  }
+  
+  @objc func ffButtonTapped(sender: Any) {
     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     print (noOfdownloaded)
     if !isFiltering() && noOfdownloaded  > 1 {
@@ -213,16 +246,19 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         playMusic(selectedIndex: selectedIndex)
         
         nowPlaying = (audioPlayer?.isPlaying)!
-        
+          playingInfo(selectedIndex: selectedIndex)
       }
     }
     reloadTable(toMiddle: true)
   }
   
   
+  @IBAction func rewindButtonPressed(_ sender: Any) {
+    rewindButtonTapped(sender: sender)
+
+  }
   
-  
-  @IBAction func rewindButtonPressed(_ sender: UIBarButtonItem) {
+ @objc func rewindButtonTapped(sender: Any) {
     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
     if  !isFiltering() && noOfdownloaded  > 1  {
@@ -238,12 +274,12 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         } while self.playResults[selectedIndex].downloaded == false
         
         playMusic(selectedIndex: selectedIndex)
+          playingInfo(selectedIndex: selectedIndex)
+        
       }
     }
     reloadTable(toMiddle: true)
   }
-  
-  
   
   
   @objc  func playButtonTapped(sender: Any) {
@@ -256,7 +292,10 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       arrayOfButtons.remove(at: 4)
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
       self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+     
+       playingInfo(selectedIndex: selectedIndex)
       
+     
       
     } else {
       //selectedIndex = 0
@@ -273,12 +312,30 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     arrayOfButtons.remove(at: 4)
     arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-    
+    playingInfo(selectedIndex: selectedIndex)
     reloadTable(toMiddle: true)
     
   }
   
-  
+  func playingInfo(selectedIndex: Int){
+    
+    let nowPlayingInfo: [String: Any] = [
+      MPMediaItemPropertyArtwork: artworkProperty,
+      MPMediaItemPropertyArtist: playResults[selectedIndex].name ,
+      MPMediaItemPropertyTitle: playResults[selectedIndex].firstLine,
+      MPMediaItemPropertyPlaybackDuration: audioPlayer?.duration as Any,
+      MPMediaItemPropertyPlayCount: audioPlayer?.currentTime as Any
+      ]
+    
+    
+    
+    // MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [MPMediaItemPropertyTitle : lblSongName.text!, MPMediaItemPropertyArtist : song.artist, MPMediaItemPropertyArtwork : artworkProperty, MPNowPlayingInfoPropertyDefaultPlaybackRate : NSNumber(int: 1), MPMediaItemPropertyPlaybackDuration : CMTimeGetSeconds((player!.currentItem?.asset.duration)!)]
+    
+    
+    nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
+    
+    
+  }
   
   
   
@@ -352,7 +409,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         playResults[selectedIndex].isPlaying = true
         
         playMusic(selectedIndex: selectedIndex)
-        
+       
         arrayOfButtons.remove(at: 4)
         arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
         self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
@@ -428,6 +485,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       audioPlayer?.delegate = self
       audioPlayer?.prepareToPlay()
       audioPlayer?.play()
+      playingInfo(selectedIndex: selectedIndex)
       playtimeLabeling()
       //  self.nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
       nowPlayingLabel.textColor = .red

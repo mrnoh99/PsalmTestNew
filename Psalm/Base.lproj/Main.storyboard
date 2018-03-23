@@ -465,18 +465,18 @@
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ylk-ru-9s3">
                                 <rect key="frame" x="0.0" y="91" width="375" height="368.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="소개/정보" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-H3-trJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="소개/정보" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-H3-trJ">
                                         <rect key="frame" x="155.5" y="0.0" width="64.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTO-hh-ha8">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTO-hh-ha8">
                                         <rect key="frame" x="1" y="50.5" width="373" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
                                         <state key="normal" title="시편 읽기 소개"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uff-qs-uJ8">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uff-qs-uJ8">
                                         <rect key="frame" x="163" y="109.5" width="49" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
                                         <state key="normal" title="홈페이지"/>
@@ -486,7 +486,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                         <state key="normal" title="문의및 의견"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBt-PI-qcT">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBt-PI-qcT">
                                         <rect key="frame" x="0.0" y="228.5" width="375" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                         <state key="normal" title="도움말(FAQ) "/>
@@ -494,7 +494,7 @@
                                             <segue destination="h1r-ak-gfj" kind="show" id="gQ4-TR-sJm"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKT-VK-4AW">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKT-VK-4AW">
                                         <rect key="frame" x="165" y="288.5" width="45" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                         <state key="normal" title="앱정보"/>
@@ -502,8 +502,8 @@
                                             <segue destination="cya-JH-eMX" kind="show" id="3d0-Im-Dwv"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱 버전 : 0.9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-qg-7w1">
-                                        <rect key="frame" x="151.5" y="351.5" width="72.5" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱 버전 : 1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-qg-7w1">
+                                        <rect key="frame" x="152.5" y="351.5" width="70" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -514,8 +514,8 @@
                                     <constraint firstItem="JBt-PI-qcT" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" id="y9u-fp-LJI"/>
                                 </constraints>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="이 앱은 가톨릭 성경을 듣기 쉽게 돕기 위하여 개발한 앱입니다. " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fVc-hO-DdB">
-                                <rect key="frame" x="0.0" y="516.5" width="375" height="44.5"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="이 앱은 서울대교구에서 굿뉴스를 통하여 제공하는 소리성경을 듣기 쉽게 돕기 위하여 개발한 앱입니다. " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fVc-hO-DdB">
+                                <rect key="frame" x="16" y="516" width="343" height="49.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -523,13 +523,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fVc-hO-DdB" firstAttribute="trailing" secondItem="GZn-u7-op2" secondAttribute="trailing" id="2ZK-h3-Km0"/>
                             <constraint firstItem="ylk-ru-9s3" firstAttribute="top" secondItem="GZn-u7-op2" secondAttribute="top" constant="27" id="FZb-JW-oaU"/>
-                            <constraint firstItem="fVc-hO-DdB" firstAttribute="leading" secondItem="GZn-u7-op2" secondAttribute="leading" id="TCz-Z9-GfO"/>
+                            <constraint firstItem="fVc-hO-DdB" firstAttribute="centerX" secondItem="ylk-ru-9s3" secondAttribute="centerX" id="LbD-Cf-5d3"/>
+                            <constraint firstItem="GZn-u7-op2" firstAttribute="bottom" secondItem="fVc-hO-DdB" secondAttribute="bottom" constant="13" id="OKB-hp-O83"/>
                             <constraint firstItem="GZn-u7-op2" firstAttribute="trailing" secondItem="ylk-ru-9s3" secondAttribute="trailing" id="kuV-om-81y"/>
-                            <constraint firstItem="GZn-u7-op2" firstAttribute="bottom" secondItem="fVc-hO-DdB" secondAttribute="bottom" constant="13" id="qoU-Jy-5ZL"/>
                             <constraint firstItem="ylk-ru-9s3" firstAttribute="leading" secondItem="GZn-u7-op2" secondAttribute="leading" id="sfw-Df-Y6h"/>
-                            <constraint firstItem="fVc-hO-DdB" firstAttribute="top" secondItem="ylk-ru-9s3" secondAttribute="bottom" constant="57" id="zFC-2g-b4g"/>
+                            <constraint firstItem="fVc-hO-DdB" firstAttribute="top" secondItem="ylk-ru-9s3" secondAttribute="bottom" constant="57" id="sz5-pl-vtN"/>
+                            <constraint firstItem="fVc-hO-DdB" firstAttribute="leading" secondItem="2TM-dx-nce" secondAttribute="leadingMargin" id="yaD-nV-NZj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GZn-u7-op2"/>
                     </view>
@@ -537,7 +537,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Frs-MX-S5l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5882" y="-435"/>
+            <point key="canvasLocation" x="5880.8000000000002" y="-435.83208395802103"/>
         </scene>
         <!--앱정보-->
         <scene sceneID="Cab-XV-qRw">
@@ -558,7 +558,7 @@
                             <textView clipsSubviews="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
                                 <rect key="frame" x="16" y="227" width="343" height="428"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">+ 찬미예수님 
+                                <mutableString key="text">+ 찬미예수님 
 
 이 앱은 서울 대교구 전산 정보실에서 ‘누구에게나 언제 어디서나 말씀을 접할 수 있도록 돕기위해 시작한 작업’으로 만들어 굿뉴스를 통해 2010년부터 제공하고 있는 가톨릭 소리 성경을 쉽게 들을 수 있도록 개발한 앱입니다.  
 서울대교구에서 굿뉴스를 통하여 제공되는 서비스를 아래의 링크를 통해 이용할 수 있습니다.
@@ -566,7 +566,7 @@ http://m.catholic.or.kr
 
 소리성경이 기본적으로 시각장애인을 위하여 성동장애인 종합복지관 자원봉사자들이 녹음하여 개발된 것이지만 시각장애인뿐 아니라 비 장애인에게도 주님의 말씀을 듣기에 너무나도 유용한 자료여서 앱으로 개발하게 되었습니다.  
 이 앱은 말씀을 들으면서 눈으로 볼 수 있도록 만들었습니다.  성경에 대한 저작권은 주교회의에 있으며 현재 저작권자에게 사용승인요청을 한 상태입니다.
-개신교계애는 성경듣기 앱이 훌륭한 것이 많이 있으나 사용하는 번역본이 다르기 때문에 가톨릭 신자에게는 도움이 되지 못합니다. 
+개신교계에는 성경듣기 앱이 훌륭한 것이 많이 있으나 사용하는 번역본이 다르기 때문에 가톨릭 신자에게는 도움이 되지 못합니다. 
 이 앱을 만든 처음 동기는 나의 사랑하는 아내가 성경을 쉽게 듣는 것을 도와 주기 위해서 였습니다. 그러던 중 소속 본당인 안양 평촌성당의 2018년 사업인 전신자 성경필사 운동에 대한 개인적 봉헌의 의미로 개발하였습니다. 
 많은 이용부탁 드리고 개선점을 알려주시기 바랍니다.  
 
@@ -591,7 +591,7 @@ https://github.com/luispadron/UICircularProgressRing
 2)	GradientProgressBar by fxm90
 https://github.com/fxm90/GradientProgressBar
 
-</string>
+</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>

@@ -8,7 +8,12 @@ var selectedIndex:Int = -1 {
   didSet {
     justBeforeSelectedIndex = oldValue
     print ( "the value of selectedIndex changed from \(oldValue) to \(selectedIndex)")
+    // playViewController.playingInfo(selectedIndex: selectedIndex)
+    
   }
+//  willSet {
+//    playViewController.playingInfo(selectedIndex: newValue)
+//  }
 }
 var justBeforeSelectedIndex: Int = 0
 
@@ -57,7 +62,7 @@ var  audioPlayer: AVAudioPlayer? {
     
     searchResults = queryService.getSearchResults()
     noOfDownloadedTract = searchViewController.checkDownloaded(results: searchResults)
-  
+     
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     

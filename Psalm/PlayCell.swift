@@ -1,8 +1,9 @@
 //
-//  PlayCell.swift
+//  PlayViewController.swift
 //  Psalm
 //
 //  Created by NohJaisung on 2018. 3. 7..
+//  Copyright © 2018년 Jaisung NOH. All rights reserved.
 //  Copyright © 2018년 Ray Wenderlich. All rights reserved.
 //
 
