@@ -69,7 +69,69 @@ extension SearchViewController {
   
 
 extension PlayViewController {
+  func setupNotifications() {
+    let notificationCenter = NotificationCenter.default
+    notificationCenter.addObserver(self,
+                                   selector: #selector(handleInterruption),
+                                   name: .AVAudioSessionInterruption,
+                                   object: nil)
+  }
   
+  @objc   func handleInterruption(notification: Notification) {
+    guard let userInfo = notification.userInfo,
+      let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+      let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
+        return
+    }
+    if type == .began {
+      // Interruption began, take appropriate actions
+      playTimeLabelTimer.invalidate()
+      audioPlayer?.pause()
+      nowPlaying = (audioPlayer?.isPlaying)!
+      arrayOfButtons.remove(at: 4)
+      arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
+      self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+      playingInfo(selectedIndex: selectedIndex)
+      
+    }
+    else if type == .ended {
+      if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
+        let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
+        if options.contains(.shouldResume) {
+          
+          // Interruption Ended - playback should resume
+          
+          
+          if audioPlayer != nil  {
+            audioPlayer?.play()
+            playtimeLabeling()
+            nowPlaying = (audioPlayer?.isPlaying)!
+            arrayOfButtons.remove(at: 4)
+            arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
+            self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+            
+            playingInfo(selectedIndex: selectedIndex)
+            
+          }
+          
+          reloadTable(toMiddle: true)
+          
+          
+          
+        } else {
+          // Interruption Ended - playback should NOT resume
+          playTimeLabelTimer.invalidate()
+          audioPlayer?.stop()
+          nowPlaying = (audioPlayer?.isPlaying)!
+          arrayOfButtons.remove(at: 4)
+          arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
+          self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+          playingInfo(selectedIndex: selectedIndex)
+          
+        }
+      }
+    }
+  }
   
   
   

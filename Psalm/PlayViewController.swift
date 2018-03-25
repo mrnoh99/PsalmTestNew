@@ -99,7 +99,13 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   @IBOutlet weak var nowPlayingLabel: UILabel!
   
-  //  var playingLabelText: String = "" {
+    @IBAction func nowPlayingButton(_ sender: Any) {
+        
+        reloadTable(toMiddle: true)
+        
+    }
+    
+    //  var playingLabelText: String = "" {
   //    didSet {
   //     nowPlayingLabel.text = loadedTrack    // playResults[selectedIndex].firstLine
   //
@@ -132,7 +138,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    setupNotifications()
     timerLabel.text = "Timer"+"\n"+infiniteSign
     self.view.bringSubview(toFront: timerLabel)
     searchController.searchResultsUpdater = self
@@ -549,7 +555,7 @@ extension PlayViewController: PlayCellDelegate {
   }
   
   func updateLabel(trackFirstLine: String) {
-    nowPlayingLabel.text =  "재생중:  " + trackFirstLine
+    nowPlayingLabel.text =   trackFirstLine
     
   }
   
