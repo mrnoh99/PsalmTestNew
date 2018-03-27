@@ -324,7 +324,7 @@ class QueryService {
   var dataTask: URLSessionDataTask?
   var tracks: [Track] = []
   var errorMessage = ""
-
+  let chapterArray = getChapters()
   func getSearchResults()-> [Track]{
    
   //  var index = 0
@@ -334,8 +334,10 @@ class QueryService {
         let artist  = self.identityCode + "_" + "\(i)"+".mp3" as String?,
         let name  = self.koreanName + " " + "\(i) 편"as String?,
         let firstLine = self.firstLineArray[i - 1] as String?,
-        let index = self.indexArray[i - 1] as Int? {
-      tracks.append(Track(name: name, artist: artist, previewURL: previewURL, index: index, firstLine: firstLine))
+        let index = self.indexArray[i - 1] as Int?,
+      let chapter = self.chapterArray[i] as String?
+      {
+      tracks.append(Track(name: name, artist: artist, previewURL: previewURL, index: index, firstLine: firstLine, chapter: chapter))
        // index += 1
       } else {
         errorMessage += "Problem parsing trackDictionary\n"
@@ -344,4 +346,49 @@ class QueryService {
     return tracks
   }
 
+  
+  
 }
+
+
+func  getChapters() -> [String]{
+  
+  
+  let separatedBy = "<불라불라>"
+  
+  
+  
+  
+  var array:  [String] = []
+  //    var arrayClients = [[String:String]]() // do not use NSMutableArray in Swift
+  //    var dictClients = [String:String]()
+  
+  if let url = Bundle.main.url(forResource: "psalmText" , withExtension: "rtf") {
+    do {
+      let data = try Data(contentsOf:url)
+      let attibutedString = try NSAttributedString(data: data, documentAttributes: nil)
+      let fullText = attibutedString.string
+      let readings = fullText.components(separatedBy: separatedBy)//CharacterSet.newlines)
+      
+      for line in readings {
+        array.append(line)
+      }
+      //            for line in readings { // do not use ugly C-style loops in Swift
+      //                let clientData = line.components(separatedBy: "\t")
+      //                dictClients["FirstName"] = "\(clientData)"
+      //                arrayClients.append(dictClients)
+      //            }
+    } catch {
+      print(error)
+    }
+  }
+  
+  print (array.count)
+  return array
+}
+
+
+
+
+
+

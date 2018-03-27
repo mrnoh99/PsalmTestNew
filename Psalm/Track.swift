@@ -17,13 +17,15 @@ class Track {
   var downloaded = false
   let firstLine: String
   var isPlaying = false
-
-  init(name: String, artist: String, previewURL: URL, index: Int, firstLine: String) {
+    let chapter: String
+  
+  init(name: String, artist: String, previewURL: URL, index: Int, firstLine: String, chapter: String) {
     self.name = name
     self.artist = artist
     self.firstLine = firstLine
     self.previewURL = previewURL
     self.index = index
+    self.chapter = chapter 
   }
   
 }

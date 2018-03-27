@@ -462,58 +462,64 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYN-tx-1cw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5508" y="-307.1964017991005"/>
+            <point key="canvasLocation" x="4935" y="-453"/>
         </scene>
         <!--설정-->
         <scene sceneID="DiM-vS-3o4">
             <objects>
-                <viewController title="설정" id="ZdD-2y-IKa" sceneMemberID="viewController">
+                <viewController title="설정" id="ZdD-2y-IKa" customClass="QuestionViewController" customModule="Psalm" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2TM-dx-nce">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ylk-ru-9s3">
-                                <rect key="frame" x="0.0" y="91" width="375" height="368.5"/>
+                                <rect key="frame" x="0.0" y="91" width="375" height="413"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="소개/정보" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KZ-H3-trJ">
-                                        <rect key="frame" x="155.5" y="0.0" width="64.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="145" y="0.0" width="85" height="26"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTO-hh-ha8">
-                                        <rect key="frame" x="1" y="50.5" width="373" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
+                                        <rect key="frame" x="1" y="56" width="373" height="38"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <state key="normal" title="시편 읽기 소개"/>
+                                        <connections>
+                                            <segue destination="l90-ka-cv6" kind="show" id="eSE-8h-3kM"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uff-qs-uJ8">
-                                        <rect key="frame" x="163" y="109.5" width="49" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
+                                        <rect key="frame" x="151" y="124" width="73" height="38"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <state key="normal" title="홈페이지"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfj-fF-JQW">
-                                        <rect key="frame" x="153" y="168.5" width="69" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                        <rect key="frame" x="139.5" y="192" width="96" height="38"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <state key="normal" title="문의및 의견"/>
+                                        <connections>
+                                            <action selector="questionEmail:" destination="ZdD-2y-IKa" eventType="touchUpInside" id="Hvf-kg-5fw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBt-PI-qcT">
-                                        <rect key="frame" x="0.0" y="228.5" width="375" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                        <rect key="frame" x="0.0" y="260" width="375" height="38"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <state key="normal" title="도움말(FAQ) "/>
                                         <connections>
-                                            <segue destination="h1r-ak-gfj" kind="show" id="gQ4-TR-sJm"/>
+                                            <segue destination="h1r-ak-gfj" kind="show" id="PzE-NK-x4M"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKT-VK-4AW">
-                                        <rect key="frame" x="165" y="288.5" width="45" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                                        <rect key="frame" x="160" y="328" width="55" height="38"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <state key="normal" title="앱정보"/>
                                         <connections>
-                                            <segue destination="cya-JH-eMX" kind="show" id="3d0-Im-Dwv"/>
+                                            <segue destination="cya-JH-eMX" kind="show" id="eNX-b5-YDO"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱 버전 : 1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-qg-7w1">
-                                        <rect key="frame" x="152.5" y="351.5" width="70" height="17"/>
+                                        <rect key="frame" x="152.5" y="396" width="70" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -524,7 +530,7 @@
                                     <constraint firstItem="JBt-PI-qcT" firstAttribute="leading" secondItem="ylk-ru-9s3" secondAttribute="leading" id="y9u-fp-LJI"/>
                                 </constraints>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="이 앱은 서울대교구에서 굿뉴스를 통하여 제공하는 소리성경을 듣기 쉽게 돕기 위하여 개발한 앱입니다. " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fVc-hO-DdB">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="이 앱은  굿뉴스에서  제공하는 소리성경을 듣기 쉽게  돕기 위하여 개발한 앱입니다. " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fVc-hO-DdB">
                                 <rect key="frame" x="16" y="516" width="343" height="49.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -544,15 +550,46 @@
                         <viewLayoutGuide key="safeArea" id="GZn-u7-op2"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <connections>
+                        <outlet property="questionEmail" destination="yfj-fF-JQW" id="8ZB-m6-grl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Frs-MX-S5l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5880.8000000000002" y="-435.83208395802103"/>
+            <point key="canvasLocation" x="5561" y="-603"/>
+        </scene>
+        <!--Intro View Controller-->
+        <scene sceneID="796-Jb-nM1">
+            <objects>
+                <viewController id="l90-ka-cv6" customClass="IntroViewController" customModule="Psalm" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="33j-uv-eyG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VuG-la-j8D">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ZVu-OA-TN2"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="VuG-la-j8D" id="31D-C3-192"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p1E-Ez-tcd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6185" y="-496"/>
         </scene>
         <!--앱정보-->
         <scene sceneID="Cab-XV-qRw">
             <objects>
-                <viewController title="앱정보" id="cya-JH-eMX" sceneMemberID="viewController">
+                <viewController title="앱정보" id="cya-JH-eMX" customClass="AboutAppViewController" customModule="Psalm" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cyf-Eb-fL2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -565,59 +602,25 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="zHb-sY-oDl"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZG5-l4-syU">
-                                <rect key="frame" x="16" y="227" width="343" height="428"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yRQ-o6-Oz6">
+                                <rect key="frame" x="0.0" y="215" width="375" height="359"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">+ 찬미예수님 
-
-이 앱은 서울 대교구 전산 정보실에서 ‘누구에게나 언제 어디서나 말씀을 접할 수 있도록 돕기위해 시작한 작업’으로 만들어 굿뉴스를 통해 2010년부터 제공하고 있는 가톨릭 소리 성경을 쉽게 들을 수 있도록 개발한 앱입니다.  
-서울대교구에서 굿뉴스를 통하여 제공되는 서비스를 아래의 링크를 통해 이용할 수 있습니다.
-http://m.catholic.or.kr
-
-소리성경이 기본적으로 시각장애인을 위하여 성동장애인 종합복지관 자원봉사자들이 녹음하여 개발된 것이지만 시각장애인뿐 아니라 비 장애인에게도 주님의 말씀을 듣기에 너무나도 유용한 자료여서 앱으로 개발하게 되었습니다.  
-이 앱은 말씀을 들으면서 눈으로 볼 수 있도록 만들었습니다.  성경에 대한 저작권은 주교회의에 있으며 현재 저작권자에게 사용승인요청을 한 상태입니다.
-개신교계에는 성경듣기 앱이 훌륭한 것이 많이 있으나 사용하는 번역본이 다르기 때문에 가톨릭 신자에게는 도움이 되지 못합니다. 
-이 앱을 만든 처음 동기는 나의 사랑하는 아내가 성경을 쉽게 듣는 것을 도와 주기 위해서 였습니다. 그러던 중 소속 본당인 안양 평촌성당의 2018년 사업인 전신자 성경필사 운동에 대한 개인적 봉헌의 의미로 개발하였습니다. 
-많은 이용부탁 드리고 개선점을 알려주시기 바랍니다.  
-
-
-  참조한 인터넷 사이트 
-1.	가톨릭 굿뉴스 소리광장 성경 
-http://maria.catholic.or.kr/audio/playlist/playlist.asp?menu=bible
-2.	성동장애인 종합복지관 
-http://omni.or.kr/www/
-3.	천주교 주교회의 온라인 성경 
-http://bible.cbck.or.kr/
-
-Acknowledgment 
-이 앱에 사용된 에수님의 도상(Christ Pantocrator)은 아내인 김은경 데레사가 그린 이콘을 사용하였습니다.
-이 앱 개발에 영감을 준 개발자 그룹 
-1.	 설치 및   검색에 대한   tableview   구성등  
-https://www.raywenderlich.com
-2.	사용한 Cocoapod 
-1)	 UICircularProgressRing by Ljis Padron 
-https://luispadron.com
-https://github.com/luispadron/UICircularProgressRing
-2)	GradientProgressBar by fxm90
-https://github.com/fxm90/GradientProgressBar
-
-</string>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ZG5-l4-syU" firstAttribute="top" secondItem="vHQ-Dv-RYv" secondAttribute="bottom" constant="20" id="ONp-IW-Hhg"/>
-                            <constraint firstAttribute="bottom" secondItem="ZG5-l4-syU" secondAttribute="bottom" constant="12" id="YAG-8x-UlJ"/>
                             <constraint firstItem="vHQ-Dv-RYv" firstAttribute="centerX" secondItem="Cyf-Eb-fL2" secondAttribute="centerX" id="g5m-Su-bSZ"/>
-                            <constraint firstItem="ZG5-l4-syU" firstAttribute="leading" secondItem="R4w-I4-teL" secondAttribute="leading" constant="16" id="i8X-J1-Vfy"/>
-                            <constraint firstItem="R4w-I4-teL" firstAttribute="trailing" secondItem="ZG5-l4-syU" secondAttribute="trailing" constant="16" id="lSJ-me-6xo"/>
                             <constraint firstItem="vHQ-Dv-RYv" firstAttribute="top" secondItem="R4w-I4-teL" secondAttribute="top" constant="15" id="nVj-cZ-e0d"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R4w-I4-teL"/>
                     </view>
+                    <connections>
+                        <outlet property="aboutTextView" destination="yRQ-o6-Oz6" id="Ivr-Cj-sfD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yVC-Tl-B5f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -626,33 +629,16 @@ https://github.com/fxm90/GradientProgressBar
         <!--도움말(FAQ)-->
         <scene sceneID="4fN-jO-Und">
             <objects>
-                <viewController title="도움말(FAQ)" id="h1r-ak-gfj" sceneMemberID="viewController">
+                <viewController title="도움말(FAQ)" id="h1r-ak-gfj" customClass="FAQViewController" customModule="Psalm" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g87-7C-hO7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vjd-xN-5KK">
-                                <rect key="frame" x="25" y="64" width="334" height="585"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z8C-QL-tZb">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">설치에 대하여 
-
-1.	전체 설치에 약 500 메가파이트 정도의 설치공간이 필요합니다. 설치중 설치공간이 필요하다는 경고가 나오면 설치공간을 확보한후 앱을 다시 설치하셔야 합니다.
-2.	WIFI가 연결되고 접속이 원할한 상태에서만 설치가 가능합니다. WIFI 연결이 되어 있더라고 원할하지 않으면 경고가 나오고 설치가 진행되지 않습니다. 와이파이에 원할히 접속된 상태를 유지하여 주십시오. 
-3.	‘설치화면’은 설치가 완료될 때 까지만 ‘시작화면’이 됩니다.  전체설치가 완료되면 100% 혹은 150/150 이 표시되며 이후 앱을 열 때 부터는 설치화면 ‘시편듣기’ 화면이 시작 화면이 됩니다. 
-4.	처음 설치할 때 일부 설치가 되지 않으면 ‘전체 재설치’를 눌러 다시 설치하십시오
-5.	설치를 다시 하고자 하시면  앱을 지운 후 다시 앱을 설치하셔야  설치화면이 시작됩니다.
-
-시편듣기에 대하여 
-1. 원하는 시편의 장을 선택하시면 낭독이 시작됩니다. ‘앞으로’ 및 ‘뒤로’ 버튼을 누르시면 이전장 혹은 이후 장으로 이동합니다. 
-2. 30분 한시간 두시간 타이머를 실시할수 있습니다. 기본상태는 계속 반복입니디. 잠자리에서 듣기에 좋은 기능입니다.
-3. ‘전체반복’은 순차적으로 다음장으로 넘어가고 ‘장반복’은 같은 장을 반복합니다. 
-4. 찾기는 각장 첫귀절이나 장번호를 처 넣어서 원하는 장을 찾을수 있습니다. 
-
-
-
-
-</string>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -660,6 +646,9 @@ https://github.com/fxm90/GradientProgressBar
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="qH3-p9-sSl"/>
                     </view>
+                    <connections>
+                        <outlet property="faqTextView" destination="Z8C-QL-tZb" id="lKk-v3-gJj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aXb-nf-Dia" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

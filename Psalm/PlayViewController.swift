@@ -592,14 +592,14 @@ extension PlayViewController: ReadChapterViewControllerDelegate {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let viewControllerB = segue.destination as? ReadChapterViewController {
       if selectedIndex != -1 {
-        viewControllerB.text = playResults[selectedIndex].firstLine
+        viewControllerB.text = playResults[selectedIndex].chapter
         viewControllerB.delegate = self
       }
     }
   }
   
   func textChanged(text: String) {
-    // text =  playResults[selectedIndex].firstLine
+    // text =  playResults[selectedIndex].chapter
     
   }
   

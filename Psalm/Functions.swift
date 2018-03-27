@@ -85,14 +85,15 @@ extension PlayViewController {
     }
     if type == .began {
       // Interruption began, take appropriate actions
-      playTimeLabelTimer.invalidate()
-      audioPlayer?.pause()
-      nowPlaying = (audioPlayer?.isPlaying)!
-      arrayOfButtons.remove(at: 4)
-      arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
-      self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-      playingInfo(selectedIndex: selectedIndex)
-      
+      if audioPlayer != nil {
+        playTimeLabelTimer.invalidate()
+        audioPlayer?.pause()
+        nowPlaying = (audioPlayer?.isPlaying)!
+        arrayOfButtons.remove(at: 4)
+        arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
+        self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+        playingInfo(selectedIndex: selectedIndex)
+      }
     }
     else if type == .ended {
       if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
@@ -120,14 +121,15 @@ extension PlayViewController {
           
         } else {
           // Interruption Ended - playback should NOT resume
-          playTimeLabelTimer.invalidate()
-          audioPlayer?.stop()
-          nowPlaying = (audioPlayer?.isPlaying)!
-          arrayOfButtons.remove(at: 4)
-          arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
-          self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-          playingInfo(selectedIndex: selectedIndex)
-          
+          if audioPlayer != nil {
+            playTimeLabelTimer.invalidate()
+            audioPlayer?.stop()
+            nowPlaying = (audioPlayer?.isPlaying)!
+            arrayOfButtons.remove(at: 4)
+            arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
+            self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+            playingInfo(selectedIndex: selectedIndex)
+          }
         }
       }
     }
