@@ -172,8 +172,10 @@ extension PlayViewController {
   
   @objc func updateTimer() {
      playingTime -= 1
-    
-    self.timerLabel.text = "Timer"+"\n"+timeString(time: TimeInterval(playingTime), select: 1 ) //This will update the label.
+    let labelText = "Timer"+"\n"+timeString(time: TimeInterval(playingTime), select: 1 ) //This will update the label.
+    UIView.transition(with: timerLabel, duration: 0.7, options: .transitionFlipFromLeft , animations: {self.timerLabel.text = labelText}, completion: nil)
+   
+ 
   }
   
   func timeString(time:TimeInterval,select: Int) -> String {

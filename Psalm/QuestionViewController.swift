@@ -21,7 +21,7 @@ class QuestionViewController: UIViewController, MFMailComposeViewControllerDeleg
     composeVC.mailComposeDelegate = self
     
     // Configure the fields of the interface.
-    composeVC.setToRecipients(["jsnoh2010@gmail.com"])
+    composeVC.setToRecipients(["jsnoh@ajou.ac.kr"])
     composeVC.setSubject("시편읽기에 관하여 ")
     composeVC.setMessageBody("시편읽기에 대한 제안 ", isHTML: false)
     

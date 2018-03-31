@@ -19,8 +19,8 @@ class AboutAppViewController: UIViewController {
             do {
                 let data = try Data(contentsOf:url)
                 let attibutedString = try NSAttributedString(data: data, documentAttributes: nil)
-                let fullText = attibutedString.string
-                aboutTextView.text = fullText
+                let fullText = attibutedString//.string
+                aboutTextView.attributedText = fullText
                 
             } catch {
                 print(error)

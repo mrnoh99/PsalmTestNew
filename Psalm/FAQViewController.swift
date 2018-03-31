@@ -19,8 +19,8 @@ class FAQViewController: UIViewController {
             do {
                 let data = try Data(contentsOf:url)
                 let attibutedString = try NSAttributedString(data: data, documentAttributes: nil)
-                let fullText = attibutedString.string
-                faqTextView.text = fullText 
+                let fullText = attibutedString//.string
+                faqTextView.attributedText = fullText 
                 
             } catch {
                 print(error)

@@ -47,6 +47,9 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   @IBOutlet weak var timeSegment: UISegmentedControl!
   
   @IBAction func timerButtonPressed(_ sender: UISegmentedControl) {
+  
+    
+    
     
     switch  timeSegment.selectedSegmentIndex {
     case 0:
@@ -54,7 +57,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       timer1.invalidate()
       
       timer2.invalidate()
-      timerLabel.text = "Timer"+"\n"+infiniteSign
+      UIView.transition(with: timerLabel, duration: 0.7, options: .transitionFlipFromLeft , animations: {self.timerLabel.text = "Timer"+"\n" + self.infiniteSign}, completion: nil)
+    
       
       print ("0 pressed")
     case 1:
@@ -100,8 +104,11 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   @IBOutlet weak var nowPlayingLabel: UILabel!
   
     @IBAction func nowPlayingButton(_ sender: Any) {
-        
-        reloadTable(toMiddle: true)
+      UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+      
+
+      
+     reloadTable(toMiddle: true)
         
     }
     
@@ -123,8 +130,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   let queryService = QueryService()
   var filteredTracks = [Track]()
   
-  
-  
+
   
   
   
@@ -200,14 +206,10 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   override  func viewWillAppear(_ animated: Bool){
     super.viewWillAppear(true)
     
-    // print (loadedrow[0].firstLine)
-    //  timerLabel.isHidden = true
     arrayOfButtons.remove(at: 4)
     
-    if nowPlaying  {
-      
-      
-      arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
+    if audioPlayer != nil && (audioPlayer?.isPlaying)!  {
+     arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
     } else {
       arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
       
@@ -255,6 +257,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
           playingInfo(selectedIndex: selectedIndex)
       }
     }
+    UIView.transition(with: playTableView, duration: 0.5, options: .transitionCurlUp , animations: {self.playTableView.reloadData()}, completion: nil)
     reloadTable(toMiddle: true)
   }
   
@@ -284,6 +287,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
       }
     }
+  UIView.transition(with: playTableView, duration: 0.7, options: .transitionCurlDown , animations: {self.playTableView.reloadData()}, completion: nil)
+  
     reloadTable(toMiddle: true)
   }
   
@@ -307,6 +312,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       //selectedIndex = 0
       playMusic(selectedIndex: selectedIndex)
     }
+    UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
     reloadTable(toMiddle: true)
   }
   
@@ -319,6 +325,10 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
     playingInfo(selectedIndex: selectedIndex)
+    UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+    
+    
+    
     reloadTable(toMiddle: true)
     
   }
@@ -423,9 +433,17 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
         if self.searchController.isActive == true {
           self.searchController.isActive = false
+          UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+          
+          
+          
           reloadTable(toMiddle: true)
           
         }else {
+          
+          UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+          
+          
           reloadTable(toMiddle: false)      }
         
       } else {
@@ -520,7 +538,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       if searchBarIsEmpty() {
         return doesCategoryMatch
       } else {
-        return doesCategoryMatch && track.firstLine.contains(searchText.lowercased())
+        return doesCategoryMatch && track.chapter.string.contains(searchText.lowercased())
       }
     })
     playTableView.reloadData()
@@ -598,7 +616,7 @@ extension PlayViewController: ReadChapterViewControllerDelegate {
     }
   }
   
-  func textChanged(text: String) {
+  func textChanged(text: NSAttributedString) {
     // text =  playResults[selectedIndex].chapter
     
   }

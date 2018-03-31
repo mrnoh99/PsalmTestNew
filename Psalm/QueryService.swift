@@ -335,7 +335,7 @@ class QueryService {
         let name  = self.koreanName + " " + "\(i) 편"as String?,
         let firstLine = self.firstLineArray[i - 1] as String?,
         let index = self.indexArray[i - 1] as Int?,
-      let chapter = self.chapterArray[i] as String?
+      let chapter = self.chapterArray[i] as NSAttributedString?
       {
       tracks.append(Track(name: name, artist: artist, previewURL: previewURL, index: index, firstLine: firstLine, chapter: chapter))
        // index += 1
@@ -351,17 +351,11 @@ class QueryService {
 }
 
 
-func  getChapters() -> [String]{
-  
-  
+func  getChapters() -> [NSAttributedString]{
   let separatedBy = "<불라불라>"
-  
-  
-  
-  
+ 
   var array:  [String] = []
-  //    var arrayClients = [[String:String]]() // do not use NSMutableArray in Swift
-  //    var dictClients = [String:String]()
+   var array1: [NSAttributedString] = []
   
   if let url = Bundle.main.url(forResource: "psalmText" , withExtension: "rtf") {
     do {
@@ -373,18 +367,20 @@ func  getChapters() -> [String]{
       for line in readings {
         array.append(line)
       }
-      //            for line in readings { // do not use ugly C-style loops in Swift
-      //                let clientData = line.components(separatedBy: "\t")
-      //                dictClients["FirstName"] = "\(clientData)"
-      //                arrayClients.append(dictClients)
-      //            }
-    } catch {
+     
+      var  start = 0
+      for line in array {
+        let range =  NSMakeRange(start, line.count)
+        let attributedString1 = attibutedString.attributedSubstring(from: range)
+        array1.append(attributedString1)
+        start += range.length + separatedBy.count
+        }
+    }catch {
       print(error)
     }
   }
-  
-  print (array.count)
-  return array
+  // print (array.count)
+  return array1
 }
 
 

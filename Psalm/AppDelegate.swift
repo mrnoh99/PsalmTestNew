@@ -4,6 +4,7 @@
 import AVFoundation
  var searchViewController = SearchViewController()
 var playViewController = PlayViewController()
+
 var selectedIndex:Int = -1 {
   didSet {
     justBeforeSelectedIndex = oldValue
@@ -11,10 +12,13 @@ var selectedIndex:Int = -1 {
     // playViewController.playingInfo(selectedIndex: selectedIndex)
     
   }
-//  willSet {
-//    playViewController.playingInfo(selectedIndex: newValue)
-//  }
+ 
 }
+
+
+
+
+
 var justBeforeSelectedIndex: Int = 0
 
 
