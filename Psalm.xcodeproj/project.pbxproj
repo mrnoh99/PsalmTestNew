@@ -30,7 +30,6 @@
 		7CD2B61E206B28BA00786E45 /* aboutThis.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2B61A206B28B900786E45 /* aboutThis.rtf */; };
 		7CD2B61F206B28BA00786E45 /* faqPsalm.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2B61B206B28B900786E45 /* faqPsalm.rtf */; };
 		7CD2B622206B2BD900786E45 /* psalmText.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2B621206B2BD900786E45 /* psalmText.rtf */; };
-		7CD2B640206B87BF00786E45 /* AppleMyungjo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2B63F206B854200786E45 /* AppleMyungjo.ttf */; };
 		7CF1CA67204F685300B33901 /* PlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA66204F685300B33901 /* PlayCell.swift */; };
 		7CF1CA69204F687800B33901 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA68204F687800B33901 /* PlayViewController.swift */; };
 		7CF1CA6E204F74C200B33901 /* Play.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF1CA6D204F74C200B33901 /* Play.swift */; };
@@ -68,7 +67,6 @@
 		7CD2B61A206B28B900786E45 /* aboutThis.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = aboutThis.rtf; sourceTree = "<group>"; };
 		7CD2B61B206B28B900786E45 /* faqPsalm.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = faqPsalm.rtf; sourceTree = "<group>"; };
 		7CD2B621206B2BD900786E45 /* psalmText.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = psalmText.rtf; sourceTree = "<group>"; };
-		7CD2B63F206B854200786E45 /* AppleMyungjo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleMyungjo.ttf; sourceTree = "<group>"; };
 		7CF1CA66204F685300B33901 /* PlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCell.swift; sourceTree = "<group>"; };
 		7CF1CA68204F687800B33901 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		7CF1CA6D204F74C200B33901 /* Play.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Play.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 		D9EF8FC31B53FD2100EFC4B6 /* Psalm */ = {
 			isa = PBXGroup;
 			children = (
-				7CD2B63F206B854200786E45 /* AppleMyungjo.ttf */,
 				7C8DE210206E1D4B008C9F74 /* PsaKCB.rtf */,
 				7C8DE20C206D063B008C9F74 /* PsaCCK.rtf */,
 				7CD2B61A206B28B900786E45 /* aboutThis.rtf */,
@@ -293,7 +290,6 @@
 				D9EF8FD31B53FD2100EFC4B6 /* LaunchScreen.xib in Resources */,
 				7C8DE20D206D063B008C9F74 /* PsaCCK.rtf in Resources */,
 				D9EF8FD01B53FD2100EFC4B6 /* Images.xcassets in Resources */,
-				7CD2B640206B87BF00786E45 /* AppleMyungjo.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

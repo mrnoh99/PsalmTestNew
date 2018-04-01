@@ -31,7 +31,7 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func previousButtonPressed(_ sender: Any) {
        print ("backward Pressed")
       psalmChapterArray = getChapterArray(forward: -1)
-      UIView.transition(with: chapterTable, duration: 0.7, options: .transitionCurlDown , animations: {self.chapterTable.reloadData()}, completion: nil)
+      UIView.transition(with: chapterTable, duration: 0.8, options: .transitionCurlDown , animations: {self.chapterTable.reloadData()}, completion: nil)
       
       
            }
@@ -162,9 +162,13 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
     
     return header
   }
+  
+  
   func  tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 30
   }
+  
+  
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return "test" //"시편 제" + String(selectedIndex + 1) + "편"
   }

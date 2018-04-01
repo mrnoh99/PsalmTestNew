@@ -19,10 +19,16 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   var playTimeLabelTimer = Timer()
   var playingTime: Int = 0
   let infiniteSign = "\u{221E}"
+  var headText = ""
   
   let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
   let artworkProperty = MPMediaItemArtwork(image:#imageLiteral(resourceName: "ItunesArtwork"))
   
+    @IBOutlet weak var expandButton: UIButton!
+    
+  @IBAction func expandButtonPressed(_ sender:
+    Any) {
+  }
   
   @IBOutlet weak var timeElapsed: UILabel!
   
@@ -105,21 +111,12 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
     @IBAction func nowPlayingButton(_ sender: Any) {
       UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
-      
-
-      
+     
      reloadTable(toMiddle: true)
         
     }
     
-    //  var playingLabelText: String = "" {
-  //    didSet {
-  //     nowPlayingLabel.text = loadedTrack    // playResults[selectedIndex].firstLine
-  //
-  //
-  //    }
-  //  }
-  
+ 
   
   
   var pauseButton = UIBarButtonItem()
@@ -155,6 +152,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     //  searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
     searchController.searchBar.delegate = self
     playTableView.tableFooterView = searchFooter
+   playTableView.setContentOffset(CGPoint.zero, animated: true)
     
     do {
       try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [])//.mixWithOthers)
@@ -197,8 +195,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     
     playResults = queryService.getSearchResults()
     searchViewController.checkDownloaded(results: playResults)
-    
-    
+    playTableView.rowHeight = UITableViewAutomaticDimension
+    playTableView.estimatedRowHeight = 300
     
   }
   
@@ -215,8 +213,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       
     }
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-    
-    reloadTable(toMiddle: true)
+     reloadTable(toMiddle: true)
     
   }
   override func didReceiveMemoryWarning() {
@@ -396,7 +393,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 62.0
+    return UITableViewAutomaticDimension
   }
   
   // When user taps cell, play the local file, if it's downloaded
@@ -434,8 +431,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         if self.searchController.isActive == true {
           self.searchController.isActive = false
           UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
-          
-          
+          playTableView.beginUpdates()
+          playTableView.endUpdates()
           
           reloadTable(toMiddle: true)
           
@@ -458,6 +455,22 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     }
   }
   
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = UIView()
+    header.backgroundColor = UIColor.lightGray
+    let myLabel: UILabel = UILabel(frame: CGRect(8,0,200,30))
+    myLabel.textColor = .white
+    myLabel.textAlignment = NSTextAlignment.left
+    myLabel.text = headText
+    header.addSubview(myLabel)
+    
+    return header
+  }
+  
+  
+  func  tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 0
+  }
   
   
   
@@ -492,6 +505,10 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
       }
     }
+
+    UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+
+
     reloadTable(toMiddle: true)
     
   }
@@ -567,6 +584,23 @@ extension PlayViewController: PlayCellDelegate {
   func playTapped(_ cell: PlayCell) {
     
   }
+  
+  func expandFirstline(_ cell: PlayCell, onOrOff: Bool) {
+    if onOrOff {
+    cell.firstLineLabel.text = playResults[selectedIndex].chapter.string
+      playTableView.beginUpdates()
+      playTableView.endUpdates()
+     
+      
+    } else {
+     cell.firstLineLabel.text = playResults[selectedIndex].firstLine
+      playTableView.beginUpdates()
+      playTableView.endUpdates()
+        UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+     
+    }
+  }
+  
   
   func stopTapped(_ cell: PlayCell) {
     

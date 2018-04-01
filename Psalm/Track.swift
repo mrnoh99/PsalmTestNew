@@ -19,7 +19,8 @@ class Track {
   var isPlaying = false
     let chapter: NSAttributedString
   
-  init(name: String, artist: String, previewURL: URL, index: Int, firstLine: String, chapter: NSAttributedString) {
+  init(name: String, artist: String, previewURL: URL, index: Int, firstLine: String, chapter: NSAttributedString)
+  {
     self.name = name
     self.artist = artist
     self.firstLine = firstLine
