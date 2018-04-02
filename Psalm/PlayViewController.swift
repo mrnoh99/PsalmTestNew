@@ -443,13 +443,13 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
           UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
           reloadTable(toMiddle: true)
           firstLineExpanded = false
-            print (true)
+          
           
           } else {
             UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
             reloadTable(toMiddle: false)
             firstLineExpanded = false
-            print (false)
+          
           }
             
           }
