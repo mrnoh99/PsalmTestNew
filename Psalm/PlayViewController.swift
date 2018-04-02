@@ -20,7 +20,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   var playingTime: Int = 0
   let infiniteSign = "\u{221E}"
   var headText = ""
-  
+  var firstLineExpanded = false
+
   let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
   let artworkProperty = MPMediaItemArtwork(image:#imageLiteral(resourceName: "ItunesArtwork"))
   
@@ -438,10 +439,20 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
           
         }else {
           
+          if firstLineExpanded  {
           UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+          reloadTable(toMiddle: true)
+          firstLineExpanded = false
+            print (true)
           
-          
-          reloadTable(toMiddle: false)      }
+          } else {
+            UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+            reloadTable(toMiddle: false)
+            firstLineExpanded = false
+            print (false)
+          }
+            
+          }
         
       } else {
         let arrayOfDownloaded =  playResults.filter{ $0.downloaded }
@@ -590,13 +601,13 @@ extension PlayViewController: PlayCellDelegate {
     cell.firstLineLabel.text = playResults[selectedIndex].chapter.string
       playTableView.beginUpdates()
       playTableView.endUpdates()
-     
-      
+      firstLineExpanded = true
     } else {
      cell.firstLineLabel.text = playResults[selectedIndex].firstLine
       playTableView.beginUpdates()
       playTableView.endUpdates()
-        UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+      firstLineExpanded = false
+      UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
      
     }
   }
