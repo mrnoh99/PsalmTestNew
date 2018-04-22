@@ -2,19 +2,25 @@
  
  import UIKit
 import AVFoundation
- var searchViewController = SearchViewController()
-var playViewController = PlayViewController()
+import MediaPlayer
 
-var selectedIndex:Int = -1 {
+
+var searchViewController = SearchViewController()
+var playViewController = PlayViewController()
+var selectedChapter = 0
+var confirmedColl = Collected(collName:"", collArray:[])
+var confirmedIndex = 0 //-1
+var  chapter = 0
+var selectedColl = Collected(collName:"", collArray:[])
+var nowPlayingFirstLine = ""
+var selectedIndex:Int = 0 {
   didSet {
     justBeforeSelectedIndex = oldValue
-    print ( "the value of selectedIndex changed from \(oldValue) to \(selectedIndex)")
+ //   print ( "the value of selectedIndex changed from \(oldValue) to \(selectedIndex)")
     // playViewController.playingInfo(selectedIndex: selectedIndex)
     
   }
- 
 }
-
 
 
 
@@ -43,8 +49,7 @@ var  audioPlayer: AVAudioPlayer? {
   }
 }
 
-
- 
+//let commandCenter = MPRemoteCommandCenter.shared()
   
 
 
@@ -64,7 +69,7 @@ var  audioPlayer: AVAudioPlayer? {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-    searchResults = queryService.getSearchResults()
+    searchResults = queryService.getSearchResults(coll: selectedColl)
     noOfDownloadedTract = searchViewController.checkDownloaded(results: searchResults)
      
     
@@ -76,7 +81,8 @@ var  audioPlayer: AVAudioPlayer? {
       
        initialViewController = storyboard.instantiateViewController(withIdentifier: "secondNaviViewController")
       
-//      let splitViewController = window!.rootViewController as! UISplitViewController
+      
+      //      let splitViewController = window!.rootViewController as! UISplitViewController
 //      let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
 //      navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
 //      splitViewController.preferredDisplayMode = .allVisible
@@ -100,14 +106,19 @@ var  audioPlayer: AVAudioPlayer? {
   // MARK - App Theme Customization
   
   private func customizeAppearance() {
-    window?.tintColor = tintColor
-   //  UISearchBar.appearance().barTintColor = .white
-  //  UISearchBar.appearance().backgroundColor = tintColor
+    window?.tintColor = .red //tintColor
+    UISearchBar.appearance().barTintColor = .white
+    UISearchBar.appearance().backgroundColor = .clear //tintColor
     
-    UINavigationBar.appearance().barTintColor = tintColor
-    UINavigationBar.appearance().tintColor = UIColor.white
-    UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue):UIColor.white]
+    UINavigationBar.appearance().alpha = 0.8
+ //   UINavigationBar.appearance().barTintColor = tintColor.withAlphaComponent(0.1)
+    UINavigationBar.appearance().tintColor = UIColor.red
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue):UIColor.red]
+    UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+    
+    
   }
+  
   let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
   func localFilePath(for url: URL) -> URL {
     return documentsPath.appendingPathComponent(url.lastPathComponent)

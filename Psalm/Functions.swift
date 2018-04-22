@@ -22,7 +22,7 @@ extension SearchViewController {
   
   func availableDiskSpace()-> Int64?  {
     
-    let fileURL:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
+    let fileURL:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
     
     do {
       let values = try fileURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
@@ -54,7 +54,7 @@ extension SearchViewController {
       let  byteCountFormatter =  ByteCountFormatter()
       byteCountFormatter.allowedUnits = .useBytes
       byteCountFormatter.countStyle = .file
-      let sizeToDisplay = byteCountFormatter.string(for: folderSize) ?? ""
+ //     let sizeToDisplay = byteCountFormatter.string(for: folderSize) ?? ""
      // print(sizeToDisplay)  // "X,XXX,XXX bytes"
       
       
@@ -68,7 +68,8 @@ extension SearchViewController {
 }
   
 
-extension PlayViewController {
+extension PlayViewController  {
+ 
   func setupNotifications() {
     let notificationCenter = NotificationCenter.default
     notificationCenter.addObserver(self,
@@ -92,7 +93,7 @@ extension PlayViewController {
         arrayOfButtons.remove(at: 4)
         arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
         self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-        playingInfo(selectedIndex: selectedIndex)
+       playingInfo(nowPlayingIndex: confirmedIndex)
       }
     }
     else if type == .ended {
@@ -111,7 +112,7 @@ extension PlayViewController {
             arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
             self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
             
-            playingInfo(selectedIndex: selectedIndex)
+         playingInfo(nowPlayingIndex: confirmedIndex)
             
           }
           
@@ -128,7 +129,8 @@ extension PlayViewController {
             arrayOfButtons.remove(at: 4)
             arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
             self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-            playingInfo(selectedIndex: selectedIndex)
+           playingInfo(nowPlayingIndex: confirmedIndex)
+            
           }
         }
       }
@@ -145,12 +147,19 @@ extension PlayViewController {
   }
   
   func reloadTable(toMiddle: Bool){
-   self.searchController.isActive = false
+    self.searchController.isActive = false
     if selectedIndex != -1 {
-    let nowPlayingIndexPath = IndexPath(item: selectedIndex, section: 0)
-    self.playTableView.reloadData()
-      if toMiddle == true {
-      self.playTableView.scrollToRow(at: nowPlayingIndexPath, at: .middle, animated: false)
+      let nowPlayingIndexPath = IndexPath(item: selectedIndex, section: 0)
+      confirmedIndex = selectedIndex
+      print(" 리로드 테이불에서 confirmedIndex  " + "\(confirmedIndex)")
+      print("리로드에서 selectedIndex" + "\(selectedIndex)")
+       print (confirmedColl.collArray)
+      self.playTableView.reloadData()
+      let cellRect = playTableView.rectForRow(at: nowPlayingIndexPath)
+      let completelyVisible = playTableView.bounds.contains(cellRect)
+     
+      if completelyVisible == false {
+        self.playTableView.scrollToRow(at: nowPlayingIndexPath, at: .middle, animated: false)
       }
     }
   }
@@ -237,6 +246,7 @@ extension PlayViewController {
     
     }
   }
+  
   
   
   

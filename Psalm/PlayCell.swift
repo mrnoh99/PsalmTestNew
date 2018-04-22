@@ -15,6 +15,8 @@ protocol PlayCellDelegate {
   func stopTapped(_ cell: PlayCell)
   func updateLabel(trackFirstLine: String)
   func expandFirstline(_ cell: PlayCell, onOrOff: Bool)
+  
+  
 }
 
 class PlayCell: UITableViewCell {
@@ -23,7 +25,7 @@ class PlayCell: UITableViewCell {
   
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var firstLineLabel: UILabel!
-  @IBOutlet weak var progressView: UIProgressView!
+
   @IBOutlet weak var progressLabel: UILabel!
  @IBOutlet weak var downloaded: UILabel!
     
@@ -34,10 +36,12 @@ class PlayCell: UITableViewCell {
         self.expandButton.setTitle("축소",for: .normal)
         delegate?.expandFirstline(self, onOrOff: true)
         
-      } else {
+      } else if self.expandButton.currentTitle == "축소"{
         self.expandButton.setTitle("확장",for: .normal)
        delegate?.expandFirstline(self, onOrOff: false)
         }
+     
+      
       }
   
     @IBAction func readChapter(_ sender: UIButton) {
@@ -62,17 +66,20 @@ class PlayCell: UITableViewCell {
     expandButton.isHidden = true
     
     
-    //     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//let appDelegate = UIApplication.shared.delegate as! AppDelegate
     if track.isPlaying {
       expandButton.isHidden = false
+     
+      
+      
       progressLabel.isHidden = false
      progressLabel.text = "재생중..."
      titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
-      // firstLineLabel.text = track.chapter.string
+      
       
       
       DispatchQueue.main.async {
-        print ("dispatch performed")
+    //    print ("dispatch performed")
       self.delegate?.updateLabel(trackFirstLine: track.firstLine)
      
       }
@@ -88,7 +95,7 @@ class PlayCell: UITableViewCell {
   
   
   func updateDisplay(progress: Float, totalSize : String) {
-    progressView.progress = progress
+  //  progressView.progress = progress
     progressLabel.text = String(format: "%.1f%% of %@", progress * 100, totalSize)
   }
   

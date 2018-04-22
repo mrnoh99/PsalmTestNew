@@ -1,4 +1,4 @@
-//
+ //
 //  PlayViewController.swift
 //  Psalm
 //
@@ -14,6 +14,10 @@ import MediaPlayer
 
 
 class PlayViewController: UIViewController, UINavigationBarDelegate, UITableViewDataSource, UITableViewDelegate {
+  
+  let commandCenter = MPRemoteCommandCenter.shared()
+  let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
+  
   var timer1 = Timer()
   var timer2 = Timer()
   var playTimeLabelTimer = Timer()
@@ -21,11 +25,16 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   let infiniteSign = "\u{221E}"
   var headText = ""
   var firstLineExpanded = false
-
-  let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
-  let artworkProperty = MPMediaItemArtwork(image:#imageLiteral(resourceName: "ItunesArtwork"))
   
-    @IBOutlet weak var expandButton: UIButton!
+  var coll = Collected(collName: "", collArray: [])
+ 
+    @IBOutlet weak var nowPlayingButton: UIButton!
+    
+    @IBOutlet weak var playToolBar: UIToolbar!
+    
+    @IBOutlet weak var touchLabel: UILabel!
+    
+  @IBOutlet weak var expandButton: UIButton!
     
   @IBAction func expandButtonPressed(_ sender:
     Any) {
@@ -42,6 +51,8 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   var repeatChapter = false
   
   @IBAction func repeatButtonPressed(_ sender: UIButton) {
+  //  print (nowPlayingInfoCenter.nowPlayingInfo!["selectedIndex"])
+    
     if sender.titleLabel?.text == "전체반복" {
       sender.setTitle("장반복", for: .normal)
       repeatChapter = true
@@ -90,31 +101,46 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   }
   
   @IBOutlet weak var timerLabel: UILabel!
-  
-  
   @IBOutlet weak var playTableView: UITableView!
   @IBOutlet weak var toolBar: UIToolbar!
   @IBOutlet var searchFooter: SearchFooter!
   @IBAction func showChapterButton(_ sender: Any) {
   }
-  
-  //  var detailViewController: DetailViewController? = nil
-  
+ 
   let searchController = UISearchController(searchResultsController: nil)
-  
-  //
-  //    lazy var tapRecognizer: UITapGestureRecognizer = {
-  //    var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
-  //    return recognizer
-  //  }()
-  
+ 
   @IBOutlet weak var nowPlayingLabel: UILabel!
   
+  
+  
     @IBAction func nowPlayingButton(_ sender: Any) {
-      UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
-     
-     reloadTable(toMiddle: true)
+     nowPlayingButtonPressed()
+      
+  }
+      func nowPlayingButtonPressed() {
+        audioPlayer?.delegate = self
+      playResults = queryService.getSearchResults(coll: confirmedColl)
+      self.title = confirmedColl.collName
+       playtimeLabeling()
+      updateLabel(trackFirstLine: playResults[confirmedIndex].firstLine )
+   //   let myCell = playTableView.cellForRow(at: IndexPath(item: confirmedIndex, section: 0)) as! PlayCell
+     let myCell = playTableView.dequeueReusableCell(withIdentifier: "playCell") as! PlayCell
+      
+      myCell.delegate = self
+      
+      let track: Track
+      track = playResults[confirmedIndex]
+      playResults[confirmedIndex].isPlaying = true
+      myCell.configure(track: track)
+ //   myCell.expandButton.titleLabel?.text = "확장"
+        nowPlayingLabel.textColor = .red
+       
+       playingInfo(nowPlayingIndex: confirmedIndex)
         
+        UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+//
+    reloadTable(toMiddle: true)
+//
     }
     
  
@@ -125,13 +151,12 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   var arrayOfButtons = [AnyObject]()
   
   var playResults: [Track] = []
+  var justBeforePlayResults : [Track] = []
   let queryService = QueryService()
+  let collectedService = CollectedService()
   var filteredTracks = [Track]()
-  
-
-  
-  
-  
+  var chapterIndex = 0
+ 
   let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
   func localFilePath(for url: URL) -> URL {
     return documentsPath.appendingPathComponent(url.lastPathComponent)
@@ -142,81 +167,131 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupNotifications()
+    
+  
+
+    
+
+   
     timerLabel.text = "Timer"+"\n"+infiniteSign
     self.view.bringSubview(toFront: timerLabel)
     searchController.searchResultsUpdater = self
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.searchBar.placeholder = "찾으시는 단어를 입력하세요"
+   let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+    
+    textFieldInsideSearchBar?.textColor = .white
+    
     navigationItem.searchController = searchController
     definesPresentationContext = true
     //  searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
     searchController.searchBar.delegate = self
     playTableView.tableFooterView = searchFooter
    playTableView.setContentOffset(CGPoint.zero, animated: true)
-    
-    do {
-      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [])//.mixWithOthers)
-        UIApplication.shared.beginReceivingRemoteControlEvents()
-      
-      
-      try AVAudioSession.sharedInstance().setActive(true)
-    
-      
-      
-    }catch let error {
-      print(error.localizedDescription)
-    }
-    
-   
-    
-    let commandCenter = MPRemoteCommandCenter.shared()
-    commandCenter.previousTrackCommand.isEnabled = true
-    
-    commandCenter.previousTrackCommand.addTarget(self, action: #selector(rewindButtonTapped(sender: )))
-    
-    commandCenter.nextTrackCommand.isEnabled = true
-    
-    commandCenter.nextTrackCommand.addTarget(self, action: #selector(ffButtonTapped(sender: )))
-    
-    commandCenter.playCommand.isEnabled = true
-    commandCenter.playCommand.addTarget(self, action: #selector(playButtonTapped(sender: )))
-    
-    commandCenter.pauseCommand.isEnabled = true
-    commandCenter.pauseCommand.addTarget(self, action: #selector(pauseButtonTapped(sender:)))
-    commandCenter.skipBackwardCommand.isEnabled = false
-    commandCenter.skipForwardCommand.isEnabled = false
-    
-    
-      
+ 
     pauseButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action: #selector(pauseButtonTapped(sender:)))
     playButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(playButtonTapped(sender: )))
     arrayOfButtons = self.toolBar.items!
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+   
     
-    playResults = queryService.getSearchResults()
-    searchViewController.checkDownloaded(results: playResults)
+    playResults = queryService.getSearchResults(coll: coll)
+   
+    let downloadedby =   searchViewController.checkDownloaded(results: playResults)
+    print (downloadedby)
+  
     playTableView.rowHeight = UITableViewAutomaticDimension
     playTableView.estimatedRowHeight = 300
-    
-  }
+   }
+  
+
+ 
+  
   
   
   override  func viewWillAppear(_ animated: Bool){
     super.viewWillAppear(true)
+    self.title = coll.collName
+    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+    self.navigationController?.navigationBar.shadowImage = UIImage()
+    self.navigationController?.navigationBar.isTranslucent = true
+    self.navigationController?.view.backgroundColor = UIColor.clear
     
+    commandCenter.previousTrackCommand.isEnabled = true
+    commandCenter.nextTrackCommand.isEnabled = true
+    commandCenter.playCommand.isEnabled = true
+    commandCenter.pauseCommand.isEnabled = true
+   commandCenter.skipBackwardCommand.isEnabled = false
+    
+    commandCenter.skipForwardCommand.isEnabled = false
+    commandCenter.playCommand.addTarget(self, action: #selector(playButtonTapped(sender: )))
+    commandCenter.previousTrackCommand.addTarget(self, action: #selector(rewindButtonTapped(sender: )))
+    commandCenter.nextTrackCommand.addTarget(self, action: #selector(ffButtonTapped(sender: )))
+    commandCenter.pauseCommand.addTarget(self, action: #selector(pauseButtonTapped(sender:)))
+
+  
+    
+    setupNotifications()
+    playtimeLabeling()
+    nowPlayingLabel.text = nowPlayingFirstLine
+    nowPlayingLabel.textColor = .red
+    
+    if repeatChapter == false {
+      repeatButton.titleLabel?.text = "전체반복"
+      
+    }else {
+      repeatButton.titleLabel?.text = "장반복"
+          }
+   
     arrayOfButtons.remove(at: 4)
-    
-    if audioPlayer != nil && (audioPlayer?.isPlaying)!  {
+    if audioPlayer != nil {
+      
+      if  (audioPlayer?.isPlaying)!  {
      arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
+      
+   //  self.playResults[selectedIndex].isPlaying = true
+     
+    
     } else {
       arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
       
     }
-    self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+   self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+     
      reloadTable(toMiddle: true)
     
+    }
+    else {
+  
+      arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
+      
+      self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
+      
+      reloadTable(toMiddle: true)
+      
+      
+//       playToolBar.isHidden = true
+//      touchLabel.isHidden = false
+//      nowPlayingButton.isHidden = true
+    }
   }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(true)
+
+    commandCenter.previousTrackCommand.removeTarget(self)
+//   commandCenter.pauseCommand.removeTarget(self)
+   commandCenter.nextTrackCommand.removeTarget(self)
+//    commandCenter.playCommand.removeTarget(self)
+
+
+  }
+  
+  
+  
+  
+  
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -225,47 +300,55 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   
   @objc  func playerChangedChapter(note:NSNotification) {
     
-    
+
   }
   
   
   @IBAction func ffButtonPressed(_ sender: Any) {
+    
+//    playResults = queryService.getSearchResults(coll: confirmedColl)
+//    self.title = confirmedColl.collName
+    
     ffButtonTapped(sender: sender)
 
   }
   
   @objc func ffButtonTapped(sender: Any) {
-    let noOfdownloaded = playResults.filter{ $0.downloaded }.count
-    print (noOfdownloaded)
-    if !isFiltering() && noOfdownloaded  > 1 {
+ nowPlayingButtonPressed()
+    
+    if !isFiltering()   {
       
-      if selectedIndex == playResults.count - 1 {
+      if selectedIndex >= playResults.count - 1 {
         selectedIndex = -1
       }
       if selectedIndex < playResults.count - 1   {
-        //Increment current index
-        repeat {selectedIndex += 1
-          if selectedIndex == playResults.count {
-            selectedIndex = 0}
-        } while self.playResults[selectedIndex].downloaded == false
-        
+        selectedIndex += 1
+      
+        confirmedIndex = selectedIndex
         playMusic(selectedIndex: selectedIndex)
-        
+       
+        // pauseButtonTapped(sender: sender)
         nowPlaying = (audioPlayer?.isPlaying)!
-          playingInfo(selectedIndex: selectedIndex)
+    playingInfo(nowPlayingIndex: confirmedIndex)
       }
     }
-    UIView.transition(with: playTableView, duration: 0.5, options: .transitionCurlUp , animations: {self.playTableView.reloadData()}, completion: nil)
+    UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
     reloadTable(toMiddle: true)
   }
   
   
   @IBAction func rewindButtonPressed(_ sender: Any) {
+ //   nowPlayingButtonPressed()
+//    playResults = queryService.getSearchResults(coll: confirmedColl)
+//    self.title = confirmedColl.collName
     rewindButtonTapped(sender: sender)
 
   }
   
- @objc func rewindButtonTapped(sender: Any) {
+  @objc func rewindButtonTapped(sender: Any) {
+    nowPlayingButtonPressed()
+    //  playResults = queryService.getSearchResults(coll: confirmedColl)
+    self.title = confirmedColl.collName
     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
     if  !isFiltering() && noOfdownloaded  > 1  {
@@ -279,19 +362,23 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
           if selectedIndex == -1{
             selectedIndex = playResults.count - 1}
         } while self.playResults[selectedIndex].downloaded == false
-        
+        confirmedIndex = selectedIndex
         playMusic(selectedIndex: selectedIndex)
-          playingInfo(selectedIndex: selectedIndex)
+        
+        //   pauseButtonTapped(sender: sender)
+ 
+        playingInfo(nowPlayingIndex: confirmedIndex)
         
       }
     }
-  UIView.transition(with: playTableView, duration: 0.7, options: .transitionCurlDown , animations: {self.playTableView.reloadData()}, completion: nil)
-  
+   UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+//
     reloadTable(toMiddle: true)
   }
   
   
   @objc  func playButtonTapped(sender: Any) {
+   nowPlayingButtonPressed()
     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
     if audioPlayer != nil && noOfdownloaded  != 0 {
@@ -302,48 +389,51 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
       self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
      
-       playingInfo(selectedIndex: selectedIndex)
+      playingInfo(nowPlayingIndex: confirmedIndex)
       
      
       
     } else {
       //selectedIndex = 0
       playMusic(selectedIndex: selectedIndex)
+     
+      
     }
-    UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+   UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
     reloadTable(toMiddle: true)
   }
   
   @objc  func pauseButtonTapped(sender: Any) {
-    
+    nowPlayingButtonPressed()
     playTimeLabelTimer.invalidate()
     audioPlayer?.pause()
     nowPlaying = (audioPlayer?.isPlaying)!
     arrayOfButtons.remove(at: 4)
     arrayOfButtons.insert(playButton, at: 4) // change index to wherever you'd like the button
     self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
-    playingInfo(selectedIndex: selectedIndex)
+    playingInfo(nowPlayingIndex: confirmedIndex)
+    
     UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
-    
-    
-    
     reloadTable(toMiddle: true)
-    
   }
   
-  func playingInfo(selectedIndex: Int){
-    
-    let nowPlayingInfo: [String: Any] = [
+  func playingInfo(nowPlayingIndex: Int){
+   
+//   let nowPlayingIndexx = playResults[confirmedIndex].chapterIndex
+
+    let image1 = UIImage(named: "ItunesArtwork")!
+    let artworkProperty = MPMediaItemArtwork.init(boundsSize: image1.size, requestHandler: { (size) -> UIImage in return image1 })
+   let nowPlayingInfo: [String: Any]
+   // var nowPlayResults = queryService.getSearchResults(coll: confirmedColl)
+    nowPlayingInfo = [
       MPMediaItemPropertyArtwork: artworkProperty,
-      MPMediaItemPropertyArtist: playResults[selectedIndex].name ,
-      MPMediaItemPropertyTitle: playResults[selectedIndex].firstLine,
+      MPMediaItemPropertyArtist: playResults[nowPlayingIndex].name ,
+      MPMediaItemPropertyTitle: playResults[nowPlayingIndex].firstLine,
       MPMediaItemPropertyPlaybackDuration: audioPlayer?.duration as Any,
-      MPMediaItemPropertyPlayCount: audioPlayer?.currentTime as Any
-      ]
+       MPNowPlayingInfoPropertyPlaybackRate: 1.0,
+      MPNowPlayingInfoPropertyElapsedPlaybackTime: audioPlayer?.currentTime as Any
+    ]
     
-    
-    
-    // MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [MPMediaItemPropertyTitle : lblSongName.text!, MPMediaItemPropertyArtist : song.artist, MPMediaItemPropertyArtwork : artworkProperty, MPNowPlayingInfoPropertyDefaultPlaybackRate : NSNumber(int: 1), MPMediaItemPropertyPlaybackDuration : CMTimeGetSeconds((player!.currentItem?.asset.duration)!)]
     
     
     nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
@@ -378,17 +468,14 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     // Delegate cell button tap events to this view controller
     cell.delegate = self
     let track: Track
-    
+   
     if isFiltering() {
       track = filteredTracks[indexPath.row]
     } else {
       track = playResults[indexPath.row]
     }
     cell.configure(track: track)
-    
-    
-    
-    return cell
+   return cell
   }
   
   
@@ -398,7 +485,21 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   }
   
   // When user taps cell, play the local file, if it's downloaded
+  
+  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    nowPlayingButton.isHidden = false
+    playToolBar.isHidden = false
+    touchLabel.isHidden = true
+    if confirmedColl.collName != coll.collName || indexPath.row != confirmedIndex {
+    
+    confirmedColl = coll
+    confirmedIndex = indexPath.row
+    
+     playResults = queryService.getSearchResults(coll: confirmedColl)
+    }
+//    print (confirmedIndex)
+  
     let noOfdownloaded = playResults.filter{ $0.downloaded }.count
     
     
@@ -406,24 +507,24 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
       
       if isFiltering() {
         let   track = filteredTracks[indexPath.row]
-        selectedIndex = track.index
-        
-        //   track = playResults[indexPath.row]
-        //  playTableView.reloadData()
+        selectedIndex = track.whatIsThisIndex
+        chapterIndex = track.chapterIndex
+     //   confirmedIndex = chapterIndex
+       
         
       } else {
         let  track = playResults[indexPath.row]
-        selectedIndex = track.index
+        selectedIndex = track.whatIsThisIndex
+        chapterIndex = track.chapterIndex
+     
       }
-      
-      
-      
+  
       if  playResults[selectedIndex].downloaded == true {
-        
         playResults[selectedIndex].isPlaying = true
         
         playMusic(selectedIndex: selectedIndex)
-       
+        playingInfo(nowPlayingIndex: selectedIndex)
+
         arrayOfButtons.remove(at: 4)
         arrayOfButtons.insert(pauseButton, at: 4) // change index to wherever you'd like the button
         self.toolBar.setItems(arrayOfButtons as? [UIBarButtonItem], animated: false)
@@ -440,14 +541,14 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         }else {
           
           if firstLineExpanded  {
-          UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+          UIView.transition(with: playTableView, duration: 0.5, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
           reloadTable(toMiddle: true)
           firstLineExpanded = false
           
           
           } else {
-            UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
-            reloadTable(toMiddle: false)
+            UIView.transition(with: playTableView, duration: 0.1, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+           reloadTable(toMiddle: false)
             firstLineExpanded = false
           
           }
@@ -456,7 +557,7 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
       } else {
         let arrayOfDownloaded =  playResults.filter{ $0.downloaded }
-        let firstIndexOfDownloadedTrack = arrayOfDownloaded[0].index
+        let firstIndexOfDownloadedTrack = arrayOfDownloaded[0].whatIsThisIndex
         
         selectedIndex = justBeforeSelectedIndex == -1 ? firstIndexOfDownloadedTrack : justBeforeSelectedIndex
         playResults[selectedIndex].isPlaying = true
@@ -496,19 +597,19 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
     }else {
       let noOfdownloaded = playResults.filter{ $0.downloaded }.count
       if noOfdownloaded  > 1 {
-        if selectedIndex == playResults.count - 1 {
-          selectedIndex = -1
+        if confirmedIndex == playResults.count  {
+          confirmedIndex = 0
         }
         
         
-        if flag == true && selectedIndex < playResults.count - 1{
+        if flag == true && confirmedIndex < playResults.count {
           //Increment current index
-          repeat {selectedIndex += 1
-            if selectedIndex == playResults.count - 1 {
-              selectedIndex = 0}
-          } while self.playResults[selectedIndex].downloaded == false
-          
-          playMusic(selectedIndex: selectedIndex)
+          repeat {confirmedIndex += 1
+            if confirmedIndex == playResults.count {
+              confirmedIndex = 0}
+          } while self.playResults[confirmedIndex].downloaded == false
+          selectedIndex = confirmedIndex
+          playMusic(selectedIndex: confirmedIndex)
           
           nowPlaying = (audioPlayer?.isPlaying)!
           
@@ -516,30 +617,39 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
         
       }
     }
-
+ 
+    
+    playingInfo(nowPlayingIndex: confirmedIndex)
+    
     UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
 
 
     reloadTable(toMiddle: true)
     
   }
+  
+  
+  
   func playMusic(selectedIndex:Int){
-    
+
+   
     for i in 0...playResults.count - 1 {
       playResults[i].isPlaying = false
     }
     
-    //     playTableView.scrollToRow(at: nowPlayingIndexPath, at: .middle, animated: true)
+//        playTableView.scrollToRow(at: nowPlayingIndexPath, at: .middle, animated: true)
     if  selectedIndex != -1 && playResults[selectedIndex].downloaded  {
+      
       playResults[selectedIndex].isPlaying = true
+      
       let url = localFilePath(for: playResults[selectedIndex].previewURL)
       try!  audioPlayer = AVAudioPlayer(contentsOf: url)
       audioPlayer?.delegate = self
       audioPlayer?.prepareToPlay()
       audioPlayer?.play()
-      playingInfo(selectedIndex: selectedIndex)
+       playingInfo(nowPlayingIndex: confirmedIndex)
       playtimeLabeling()
-      //  self.nowPlayingLabel.text =  "  재생중:  " + playResults[selectedIndex].firstLine
+    
       nowPlayingLabel.textColor = .red
       nowPlaying = (audioPlayer?.isPlaying)!
       arrayOfButtons.remove(at: 4)
@@ -560,13 +670,17 @@ class PlayViewController: UIViewController, UINavigationBarDelegate, UITableView
   }
   
   func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+//    let  collectedResults = collectedService.getCollected()
+//    let playResults = queryService.getSearchResults(coll: collectedResults[0])
+//
+    
     filteredTracks = playResults.filter({( track : Track) -> Bool in
       let doesCategoryMatch = (scope == "All") // || (candy.category == scope)
       
       if searchBarIsEmpty() {
         return doesCategoryMatch
       } else {
-        return doesCategoryMatch && track.chapter.string.contains(searchText.lowercased())
+        return doesCategoryMatch && track.chapterContent.string.contains(searchText.lowercased())
       }
     })
     playTableView.reloadData()
@@ -598,19 +712,22 @@ extension PlayViewController: PlayCellDelegate {
   
   func expandFirstline(_ cell: PlayCell, onOrOff: Bool) {
     if onOrOff {
-    cell.firstLineLabel.text = playResults[selectedIndex].chapter.string
+    cell.firstLineLabel.text = playResults[selectedIndex].chapterContent.string
       playTableView.beginUpdates()
       playTableView.endUpdates()
       firstLineExpanded = true
+      
     } else {
      cell.firstLineLabel.text = playResults[selectedIndex].firstLine
       playTableView.beginUpdates()
       playTableView.endUpdates()
       firstLineExpanded = false
-      UIView.transition(with: playTableView, duration: 0.7, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
+      
+      UIView.transition(with: playTableView, duration: 0.4, options: .transitionCrossDissolve , animations: {self.playTableView.reloadData()}, completion: nil)
      
     }
   }
+  
   
   
   func stopTapped(_ cell: PlayCell) {
@@ -619,8 +736,10 @@ extension PlayViewController: PlayCellDelegate {
   
   func updateLabel(trackFirstLine: String) {
     nowPlayingLabel.text =   trackFirstLine
-    
+    nowPlayingFirstLine = trackFirstLine
+
   }
+ 
   
   
 }
@@ -631,9 +750,7 @@ extension PlayViewController: UISearchBarDelegate {
   func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
     
     filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-    
-    
-    
+ 
   }
 }
 
@@ -647,15 +764,23 @@ extension PlayViewController: UISearchResultsUpdating {
   }
 }
 
-
-
-
 extension PlayViewController: ReadChapterViewControllerDelegate {
   
+ 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let viewControllerB = segue.destination as? ReadChapterViewController {
       if selectedIndex != -1 {
-        viewControllerB.text = playResults[selectedIndex].chapter
+       
+        let playingResults = queryService.getSearchResults(coll: confirmedColl)
+   //     print(confirmedColl.collName)
+   //     chapter = playingResults[selectedIndex].chapterIndex
+        
+        
+ //       print (chapter)
+ //       print (confirmedIndex)
+        viewControllerB.playingResults = playingResults
+        
+        //chapterIndex = chapter
         viewControllerB.delegate = self
       }
     }

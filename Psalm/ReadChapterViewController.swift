@@ -18,10 +18,12 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
   var psalmChapterArray: [String] = []
   var headText: String = ""
   var bible: String = ""
+  var playingResults: [Track] = []
+  var chapterIndex : Int = 0
   
     @IBAction func refreshButtonPressed(_ sender: Any) {
         print ("refreshed pushed")
-      chapterNumber = arrayNumber
+      
       psalmChapterArray = getChapterArray(forward: 0)
   UIView.transition(with: chapterTable, duration: 0.8, options: .transitionCrossDissolve , animations: {self.chapterTable.reloadData()}, completion: nil)
       
@@ -42,10 +44,10 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func playButtonPressed(_ sender: Any) {
       if audioPlayer != nil {
       if (audioPlayer?.isPlaying)! {
-        self.playButton.setTitle("play",for: .normal)
+        self.playButton.setTitle("재생",for: .normal)
           audioPlayer?.pause()
         }else {
-         self.playButton.setTitle("pause",for: .normal)
+         self.playButton.setTitle("재생중단",for: .normal)
           audioPlayer?.play()
         }
       }
@@ -58,14 +60,14 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
       UIView.transition(with: chapterTable, duration: 0.6, options: .transitionCurlUp , animations: {self.chapterTable.reloadData()}, completion: nil)
         }
     
-  var arrayNumber: Int  {
+  var chapterNumber: Int  {
     get{
       //print(selectedIndex)
-      return selectedIndex
+      return chapterIndex //selectedIndex
     }
   }
   
-  var chapterNumber = Int()
+
   
   var rightBarbuttonItem = UIBarButtonItem()
   
@@ -76,7 +78,10 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      chapterNumber = arrayNumber
+      chapter = playingResults[selectedIndex].chapterIndex
+      
+      
+    //  chapterNumber = chapterIndex
       rightBarbuttonItem =  UIBarButtonItem(title: "새번역", style: .done, target: self, action: #selector(changeKind))
       
       self.navigationItem.rightBarButtonItem = rightBarbuttonItem
@@ -86,7 +91,7 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
       chapterTable.estimatedRowHeight = 140 
       bible = "CCK"
       psalmChapterArray = getChapterArray(forward: 0)
-       headText = "새번역 성경 시편 제" + String(selectedIndex + 1) + "편"
+       headText = "새번역 성경 시편 제" + String(chapterIndex + 1) + "편"
       
  
         // Do any additional setup after loading the view.
@@ -95,12 +100,14 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     
+  //    self.navigationController?.navigationBar.isTranslucent = false
+   
     if audioPlayer != nil {
       if (audioPlayer?.isPlaying)! {
-        self.playButton.setTitle("pause",for: .normal)
+        self.playButton.setTitle("재생중단",for: .normal)
        
       }else {
-        self.playButton.setTitle("play",for: .normal)
+        self.playButton.setTitle("재생",for: .normal)
         
       }
     }
@@ -183,7 +190,7 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
     return header
   }
   func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-   return "시편 제" + String(selectedIndex + 1) + "편"
+   return "시편 제" + String(chapterIndex) //(selectedIndex + 1) + "편"
     
   }
   
@@ -195,14 +202,17 @@ class ReadChapterViewController: UIViewController, UITableViewDataSource, UITabl
 //    }
     
   func getChapterArray(forward: Int) -> [String] {
+   
+    if forward != 0 {
+    chapterIndex = chapterIndex + forward
+    } else {
+      chapterIndex = playingResults[confirmedIndex].chapterIndex
+    }
     
-    chapterNumber +=  forward
     var realArray: [String] = []
-  
-    
-     if arrayNumber != -1 {
+   if chapterNumber != -1 {
       if  chapterNumber > 149 || chapterNumber < 0 {
-        chapterNumber = arrayNumber
+        chapterIndex = playingResults[confirmedIndex].chapterIndex
       }
       
       if bible == "CCK" {

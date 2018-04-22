@@ -163,8 +163,7 @@ class QueryService {
     146,
     147,
     148,
-    149,
-    150]
+    149]
   let  firstLineArray = [
     "1장 행복하여라! 악인들의 뜻에 따라 걷지 않고 죄인들의 길에 들지 않으며 ",
     "2장 어찌하여 민족들이 술렁거리며 겨레들이 헛일을 꾸미는가?",
@@ -322,27 +321,41 @@ class QueryService {
   let defaultSession = URLSession(configuration: .default)
   // 2
   var dataTask: URLSessionDataTask?
-  var tracks: [Track] = []
+  
   var errorMessage = ""
   let chapterArray = getChapters()
-  func getSearchResults()-> [Track]{
-   
-  //  var index = 0
-    for i in 1...self.numberOfChapters  {
-     if let previewURLString = "http://archive.catholic.or.kr/mobile/bible/"+self.identityCode + "/"+self.identityCode + "_" + "\(i)"+".mp3" as String?,
+  
+  
+  func getSearchResults(coll:Collected)-> [Track]{
+   var tracks: [Track] = []
+    
+    var collArray = coll.collArray
+ //   print (collArray.count)
+    
+     if collArray.count == 0 {
+      collArray = indexArray
+    }
+    var j = 0
+    for i in collArray   {
+     if let previewURLString = "http://archive.catholic.or.kr/mobile/bible/"+self.identityCode + "/"+self.identityCode + "_" + "\(i + 1)"+".mp3" as String?,
         let previewURL = URL(string: previewURLString) ,
-        let artist  = self.identityCode + "_" + "\(i)"+".mp3" as String?,
-        let name  = self.koreanName + " " + "\(i) 편"as String?,
-        let firstLine = self.firstLineArray[i - 1] as String?,
-        let index = self.indexArray[i - 1] as Int?,
-      let chapter = self.chapterArray[i] as NSAttributedString?
-      {
-      tracks.append(Track(name: name, artist: artist, previewURL: previewURL, index: index, firstLine: firstLine, chapter: chapter))
-       // index += 1
+        let artist  = self.identityCode + "_" + "\(i + 1)"+".mp3" as String?,
+        let name  = self.koreanName + " " + "\(i + 1) 편"as String?,
+        let firstLine = self.firstLineArray[i ] as String?,
+        let whatIsThisIndex = j as Int?,
+      let chapterIndex = i as Int?,
+      let chapterContent = self.chapterArray[i + 1] as NSAttributedString?
+    
+     {
+        tracks.append(Track(name: name, artist: artist, previewURL: previewURL, whatIsThisIndex: whatIsThisIndex, chapterIndex: chapterIndex, firstLine: firstLine, chapterContent: chapterContent))
+       j += 1
+ //     print (j)
       } else {
         errorMessage += "Problem parsing trackDictionary\n"
       }
     }
+    
+//    print (tracks.count)
     return tracks
   }
 

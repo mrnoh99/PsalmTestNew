@@ -13,20 +13,22 @@ class Track {
   let name: String
   let artist: String
   let previewURL: URL
-  let index: Int
-  var downloaded = false
+  let whatIsThisIndex: Int
+  let chapterIndex: Int
+  var downloaded = true
   let firstLine: String
   var isPlaying = false
-    let chapter: NSAttributedString
+    let chapterContent: NSAttributedString
   
-  init(name: String, artist: String, previewURL: URL, index: Int, firstLine: String, chapter: NSAttributedString)
+  init(name: String, artist: String, previewURL: URL, whatIsThisIndex: Int, chapterIndex: Int, firstLine: String, chapterContent: NSAttributedString)
   {
     self.name = name
     self.artist = artist
     self.firstLine = firstLine
     self.previewURL = previewURL
-    self.index = index
-    self.chapter = chapter 
+    self.whatIsThisIndex = whatIsThisIndex
+    self.chapterIndex = chapterIndex
+    self.chapterContent = chapterContent
   }
   
 }

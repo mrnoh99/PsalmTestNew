@@ -38,7 +38,14 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
       } else if noOfDownloadedTract == queryService.numberOfChapters  {
         allDownloadLabel.setTitle("전체설치완료", for: .disabled)
         allDownloadLabel.isEnabled = false
-      } 
+      }
+      
+      if noOfDownloadedTract == 150 {
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        self.navigationItem.rightBarButtonItem?.tintColor = .red
+        
+      }
+      
     }
     
   }
@@ -124,6 +131,14 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+//    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//    self.navigationController?.navigationBar.shadowImage = UIImage()
+//    self.navigationController?.navigationBar.isTranslucent = true
+//    self.navigationController?.view.backgroundColor = UIColor.clear
+    
+    self.navigationItem.rightBarButtonItem?.isEnabled = false
+    self.navigationItem.rightBarButtonItem?.tintColor = .clear
+    
     
      let space = availableDiskSpace()
       let spaceInt = Int(truncatingIfNeeded: space!)
@@ -137,7 +152,7 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
       }
     
     
-    searchResults = queryService.getSearchResults()
+    searchResults = queryService.getSearchResults(coll: selectedColl)
     
     downloadService.downloadsSession = downloadsSession
     noOfDownloadedTract = checkDownloaded(results: searchResults)
@@ -151,7 +166,6 @@ class SearchViewController: UIViewController, UINavigationBarDelegate {
     tableView.reloadData()
     tableView.setContentOffset(CGPoint.zero, animated: false)
     }
-  
  
 }
 
@@ -225,7 +239,7 @@ extension SearchViewController: TrackCellDelegate {
   
   func checkDownloaded(results: [Track])-> Int  {
     var j = 0
-    for i in 0...queryService.numberOfChapters - 1{
+    for i in 0...results.count - 1{
       
       let fileName = results[i].artist
       let destinationFileUrl = documentsPath.appendingPathComponent(fileName)

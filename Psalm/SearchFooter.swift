@@ -22,8 +22,10 @@ class SearchFooter: UIView {
   }
   
   func configureView() {
-    self.backgroundColor = UIColor.candyGreen
-    self.alpha = 0.0
+    self.backgroundColor = UIColor.clear //candyGreen
+    self.alpha = 1.0
+    self.tintColor = .white
+    
     
     // Configure label
     label.textAlignment = .center

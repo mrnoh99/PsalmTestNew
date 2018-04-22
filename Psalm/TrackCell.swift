@@ -53,7 +53,7 @@ class TrackCell: UITableViewCell {
     // Non-nil Download object means a download is in progress
     if let download = download {
       showDownloadControls = true      
-      let title = download.isDownloading ? "중단" : "다시시작"
+   //   let title = download.isDownloading ? "중단" : "다시시작"
    //   pauseButton.setTitle(title, for: .normal)
       progressLabel.text = download.isDownloading ? "설치중..." : "설치중단"
     }

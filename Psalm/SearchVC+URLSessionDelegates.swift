@@ -41,7 +41,7 @@ extension SearchViewController: URLSessionDownloadDelegate {
       
     }
     // 4
-    if let index = download?.track.index {
+    if let index = download?.track.whatIsThisIndex {
       DispatchQueue.main.async {
         
         self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
@@ -63,10 +63,10 @@ extension SearchViewController: URLSessionDownloadDelegate {
       countStyle: .file)
     // 4
     DispatchQueue.main.async {
-      if let trackCell = self.tableView.cellForRow(at: IndexPath(row: download.track.index,
+      if let trackCell = self.tableView.cellForRow(at: IndexPath(row: download.track.whatIsThisIndex,
         section: 0)) as? TrackCell {
         trackCell.updateDisplay(progress: download.progress, totalSize: totalSize)
-        self.tableView.scrollToRow(at: IndexPath(row: download.track.index,section: 0), at: .top, animated: true)
+        self.tableView.scrollToRow(at: IndexPath(row: download.track.whatIsThisIndex,section: 0), at: .top, animated: true)
         
       }
     }
